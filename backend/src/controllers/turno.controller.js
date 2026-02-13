@@ -10,12 +10,27 @@ export const crearTurno = async (req, res) => {
     res.status(201).json(turnoGuardado);
 };
 
-export const obtenerTurno = (req, res) => {
-    res.json("obtener turno");
+export const obtenerTurno = async (req, res) => {
+    const turno = await Turno.find();
+    res.json(turno);
 };
 
-export const obtenerTurnoPorId = (req, res) => {};
+export const obtenerTurnoPorId = async (req, res) => {
+    const turno = await Turno.findById(req.params.turnoId);
 
-export const actualizarTurnoPorId = (req, res) => {};
+    res.status(200).json(turno);
+};
 
-export const eliminarTurnoPorId = (req, res) => {};
+export const actualizarTurnoPorId = async (req, res) => {
+    const actualizacionTurno = await Turno.findByIdAndUpdate(req.params.turnoId, req.body, {
+        new: true,
+    });
+
+    res.status(200).json(actualizacionTurno);
+};
+
+export const eliminarTurnoPorId = async (req, res) => {
+    const { turnoId } = req.params;
+    await Turno.findByIdAndDelete(turnoId);
+    res.status(204).json();
+};
