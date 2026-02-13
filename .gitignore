@@ -1,8 +1,47 @@
-# Node
-node_modules
+# =========================
+# Dependencias
+# =========================
+node_modules/
 
-# Build
-build
-
-# environment variables
+# =========================
+# Variables de entorno
+# =========================
 .env
+
+# =========================
+# Archivos compilados / build
+# =========================
+build/
+dist/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Archivos del sistema
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Archivos temporales
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# Configuración del editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Coverage (si usas testing)
+# =========================
+coverage/

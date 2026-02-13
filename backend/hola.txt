@@ -1,0 +1,32 @@
+npm init -y -> inicializar paquete de node
+
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet -> instalar todo a la vez
+
+npm i express -> frenword de node para poder crear servidor
+
+npm i bcryptjs -> para cifrar datos
+
+npm i cors  -> poder comunicar backed con otros servidores unir posible frontend
+
+npm i dotenv -> poder crear variables de entorno
+
+npmi i jsonwebtoken -> concepto para autenticar usuarios en la api
+
+npmi i mongoose -> permite conectar a la base de datos y manipular datos es un modulo
+
+npmi i morgan -> poder ver consultas o peticiosnes que llegan al servidor
+
+npmi i helmet -> añade caracteristicas de seguridad
+
+/*==============================*/
+
+modulo babel -
+Babel es un transpilador de JavaScript que se utiliza para convertir código moderno 
+(como ECMAScript 6, 7+) en una versión compatible con entornos más antiguos, 
+incluyendo navegadores web y versiones de Node.js que aún no soportan esas características. 
+
+npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
+
+nodemon -> es un modulo permite escuchar codigo y reincia el codig para estar ejecutando siempre
+
+
