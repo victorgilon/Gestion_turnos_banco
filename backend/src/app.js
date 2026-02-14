@@ -2,8 +2,11 @@ import express from "express";
 import morgan from "morgan"; //middelware de express
 import pkg from "../package.json";
 import turnoRoutes from "./routes/turno.routes";
+import autenticacionRoutes from "./routes/autenticacion.routes";
+import { crearRoles } from "./libs/configuración_inicial";
 
 const app = express();
+crearRoles();
 
 app.set("pkg", pkg);
 app.use(morgan("dev"));
@@ -18,6 +21,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.use("/turno", turnoRoutes);
+app.use("/api/turno", turnoRoutes);
+app.use("/api/autenticacion", autenticacionRoutes);
 
 export default app;
