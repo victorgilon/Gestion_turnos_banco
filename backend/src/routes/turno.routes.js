@@ -1,16 +1,23 @@
 import { Router } from "express";
-import * as turnoCtrl from "../controllers/turno.controller";
+import { verificacionToken, esAdminOModerador, esAdmin } from "../middlewares/autenticacionJwt";
+import {
+    crearTurno,
+    obtenerTurno,
+    obtenerTurnoPorId,
+    actualizarTurnoPorId,
+    eliminarTurnoPorId,
+} from "../controllers/turno.controller";
 
 const router = Router();
 
-router.post("/", turnoCtrl.crearTurno);
+router.post("/", verificacionToken, crearTurno); //para crear un turno soo se necesita qeu este registrado sea admin, moderador o usuario
 
-router.get("/", turnoCtrl.obtenerTurno);
+router.get("/", verificacionToken, obtenerTurno); //pensar si se verifica toker
 
-router.get("/:turnoId", turnoCtrl.obtenerTurnoPorId);
+router.get("/:turnoId", obtenerTurnoPorId); //pensar si se verifica toker
 
-router.put("/:turnoId", turnoCtrl.actualizarTurnoPorId);
+router.put("/:turnoId", verificacionToken, actualizarTurnoPorId);
 
-router.delete("/:turnoId", turnoCtrl.eliminarTurnoPorId);
+router.delete("/:turnoId", [verificacionToken, esAdminOModerador], eliminarTurnoPorId); //ejemplo para usar los roles par ahacer cosas modificar luego [se enciarra en llaves para decir que necesita ejecutar 2 middleware]
 
 export default router;

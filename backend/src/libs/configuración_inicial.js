@@ -7,7 +7,7 @@ export const crearRoles = async () => {
 
         //esto lo que hace es ejecutar todas las funciones al mismo tiempo
         const valores = await Promise.all([
-            new Role({ nombre: "user" }).save(),
+            new Role({ nombre: "usuario" }).save(),
             new Role({ nombre: "moderador" }).save(),
             new Role({ nombre: "admin" }).save(),
         ]);

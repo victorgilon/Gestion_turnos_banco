@@ -3,11 +3,16 @@ import Turno from "../models/turno";
 
 export const crearTurno = async (req, res) => {
     const { fecha, hora, estado, disponible, sucursal, usuario } = req.body;
-    const newTurno = new Turno({ fecha, hora, estado, disponible, sucursal, usuario });
+    try {
+        const newTurno = new Turno({ fecha, hora, estado, disponible, sucursal, usuario });
 
-    const turnoGuardado = await newTurno.save();
+        const turnoGuardado = await newTurno.save();
 
-    res.status(201).json(turnoGuardado);
+        res.status(201).json(turnoGuardado);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(error);
+    }
 };
 
 export const obtenerTurno = async (req, res) => {

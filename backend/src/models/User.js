@@ -36,8 +36,10 @@ userShema.methods.encryptPassword = async (password) => {
     return await bcrypt.hash(password, salt);
 };
 
-userShema.methods.comparePassword = async (password, receivedPassword) => {
-    return await bcrypt.compare(password, receivedPassword); //esto retorna un true o un false, si la contraseña coinciden retorna un true
+userShema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password, this.password); //esto retorna un true o un false, si la contraseña coinciden retorna un true
 };
+
+
 
 export default model("User", userShema);
