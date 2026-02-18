@@ -48,7 +48,7 @@ mediano
 - fecha
 - hora
 
-## ¿Qué datos son críticos?}
+## ¿Qué datos son críticos?
 identificador de usuario JWT
 
 ## ¿Qué pasaría si se pierden?

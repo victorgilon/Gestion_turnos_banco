@@ -29,4 +29,16 @@ npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
 
 nodemon -> es un modulo permite escuchar codigo y reincia el codig para estar ejecutando siempre
 
+/*============ auth-service ==================*/
+
+npm init -y
+
+npm install
+
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose 
+
+npm install -D nodemon
+
+
+
 
