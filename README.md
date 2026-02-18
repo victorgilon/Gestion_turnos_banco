@@ -37,6 +37,24 @@ si, ya que deberia de poder soportar mas cosas
 ## ¿Es un sistema pequeño o grande?
 mediano
 
+## ¿Qué información debe guardarse?
+- nombreUsuario
+- Rol
+- email
+- password
+- sucursal
+- fecha
+- hora
+
+## ¿Qué datos son críticos?}
+identificador de usuario JWT
+
+## ¿Qué pasaría si se pierden?
+El sistema no podria validar usuario ni roles
+
+## ¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
+cada una usa la suya
+
 ## Acerca del proyecto
 
 "BEVS TurnoBank" es una aplicacion web que permite a los clientes de un servicio, ofrecido por parte del banco para la reserva de turno, edicion y cancelacion.
