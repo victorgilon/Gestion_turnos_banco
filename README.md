@@ -10,11 +10,13 @@ Resuelve principalmente el problema de la organizacio y la atencion eficiente de
 Generaria varios inconvenientes y confusion en el orden de atencion y a la vez una mala experiencia como para el usuario y los trabajadores
 
 ## ¿Qué funciones principales tiene el sistema?
-las funciones serian las siguientes, crear, actualizar, ver y elimar turnos, tambien 
+las funciones serian las siguientes, crear, actualizar, ver y elimar turnos, tambien la autenticaion de acceso
 
 ## ¿Qué partes pueden trabajar por separado?
+el parte de autenticacion registro, login y autenticacion
 
 ## ¿Qué procesos son independientes?
+la autenticacion de  autenticacion login y validacion
 
 ## ¿Qué servicio necesita información de otro?
 En el servicio de gestion de turno depende del servicio de autenticación ya que necesita del JWT para poder identificar el usuario y a su vez el rol
@@ -54,6 +56,20 @@ El sistema no podria validar usuario ni roles
 
 ## ¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
 cada una usa la suya
+
+### ¿Quién usará el sistema?
+admin
+moderador
+usuario
+
+## ¿Todos pueden hacer lo mismo?
+no, ya que tanto usuario solo puede gestionar su turno, en cambio el moderador puede llamar turnos y admin mas privilegios
+
+## ¿Qué pasaría si falla
+Si llegara a fallar el sistema no podria guardar ni consultar informacion de los usuarios
+
+## Posibles soluciones
+
 
 ## Acerca del proyecto
 
