@@ -24,6 +24,20 @@ con un sistema distribuido de gestion y asiganacion de turnos que permite la sin
 #### ¿Qué pasaría si no existiera?
 - se seguiria con el mismo sistema tradicional, el cual causa largas filas y frustracion en los clientes 
 
-#### Base de datos:
+## PARTE 2 – IDENTIFICAR LOS SERVICIOS
+#### ¿Qué funciones principales tiene el sistema?
+- Generación y asignación de turnos
+- Administración de sucursales
+- Control del estado de los turnos
 
-## Configuración
+#### ¿Qué partes pueden trabajar por separado?
+- Servicio de gestión de turnos
+- Servicio de gestión de usuarios
+- Servicio de sucursales 
+#### ¿Qué procesos son independientes?
+- Creación de un turno
+- Actualización del estado de un turno
+- Monitoreo del sistema
+
+##
+
