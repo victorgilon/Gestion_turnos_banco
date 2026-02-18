@@ -25,6 +25,17 @@ usuario solicita - Gestion turno - JWT
 ## ¿Quién responde?
 JWT - Gestion turno - usuario solicita
 
+## Tipo de arquitectura
+MicroServicios
+
+## ¿Cuántos usuarios tendrá el sistema?
+100 usuarios
+
+## ¿Necesita escalar?
+si, ya que deberia de poder soportar mas cosas
+
+## ¿Es un sistema pequeño o grande?
+mediano
 
 ## Acerca del proyecto
 
