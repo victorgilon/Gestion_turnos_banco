@@ -66,3 +66,14 @@ con un sistema distribuido de gestion y asiganacion de turnos que permite la sin
 - Turnos → responde estado y datos de turnos
 - Usuarios → responde información de clientes
 
+## PARTE 4 – ELEGIR LA ARQUITECTURA -- EL TIPO DE ARQUITECTURA ES HIBRIDA 
+#### ¿Cuántos usuarios tendrá el sistema?
+- TENDRIA CIENTOS O MILES DE CLIENTES EN HORAS PICO
+  
+#### ¿Necesita escalar?
+- SI PORQUE SE PODRIAN CREAR NUEVAS SUCURSALES Y NUEVOS SERVICIOS
+  
+#### ¿Es un sistema pequeño o grande?
+- MEDIANO A GRANDE POR QUE MANEJA VARIAS SUCURSALES, MANEJA MULTIPLES MODULOS DEBE TENER ALTA DISPONIBILIDAD Y LA CRECIENTE ENTRADA DE CLIENTES
+  
+
