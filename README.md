@@ -103,16 +103,14 @@ No, cada rol tiene funciones diferentes. El usuario solo puede gestionar su prop
 
 ## Pensar como ingenieros reales
 ## ¿Qué pasaría si falla?
-
-Si el sistema falla, no se podra guardar ni consultar la informacion. Esto impediria reservar, modificar o cancelar turnos, afectando tanto a los usuarios como a la administracion.
+Servicio de pagos: No se podrían confirmar los pagos ni completar algunas operaciones.
+Base de datos: No se podría guardar ni consultar información de turnos o usuarios.
+Servidor principal: El sistema dejaría de funcionar temporalmente.
 
 ## Escriban posibles soluciones:
-Para evitar fallos o reducir su impacto, se pueden aplicar estas medidas:
- - Realizar copias de seguridad frecuentes.
-- Usar sistemas de seguridad confiables.
-- Supervisar constantemente el servidor.
- - Mantener los servicios separados para que no dependan unos de otros.
- - Contar con un plan de recuperacion ante fallos.
+Reintentos: Intentar nuevamente la operación cuando falle.
+Notificaciones: Avisar al usuario cuando ocurra un error.
+Respaldo de datos: Tener copias de seguridad para recuperar la información en caso de fallos.
 
 ## Stack de tecnologias utilizadas
 
