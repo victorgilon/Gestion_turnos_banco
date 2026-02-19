@@ -49,7 +49,15 @@ export const inicioSesion = async (req, res) => {
             return res.status(401).json({ token: null, message: "Contraseña invalida" });
         }
 
-        const token = jwt.sign({ id: usuarioEncontrado._id }, SECRET, { expiresIn: 86400 });
+        const token = jwt.sign(
+            {
+                id: usuarioEncontrado._id,
+                nombreUsuario: usuarioEncontrado.nombreUsuario,
+                roles: usuarioEncontrado.roles.map((role) => role.nombre),
+            },
+            SECRET,
+            { expiresIn: 86400 },
+        );
 
         res.json({
             id: usuarioEncontrado._id,

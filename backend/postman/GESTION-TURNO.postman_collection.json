@@ -22,13 +22,13 @@
               },
               {
                 "key": "x-access-token",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTQ4NTJlZWEwNmE5NGQ2YjkzNzYwYyIsImlhdCI6MTc3MTM0NTIyNiwiZXhwIjoxNzcxNDMxNjI2fQ.SSQ5_z9Do_pBVSAR1Wv2tIqAgP4vxqZ1XGrKyDfOros",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTVmYjgzNDdkNjVhNTZmNDcyNjFjNCIsIm5vbWJyZVVzdWFyaW8iOiJwb25jZSIsInJvbGVzIjpbInVzdWFyaW8iXSwiaWF0IjoxNzcxNTM2NDg3LCJleHAiOjE3NzE2MjI4ODd9.7a3SS5iU-ULS46q-91C_U5hzQaovVDhRs1SC3Z_GTFU",
                 "type": "text"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"fecha\": \"2026-02-15\",\r\n  \"hora\": \"18:40\",\r\n  \"sucursal\": \"65c123456789abcdef123456\",\r\n  \"usuario\": \"6994852eea06a94d6b93760c\"\r\n}\r\n",
+              "raw": "{\r\n  \"fecha\": \"2026-02-20\",\r\n  \"hora\": \"03:30\",\r\n  \"sucursal\": \"65f1c2c1a1b2c3d4e5f6a7b8\"\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -36,7 +36,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/turno",
+              "raw": "http://localhost:4000/api/turnos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -44,7 +44,7 @@
               "port": "4000",
               "path": [
                 "api",
-                "turno"
+                "turnos"
               ]
             }
           },
@@ -76,7 +76,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/turno/69949658eaee05c481ee1c06",
+              "raw": "http://localhost:4000/api/turnos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -84,8 +84,7 @@
               "port": "4000",
               "path": [
                 "api",
-                "turno",
-                "69949658eaee05c481ee1c06"
+                "turnos"
               ]
             }
           },
@@ -112,7 +111,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/turno/698f900e9456fdbc39168280",
+              "raw": "http://localhost:4000/api/turnos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -120,8 +119,7 @@
               "port": "4000",
               "path": [
                 "api",
-                "turno",
-                "698f900e9456fdbc39168280"
+                "turnos"
               ]
             }
           },
@@ -151,7 +149,7 @@
               "raw": "{\r\n  \"fecha\": \"2026-02-15T00:00:00.000Z\",\r\n  \"hora\": \"09:31\",\r\n  \"sucursal\": \"65c123456789abcdef123456\",\r\n  \"usuario\": \"65c987654321abcdef123456\"\r\n}\r\n"
             },
             "url": {
-              "raw": "http://localhost:4000/api/turno",
+              "raw": "http://localhost:4000/api/turnos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -159,7 +157,7 @@
               "port": "4000",
               "path": [
                 "api",
-                "turno"
+                "turnos"
               ]
             }
           },
@@ -184,7 +182,7 @@
               "raw": "{\r\n  \"fecha\": \"2026-02-15T00:00:00.000Z\",\r\n  \"hora\": \"09:31\",\r\n  \"sucursal\": \"65c123456789abcdef123456\",\r\n  \"usuario\": \"65c987654321abcdef123456\"\r\n}\r\n"
             },
             "url": {
-              "raw": "http://localhost:4000/api/turno/",
+              "raw": "http://localhost:4000/api/turnos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -192,8 +190,7 @@
               "port": "4000",
               "path": [
                 "api",
-                "turno",
-                ""
+                "turnos"
               ]
             }
           },
@@ -205,7 +202,7 @@
       "name": "USUARIO",
       "item": [
         {
-          "name": "autenticacion/inicioSesion",
+          "name": "autenticacion/login",
           "request": {
             "method": "POST",
             "header": [
@@ -217,7 +214,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"ponce39jq@gmail.com\",\r\n  \"password\": \"password\"\r\n}\r\n",
+              "raw": "{\r\n  \"email\": \"ponce@gmail.com\",\r\n  \"password\": \"password\"\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -225,16 +222,16 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/autenticacion/inicioSesion",
+              "raw": "http://localhost:5100/api/autenticacion/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "4000",
+              "port": "5100",
               "path": [
                 "api",
                 "autenticacion",
-                "inicioSesion"
+                "login"
               ]
             }
           },
@@ -253,7 +250,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombreUsuario\": \"ponce\",\r\n    \"email\": \"ponce39jq@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"roles\":[\"admin\"]\r\n}\r\n",
+              "raw": "{\r\n    \"nombreUsuario\": \"ponce\",\r\n    \"email\": \"ponce@gmail.com\",\r\n    \"password\": \"password\"\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -261,12 +258,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/autenticacion/registro",
+              "raw": "http://localhost:5100/api/autenticacion/registro",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "4000",
+              "port": "5100",
               "path": [
                 "api",
                 "autenticacion",
@@ -302,12 +299,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:4000/api/usuario/",
+              "raw": "http://localhost:5100/api/usuario/",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "4000",
+              "port": "5100",
               "path": [
                 "api",
                 "usuario",
