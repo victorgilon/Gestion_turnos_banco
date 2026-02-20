@@ -1,57 +1,158 @@
-npm init -y -> inicializar paquete de node
+CONFIGURACIÓN DEL PROYECTO NODE.JS - MICROSERVICIOS (GESTIÓN DE TURNOS)
 
-npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet -> instalar todo a la vez
-
-npm i express -> frenword de node para poder crear servidor
-
-npm i bcryptjs -> para cifrar datos
-
-npm i cors  -> poder comunicar backed con otros servidores unir posible frontend
-
-npm i dotenv -> poder crear variables de entorno
-
-npmi i jsonwebtoken -> concepto para autenticar usuarios en la api
-
-npmi i mongoose -> permite conectar a la base de datos y manipular datos es un modulo
-
-npmi i morgan -> poder ver consultas o peticiosnes que llegan al servidor
-
-npmi i helmet -> añade caracteristicas de seguridad
-
-/*==============================*/
-
-modulo babel -
-Babel es un transpilador de JavaScript que se utiliza para convertir código moderno 
-(como ECMAScript 6, 7+) en una versión compatible con entornos más antiguos, 
-incluyendo navegadores web y versiones de Node.js que aún no soportan esas características. 
-
-npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
-
-nodemon -> es un modulo permite escuchar codigo y reincia el codig para estar ejecutando siempre
-
-/*============ auth-service ==================*/
+=====================================================
+1. INICIALIZAR PROYECTO NODE
+=====================================================
+Este comando crea el archivo package.json del proyecto:
 
 npm init -y
 
-npm install
 
-npm run build
+=====================================================
+2. DEPENDENCIAS PRINCIPALES DEL BACKEND
+=====================================================
+Instalar todas las dependencias principales en un solo comando:
+
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet
 
 
-npm i express bcryptjs cors dotenv jsonwebtoken mongoose 
+Descripción de cada módulo:
 
+- express:
+  Framework de Node.js para crear el servidor y definir rutas API.
+
+- bcryptjs:
+  Permite cifrar contraseñas antes de guardarlas en la base de datos.
+
+- cors:
+  Habilita la comunicación entre el backend y otros servidores o frontend.
+
+- dotenv:
+  Permite usar variables de entorno mediante un archivo .env.
+
+- jsonwebtoken:
+  Implementa autenticación basada en tokens JWT.
+
+- mongoose:
+  Librería para conectar y manipular datos en MongoDB.
+
+- morgan:
+  Muestra en consola las peticiones HTTP que llegan al servidor.
+
+- helmet:
+  Añade capas de seguridad a través de cabeceras HTTP.
+
+
+=====================================================
+3. HERRAMIENTAS DE DESARROLLO Y BABEL
+=====================================================
+Babel es un transpilador que convierte JavaScript moderno (ES6+)
+en código compatible con versiones antiguas de Node.js.
+
+Instalación de Babel y herramientas de desarrollo:
+
+npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
+
+
+Descripción:
+
+- @babel/core:
+  Núcleo principal de Babel.
+
+- @babel/cli:
+  Permite ejecutar Babel desde la terminal.
+
+- @babel/node:
+  Ejecuta código moderno directamente en Node.js.
+
+- @babel/preset-env:
+  Permite usar características modernas de JavaScript (ES6+).
+
+- nodemon:
+  Escucha cambios en el código y reinicia automáticamente el servidor.
+
+
+=====================================================
+4. CONFIGURACIÓN POR MICROSERVICIOS
+=====================================================
+El proyecto está dividido en dos microservicios:
+
+- auth-service  -> Servicio de autenticación (registro, login, JWT)
+- turno-service -> Servicio para la gestión de turnos
+
+
+=====================================================
+5. CONFIGURACIÓN AUTH-SERVICE
+=====================================================
+
+1. Ir al directorio del servicio:
+cd backend/services/auth-service
+
+2. Inicializar proyecto:
+npm init -y
+
+3. Instalar dependencias principales:
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose
+
+4. Instalar dependencia de desarrollo:
 npm install -D nodemon
 
-npm install cors
+5. Compilar (si se usa Babel):
+npm run build
 
-/*============ turno-service ==================*/
+
+=====================================================
+6. CONFIGURACIÓN TURNO-SERVICE
+=====================================================
+
+1. Ir al directorio del servicio:
+cd backend/services/turno-service
+
+2. Inicializar proyecto:
 npm init -y
 
+3. Instalar dependencias:
 npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan
 
+4. Instalar herramientas de desarrollo:
 npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
+
+5. Compilar (si se usa Babel):
 npm run build
+
+
+=====================================================
+7. NAVEGACIÓN A CARPETAS SRC
+=====================================================
 
 cd backend/services/auth-service/src
 cd backend/services/turno-service/src
 
+
+=====================================================
+8. RESUMEN ARQUITECTÓNICO DEL SISTEMA
+=====================================================
+
+El sistema de gestión de turnos está basado en una arquitectura
+de microservicios:
+
+- auth-service:
+  Maneja registro de usuarios, login y generación de tokens JWT.
+
+- turno-service:
+  Administra la creación y gestión de turnos del banco.
+
+- MongoDB Atlas:
+  Base de datos centralizada para almacenar la información.
+
+- JWT:
+  Permite la autenticación y comunicación segura entre servicios.
+
+
+=====================================================
+9. RECOMENDACIÓN (BUENA PRÁCTICA)
+=====================================================
+Para evitar instalar dependencias una por una, se recomienda:
+
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet
+npm i -D nodemon @babel/core @babel/cli @babel/node @babel/preset-env
