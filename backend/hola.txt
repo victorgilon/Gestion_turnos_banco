@@ -42,6 +42,8 @@ npm i express bcryptjs cors dotenv jsonwebtoken mongoose
 
 npm install -D nodemon
 
+npm install cors
+
 /*============ turno-service ==================*/
 npm init -y
 
@@ -50,4 +52,6 @@ npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan
 npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
 npm run build
 
+cd backend/services/auth-service/src
+cd backend/services/turno-service/src
 

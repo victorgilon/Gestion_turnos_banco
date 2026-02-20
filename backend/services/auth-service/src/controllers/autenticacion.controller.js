@@ -23,6 +23,7 @@ export const registro = async (req, res) => {
         }
 
         const usuarioGuardado = await nuevoUsuario.save();
+        
         console.log(usuarioGuardado);
 
         const token = jwt.sign({ id: usuarioGuardado._id }, SECRET, {

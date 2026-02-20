@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan"; //middelware de express
 import dotenv from "dotenv";
+import cors from "cors";
 
 //* ==== importar rutas ==== *//
 import turnoRoutes from "./routes/turno.routes";
@@ -18,6 +19,7 @@ app.set("json spaces", 4);
 
 //* ==== ****** ==== *//
 app.use(morgan("dev"));
+app.use(cors({ origin: "http://127.0.0.1:5501", methods: ["GET", "POST", "PUT", "DELETE"], credentials: true }));
 app.use(express.json());
 
 //* ==== rutas ==== *//s
