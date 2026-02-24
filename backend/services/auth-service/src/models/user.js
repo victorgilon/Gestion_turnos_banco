@@ -11,6 +11,11 @@ const userShema = new Schema(
             type: String,
             unique: true,
         },
+        documento: {
+            type: String,
+            unique: true,
+            required: true,
+        },
         password: {
             type: String,
             required: true,
@@ -39,7 +44,5 @@ userShema.methods.encryptPassword = async (password) => {
 userShema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password); //esto retorna un true o un false, si la contraseña coinciden retorna un true
 };
-
-
 
 export default model("User", userShema);

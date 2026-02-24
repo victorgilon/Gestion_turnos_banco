@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.post("/", verificacionToken, crearTurno); //para crear un turno soo se necesita qeu este registrado sea admin, moderador o usuario
+router.post("/", crearTurno);
 
 router.get("/", verificacionToken, obtenerTurno); //pensar si se verifica toker
 

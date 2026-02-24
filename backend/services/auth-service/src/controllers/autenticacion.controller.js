@@ -5,11 +5,12 @@ import Role from "../models/roles";
 
 export const registro = async (req, res) => {
     try {
-        const { nombreUsuario, email, password, roles } = req.body;
+        const { nombreUsuario, email, documento, password, roles } = req.body;
 
         const nuevoUsuario = new User({
             nombreUsuario,
             email,
+            documento,
             password: "",
         });
         nuevoUsuario.password = await nuevoUsuario.encryptPassword(password);

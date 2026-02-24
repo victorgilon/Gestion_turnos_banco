@@ -1,9 +1,25 @@
 //este controlador lo que hace es crear, eliminar
 import Turno from "../models/turno";
+import { verificarUsuarioPorDocumento } from "../services/auth.service";
 
 export const crearTurno = async (req, res) => {
     try {
-        const { fecha, hora, estado, disponible, sucursal } = req.body;
+        const { fecha, hora, estado, disponible, sucursal, documento } = req.body;
+
+        let usuarioId = null;
+        let tipoCliente = "visitante";
+
+        if (req.userId) {
+            usuarioId = req.userId;
+            tipoCliente = "registrado";
+        } else if (documento) {
+            const resultado = await verificarUsuarioPorDocumento(documento);
+
+            if (resultado.exists) {
+                usuarioId = resultado.userId;
+                tipoCliente = "registrado";
+            }
+        }
 
         const newTurno = new Turno({
             fecha,
@@ -11,8 +27,8 @@ export const crearTurno = async (req, res) => {
             estado,
             disponible,
             sucursal,
-            usuario: req.userId,
-            usuarioNombre: req.userNombre,
+            usuario: usuarioId,
+            tipoCliente,
         });
 
         const turnoGuardado = await newTurno.save();
@@ -29,7 +45,7 @@ export const obtenerTurno = async (req, res) => {
         const turno = await Turno.find();
         res.json(turno);
     } catch (error) {
-        return (res.status(500), json({ message: "Error al obtener turnos", error }));
+        return res.status(500).json({ message: "Error al obtener turnos", error });
     }
 };
 
@@ -59,9 +75,8 @@ export const eliminarTurnoPorId = async (req, res) => {
     try {
         const { turnoId } = req.params;
         await Turno.findByIdAndDelete(turnoId);
-        res.status(204).json();
+        res.status(204).json({ message: "Turno elimando correctamente" });
     } catch (error) {
-        return res.status(500).json({ message: "Error al eliminar turno", error });
-        s;
+        return res.status(500).json({ message: "Error al eliminar turno" });
     }
 };

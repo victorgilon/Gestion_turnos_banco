@@ -5,6 +5,7 @@ import cors from "cors";
 
 //* ==== importar rutas ==== *//
 import autenticacionRoutes from "./routes/autenticacion.routes";
+import usuarioRoutes from "./routes/user.routes";
 
 dotenv.config();
 
@@ -21,5 +22,6 @@ app.use(express.json());
 
 //* ==== rutas ==== *//
 app.use("/api/autenticacion", autenticacionRoutes);
+app.use("/api/users", usuarioRoutes);
 
 export default app;

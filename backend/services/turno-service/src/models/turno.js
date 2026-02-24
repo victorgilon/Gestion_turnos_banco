@@ -30,9 +30,10 @@ const esquemaTurno = new Schema(
             ref: "User",
             default: null,
         },
-        usuarioNombre: {
+        tipoCliente: {
             type: String,
-            default: null,
+            enum: ["registrado", "visitante"],
+            default: "visitante",
         },
     },
     {

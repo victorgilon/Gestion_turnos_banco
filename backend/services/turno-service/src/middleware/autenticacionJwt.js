@@ -24,10 +24,10 @@ export const verificacionToken = async (req, res, next) => {
 export const esAdminOModerador = async (req, res, next) => {
     try {
         if (!req.roles) {
-            return res.statu(403).json({ message: "Rol no definido en el Token " });
+            return res.status(403).json({ message: "Rol no definido en el Token " });
         }
 
-        if (req.roles.includes("admin") || req.roles.include("moderador")) {
+        if (req.roles.includes("admin") || req.roles.includes("moderador")) {
             return next();
         }
 
