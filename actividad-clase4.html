@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Actividad Clase 4</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 1px solid #ccc;
+  margin: 8px 0 16px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #e9eef3;
+}
+
+.note {
+  background: #eef7ff;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌐 Actividad Clase 4</h1>
+<h2>Comunicación entre Servicios + REST + Eventos + Service Discovery</h2>
+
+<p><strong>Equipo:</strong>Eduardo brayan sofia victor</p>
+<p><strong>Proyecto:</strong>Gestion de turnos bancos</p>
+
+<div class="section">
+<h2>🪜 1. Interacciones entre Servicios</h2>
+
+<p><strong>Interacción 1</strong></p>
+<label>Servicio que envía: Registro de turnos</label>
+<div class="line"></div>
+<label>Servicio que recibe: Atención del turno</label>
+<div class="line"></div>
+<label>Información enviada: Número de turno, tipo de servicio y hora de creación</label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde? El empleado no sabrá qué turno atender y se generará retraso o desorden en la atención</label>
+<div class="line"></div>
+
+<p><strong>Interacción 2</strong></p>
+<label>Servicio que envía: Atención del turno</label>
+<div class="line"></div>
+<label>Servicio que recibe: Cierre del turno</label>
+<div class="line"></div>
+<label>Información enviada: Confirmación de que el turno fue atendido y datos del cliente</label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde?  El turno no se marcará como finalizado y quedará pendiente, generando confusión en el sistema</label>
+<div class="line"></div>
+
+<p><strong>Interacción 3</strong></p>
+<label>Servicio que envía: Registro o Atención</label>
+<div class="line"></div>
+<label>Servicio que recibe: Pantalla de visualización y el Administrador</label>
+<div class="line"></div>
+<label>Información enviada: Turnos en espera, turnos en atención y alertas importantes</label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde?  Los turnos no se mostrarán correctamente en la pantalla y el administrador no sabrá si hay errores.</label>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 2. REST o Eventos</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>REST</th>
+<th>Evento</th>
+<th>¿Por qué?</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>X</td>
+<td>El registro envía los turnos al módulo de atención de manera asíncrona para que el flujo siga sin bloquear el sistema.</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>X</td>
+<td>La atención confirma al cierre de manera asíncrona, porque no necesita que la atención espere a que se procese el cierre.</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>X</td>
+<td>Las notificaciones a la pantalla y al administrador son asíncronas para que el sistema siga funcionando sin esperar confirmación.</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 3. Síncrono o Asíncrono</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>Síncrono</th>
+<th>Asíncrono</th>
+<th>Justificación</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>X</td>
+<td>El turno se envía sin detener el flujo del sistema.</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>X</td>
+<td>La confirmación de cierre no bloquea la atención.</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>X</td>
+<td>Las notificaciones no requieren respuesta inmediata.</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 4. Eventos Importantes del Sistema</h2>
+1️⃣ Turno generado:  Cuando el cliente solicita un turno y el sistema crea el número automáticamente.<br><br>
+2️⃣ Turno llamado: Cuando el empleado llama el turno para iniciar la atención.<br><br>
+3️⃣ Turno cerrado: Cuando finaliza la atención y el sistema marca el turno como completado.</div>
+
+<div class="section">
+<h2>🪜 5. Análisis de Fallos</h2>
+<label>Servicio más crítico:  La base de datos, porque ahí se guardan todos los turnos.</label>
+<div class="line"></div>
+<label>¿Qué pasaría si falla?:  Si falla, no se podrían guardar nuevos turnos ni actualizar los que ya están en atención</label>
+<div class="line"></div>
+<label>¿El sistema debe detenerse o continuar?:  Al trabajar con microservicios, el sistema no tendría que detenerse completamente. Si un servicio falla, los demás pueden seguir funcionando de manera independiente.</label>
+<div class="line"></div>
+<label>¿Cómo podrían manejar este fallo?:  Haciendo copias de seguridad y teniendo un respaldo para que no se pierda la información.</label>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 6. Service Discovery</h2>
+<label>¿Qué problema ocurre si cambia la IP de un servicio?:  Los servicios no podrían encontrarse y la comunicación fallaría.</label>
+<div class="line"></div>
+<label>¿Cómo sabría un servicio dónde encontrar otro?:  Cada servicio se registra en un directorio central; los demás lo consultan para saber su ubicación actual.</label>
+<div class="line"></div>
+<label>¿Por qué sería útil Service Discovery?:  Service Discovery ayuda a que los servicios siempre se encuentren y se comuniquen, haciendo el sistema más flexible y confiable.</label>
+<div class="line"></div>
+<label>¿Dónde lo aplicarían en su sistema?: Service Discovery se usaría para que todos los módulos (generación, atención, cierre y visualización de turnos) se encuentren y comuniquen automáticamente sin depender de IP fija</label>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 7. Mini Diagrama</h2>
+<p>Dibujen:  Módulo Generación de Turnos ──► Service Discovery ──► Módulo de Atención
+                                        │
+                                        ▼
+                                Módulo Cierre de Turno
+                                        │
+                                        ▼
+                             Pantalla de Visualización</p>
+<p><strong>Servicio A → Service Discovery → Servicio B</strong></p>
+</div>
+
+<div class="note">
+💡 <strong>Ayuda rápida</strong><br>
+REST → petición directa<br>
+Evento → algo ocurrió<br>
+Síncrono → espera respuesta<br>
+Asíncrono → continúa sin esperar<br>
+Service Discovery → permite encontrar servicios automáticamente
+</div>
+
+<div class="footer">
+🎤 El equipo debe poder explicar:<br>
+✔ una interacción importante<br>
+✔ un evento del sistema<br>
+✔ qué pasa si un servicio falla<br>
+✔ dónde usarían Service Discovery
+</div>
+
+</div>
+</body>
+</html>
