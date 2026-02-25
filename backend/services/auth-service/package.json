@@ -1,0 +1,32 @@
+{
+    "name": "auth-service",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "babel src --out-dir build",
+        "dev": "nodemon src/index.js --exec babel-node",
+        "start": "node build/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cors": "^2.8.6",
+        "dotenv": "^17.3.1",
+        "express": "^5.2.1",
+        "helmet": "^8.1.0",
+        "jsonwebtoken": "^9.0.3",
+        "mongoose": "^9.2.2",
+        "morgan": "^1.10.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.28.6",
+        "@babel/core": "^7.29.0",
+        "@babel/node": "^7.29.0",
+        "@babel/preset-env": "^7.29.0",
+        "nodemon": "^3.1.11"
+    }
+}
