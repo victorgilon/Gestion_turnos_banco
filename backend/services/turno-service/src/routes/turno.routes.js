@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.post("/", crearTurno);
+router.post("/", verificacionToken, crearTurno);
 
 router.get("/", verificacionToken, obtenerTurno); //pensar si se verifica toker
 

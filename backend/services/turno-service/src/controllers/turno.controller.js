@@ -1,6 +1,5 @@
 //este controlador lo que hace es crear, eliminar
 import Turno from "../models/turno";
-import { verificarUsuarioPorDocumento } from "../services/auth.service";
 
 export const crearTurno = async (req, res) => {
     try {
@@ -8,17 +7,22 @@ export const crearTurno = async (req, res) => {
 
         let usuarioId = null;
         let tipoCliente = "visitante";
+        let documentoCliente = documento || null;
 
         if (req.userId) {
             usuarioId = req.userId;
             tipoCliente = "registrado";
-        } else if (documento) {
-            const resultado = await verificarUsuarioPorDocumento(documento);
+            documentoCliente = req.documento;
+        }
 
-            if (resultado.exists) {
-                usuarioId = resultado.userId;
-                tipoCliente = "registrado";
-            }
+        const turnoExistente = await Turno.findOne({
+            fecha,
+            hora,
+            sucursal,
+        });
+
+        if (turnoExistente) {
+            return res.status(400).json({ message: "Este turno ya esta reservado" });
         }
 
         const newTurno = new Turno({
@@ -29,6 +33,7 @@ export const crearTurno = async (req, res) => {
             sucursal,
             usuario: usuarioId,
             tipoCliente,
+            documento: documentoCliente,
         });
 
         const turnoGuardado = await newTurno.save();
@@ -36,7 +41,12 @@ export const crearTurno = async (req, res) => {
         res.status(201).json(turnoGuardado);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Error al crear turno", error });
+
+        if (error.code === 11000) {
+            return res.status(400).json({ message: "Este turno ya está reservado para esa fecha, hora y sucursal" });
+        }
+
+        return res.status(500).json({ message: "Error al crear turno", error: error.message });
     }
 };
 

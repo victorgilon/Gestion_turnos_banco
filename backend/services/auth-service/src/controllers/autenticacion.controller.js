@@ -24,7 +24,7 @@ export const registro = async (req, res) => {
         }
 
         const usuarioGuardado = await nuevoUsuario.save();
-        
+
         console.log(usuarioGuardado);
 
         const token = jwt.sign({ id: usuarioGuardado._id }, SECRET, {
@@ -56,6 +56,7 @@ export const inicioSesion = async (req, res) => {
                 id: usuarioEncontrado._id,
                 nombreUsuario: usuarioEncontrado.nombreUsuario,
                 roles: usuarioEncontrado.roles.map((role) => role.nombre),
+                documento: usuarioEncontrado.documento,
             },
             SECRET,
             { expiresIn: 86400 },

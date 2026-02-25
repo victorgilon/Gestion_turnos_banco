@@ -7,13 +7,15 @@ export const verificacionToken = async (req, res, next) => {
         const token = req.headers["x-access-token"];
 
         if (!token) {
-            return res.status(403).json({ message: "no se proporciono el token" });
+            res.userId = null;
+            return next();
         }
 
         const descifrado = jwt.verify(token, SECRET);
         req.userId = descifrado.id;
         req.userNombre = descifrado.nombreUsuario;
         req.roles = descifrado.roles;
+        req.documento = descifrado.documento;
 
         next();
     } catch (error) {
