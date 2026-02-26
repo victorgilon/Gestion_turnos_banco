@@ -212,16 +212,20 @@
 </div>
 
             <div class="section">
-                <h2>🪜 6. Service Discovery</h2>
-                <label>¿Qué problema ocurre si cambia la IP de un servicio?</label>
-                <div class="line">Los demás servicios no podrían comunicarse con él.</div>
-                <label>¿Cómo sabría un servicio dónde encontrar otro?</label>
-                <div class="line">A través de un sistema de Service Discovery.</div>
-                <label>¿Por qué sería útil Service Discovery?</label>
-                <div class="line">Permite comunicación dinámica y escalabilidad entre microservicios.</div>
-                <label>¿Dónde lo aplicarían en su sistema?</label>
-                <div class="line">Entre los servicios de Autenticación, Turnos y Sucursales.</div>
-            </div>
+<h2>🪜 6. Service Discovery</h2>
+<label>¿Qué problema ocurre si cambia la IP de un servicio?</label>
+<p>Los otros microservicios no podrían encontrarlo y fallarían las comunicaciones entre ellos.</p>
+<div class="line"></div>
+<label>¿Cómo sabría un servicio dónde encontrar otro?</label>
+<p>Consultando un servidor de Service Discovery (registro de servicios) que mantiene actualizadas las direcciones disponibles.</p>
+<div class="line"></div>
+<label>¿Por qué sería útil Service Discovery?</label>
+<p>Permite que los microservicios se comuniquen dinámicamente sin depender de IPs fijas, facilitando escalabilidad y tolerancia a fallos.</p>
+<div class="line"></div>
+<label>¿Dónde lo aplicarían en su sistema?</label>
+<p>Entre el autenticacion - servicio y turno- servicio, para que el servicio de turnos localice automáticamente al servicio de autenticación aunque cambie su dirección o se escale en múltiples instancias.</p>
+<div class="line"></div>
+</div>
 
             <div class="section">
                 <h2>🪜 7. Mini Diagrama</h2>
