@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Actividad Clase 4</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 1px solid #ccc;
+  margin: 8px 0 16px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #e9eef3;
+}
+
+.note {
+  background: #eef7ff;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌐 Actividad Clase 4</h1>
+<h2>Comunicación entre Servicios + REST + Eventos + Service Discovery</h2>
+
+<p><strong>Equipo:</strong> Brayan Solis, Victor Gilon, Eduardo Guaca, Sofia Agredo</p>
+<p><strong>Proyecto:</strong> Gestion_turnos_banco</p>
+
+<div class="section">
+<h2>🪜 1. Interacciones entre Servicios</h2>
+
+<p><strong>Interacción 1</strong></p>
+<label>Servicio que envía:</label>
+<p>autenticaion servicio</p>
+<div class="line"></div>
+<label>Servicio que recibe:</label>
+<p>tuno servio</p>
+<div class="line"></div>
+<label>Información enviada:</label>
+<p>jwt usuario autenticado</p>
+<div class="line"></div>
+<label>¿Qué sucede si no responde?</label>
+<p>El servio de turno no puede validar el usuario y rechaza la solicitud</p>
+<div class="line"></div>
+
+<p><strong>Interacción 2</strong></p>
+<div class="line"></div>
+<label>Servicio que envía:</label>
+<p>turno servicio</p>
+<div class="line"></div>
+<label>Servicio que recibe:</label>
+<p>autenticacion servicio</p>
+<div class="line"></div>
+<label>Información enviada:</label>
+<p>Jjwt para validar identidad y roles</p>
+<div class="line"></div>
+<label>¿Qué sucede si no responde?</label>
+<p>No se puede verifiar el usuario, por lo que no permite acceder a funcionalidades</p>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 2. REST o Eventos</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>REST</th>
+<th>Evento</th>
+<th>¿Por qué?</th>
+</tr>
+<tr>
+<td>1</td>
+<td>*</td>
+<td></td>
+<td><p>El turno-service valida el JWT llamando al autenticacion-servicio mediante una petición HTTP en tiempo real.</p></td>
+</tr>
+<tr>
+<td>2</td>
+<td>*</td>
+<td></td>
+<td><p>La creación y consulta de turnos se realiza a través de endpoints REST protegidos con token.</p></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>*</td>
+<td><p>Al crear un turno se puede emitir el evento “turno_creado”</p></td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 3. Síncrono o Asíncrono</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>Síncrono</th>
+<th>Asíncrono</th>
+<th>Justificación</th>
+</tr>
+<tr>
+<td>1</td>
+<td>*</td>
+<td></td>
+<td><p>La validación del JWT debe responder inmediatamente para autorizar o rechazar la solicitud.</p></td>
+</tr>
+<tr>
+<td>2</td>
+<td>*</td>
+<td></td>
+<td><p>El usuario necesita respuesta inmediata al crear o consultar un turno.</p></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>*</td>
+<td><p>Las notificaciones o registros pueden procesarse en segundo plano mediante eventos.</p></td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 4. Eventos Importantes del Sistema</h2>
+1️⃣ usuario autenticado correctamente_____<br><br>
+2️⃣ Turno creado__________________________<br><br>
+3️⃣ Turno atendido o cancelado____________
+</div>
+
+<div class="section">
+<h2>🪜 5. Análisis de Fallos</h2>
+<label>Servicio más crítico:</label>
+<p>autenticacion - servicio</p>
+<div class="line"></div>
+<label>¿Qué pasaría si falla?</label>
+<p>Los usuarios no podrían iniciar sesión ni validar su JWT, por lo que el servicio de turnos rechazaría las solicitudes protegidas y no se podrían crear ni consultar turnos.</p>
+<div class="line"></div>
+<label>¿El sistema debe detenerse o continuar?</label>
+<p>Debe detenerse, ya que todas las funcionalidades dependen de la autenticación y sin el autenticacion - servicio no se pueden validar los usuarios ni gestionar los turnos.</p>
+<div class="line"></div>
+<label>¿Cómo podrían manejar este fallo?</label>
+<p></p>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 6. Service Discovery</h2>
+<label>¿Qué problema ocurre si cambia la IP de un servicio?</label>
+<p>Los otros microservicios no podrían encontrarlo y fallarían las comunicaciones entre ellos.</p>
+<div class="line"></div>
+<label>¿Cómo sabría un servicio dónde encontrar otro?</label>
+<p>Consultando un servidor de Service Discovery (registro de servicios) que mantiene actualizadas las direcciones disponibles.</p>
+<div class="line"></div>
+<label>¿Por qué sería útil Service Discovery?</label>
+<p>Permite que los microservicios se comuniquen dinámicamente sin depender de IPs fijas, facilitando escalabilidad y tolerancia a fallos.</p>
+<div class="line"></div>
+<label>¿Dónde lo aplicarían en su sistema?</label>
+<p>Entre el autenticacion - servicio y turno- servicio, para que el servicio de turnos localice automáticamente al servicio de autenticación aunque cambie su dirección o se escale en múltiples instancias.</p>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 7. Mini Diagrama</h2>
+<p>Dibujen:</p>
+<p><strong>Servicio A → Service Discovery → Servicio B</strong></p>
+<p><strong>Service Cliente (Fronted) → Service Discovery → autenticacion - servicio → turno - servicio</strong></p>
+</div>
+
+<div class="note">
+💡 <strong>Ayuda rápida</strong><br>
+REST → petición directa<br>
+Evento → algo ocurrió<br>
+Síncrono → espera respuesta<br>
+Asíncrono → continúa sin esperar<br>
+Service Discovery → permite encontrar servicios automáticamente
+</div>
+
+<div class="footer">
+🎤 El equipo debe poder explicar:<br>
+✔ una interacción importante<br>
+✔ un evento del sistema<br>
+✔ qué pasa si un servicio falla<br>
+✔ dónde usarían Service Discovery
+</div>
+
+</div>
+</body>
+</html>
