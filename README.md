@@ -113,10 +113,11 @@ Notificaciones: Avisar al usuario cuando ocurra un error.
 Respaldo de datos: Tener copias de seguridad para recuperar la información en caso de fallos.
 
 ## Stack de tecnologias utilizadas
+Back End:
+Node.js express JWT
 
-#### Back End:
-Node js Express
-### Front End:
-- html
--  css
-- javaScript
+Front End:
+html css javaScript
+
+Base de datos:
+MongoDb Atlas
