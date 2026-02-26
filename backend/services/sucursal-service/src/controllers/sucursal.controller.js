@@ -1,13 +1,25 @@
-import Sucursal from "../models/sucursal.js";
+import Sucursal from "../models/sucursal";
 
 export const crearSucursal = async (req, res) => {
     try {
-        const nuevaSucursal = new Sucursal(req.body);
+        const { nombre, direccion, ciudad, telefono, estado } = req.body;
+
+        const nuevaSucursal = new Sucursal({
+            nombre,
+            direccion,
+            ciudad,
+            telefono,
+            estado,
+        });
         const sucursalGuardada = await nuevaSucursal.save();
 
         res.status(201).json(sucursalGuardada);
     } catch (error) {
-        res.status(500).json({ message: "Error al crear sucursal", error });
+        console.error("ERROR CREANDO SUCURSAL:", error); // 👈 importante
+        res.status(500).json({
+            message: "Error al crear sucursal",
+            error: error.message,
+        });
     }
 };
 
