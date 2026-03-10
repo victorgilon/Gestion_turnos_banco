@@ -1,8 +1,7 @@
 import app from "./app";
 import dotenv from "dotenv";
-//import "./config/base_de_datos";
+import "./config/base_de_datos";
 import mongoose from "mongoose";
-console.log("ENTRÓ A INDEX");
 
 dotenv.config();
 
