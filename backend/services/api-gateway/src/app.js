@@ -22,17 +22,17 @@ app.use(
 );
 
 app.use(
-    "/api/turnos",
+    "/api/sucursales",
     createProxyMiddleware({
-        target: "http://turno-service:3002",
+        target: "http://sucursal-service:3002",
         changeOrigin: true,
     }),
 );
 
 app.use(
-    "/api/sucursales",
+    "/api/turnos",
     createProxyMiddleware({
-        target: "http://sucursal-service:3003",
+        target: "http://turno-service:3003",
         changeOrigin: true,
     }),
 );
