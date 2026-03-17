@@ -1,0 +1,283 @@
+/* ===============================
+   RESET
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===============================
+   VARIABLES
+================================ */
+:root {
+    --color-primary: #1a330e;
+    --color-primary-soft: #1a5c0e;
+    --color-primary-hover: #61b03c;
+    --color-primary-hover-soft: #6cb349;
+    --color-primary-verde: #89cc67;
+    --color-primary-blanco: #71af55;
+
+    --color-accent: #1a330e;
+
+    --text-main: #1a330e;
+    --text-muted: #a88a7c;
+    --text-soft: #1a5c0e;
+    --text-error: #d97757;
+
+    --bg-body-start: #faf9f6;
+    --bg-body-mid: #1900ff;
+    --bg-body-end: #f0ede8;
+
+    --bg-card: #ffffff;
+    --bg-input: #ffffff;
+
+    --border-soft: #6cb349;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    --transition-base: 0.3s ease;
+
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif;
+
+    --gradient-body: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #ffffff 100%);
+
+    --gradient-primary: linear-gradient(135deg, #f0ceaa 0%, #e0be9c 100%);
+
+    --gradient-primary-hover: linear-gradient(135deg, #1a5c0e 0%, #4f992d 100%);
+
+    --gradient-primary-green: linear-gradient(90deg, #56ab2f, #54a73f);
+}
+
+/* ===============================
+   BODY
+================================ */
+body {
+    font-family: var(--font-main);
+    background: var(--gradient-body);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===============================
+   FONDO ANIMADO
+================================ */
+.contenedor-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.contenedor-flotante {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.mancha-suave {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    filter: blur(90px);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: flotar 14s ease-in-out infinite;
+}
+
+.mancha-1 {
+    top: 10%;
+    left: 10%;
+    background: var(--color-primary-blanco);
+}
+
+.mancha-2 {
+    bottom: 15%;
+    right: 10%;
+    background: var(--color-primary-blanco);
+    animation-delay: 3s;
+}
+
+.mancha-3 {
+    top: 50%;
+    left: 70%;
+    background: var(--color-primary-blanco);
+    animation-delay: 6s;
+}
+
+.mancha-4 {
+    bottom: 50%;
+    left: 30%;
+    background: var(--color-primary-blanco);
+    animation-delay: 9s;
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* ===============================
+   CONTENEDOR LOGIN
+================================ */
+.contenedor-login {
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===============================
+   CONTENEDOR imagen
+================================ */
+
+/* ===============================
+   CARTA
+================================ */
+.carta {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: 0 20px 40px var(--color-primary-verde);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.titulo {
+    font-size: 2rem;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* ===============================
+   FORMULARIO
+================================ */
+.contenedor-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.caja-login {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.caja-login input {
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-soft);
+    background: var(--bg-input);
+    font-size: 14px;
+    outline: none;
+}
+
+.caja-login input:focus {
+    border-color: var(--color-primary);
+}
+
+.caja-login label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: var(--transition-base);
+    background: white;
+    padding: 0 6px;
+}
+
+.caja-login input:focus + label,
+.caja-login input:not(:placeholder-shown) + label {
+    top: -6px;
+    font-size: 11px;
+    color: var(--color-accent);
+}
+
+/* ===============================
+   ERRORES
+================================ */
+.contenedor-error {
+    font-size: 12px;
+    color: var(--text-error);
+    margin-bottom: 8px;
+}
+
+/* ===============================
+   ENLACES
+================================ */
+.enlace-comodo {
+    font-size: 13px;
+    color: var(--text-soft);
+    text-align: right;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+
+.enlace-comodo:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   BOTÓN
+================================ */
+.boton-login {
+    height: 48px;
+    border: none;
+    border-radius: var(--radius-lg);
+    background: var(--gradient-primary-green);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.boton-login:hover {
+    background: var(--gradient-primary-hover);
+}
+
+/* ===============================
+   REGISTRO
+================================ */
+.contenedor-registro {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.registro-enlace {
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.registro-enlace:hover {
+    text-decoration: underline;
+}
