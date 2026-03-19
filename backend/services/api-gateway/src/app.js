@@ -7,7 +7,6 @@ app.use(
     "/api/autenticacion",
     createProxyMiddleware({
         target: "http://auth-service:3001",
-        //target: "http://localhost:3001",
         changeOrigin: true,
     }),
 );
@@ -16,7 +15,6 @@ app.use(
     "/api/users",
     createProxyMiddleware({
         target: "http://auth-service:3001",
-        //target: "http://localhost:3001",
         changeOrigin: true,
     }),
 );
