@@ -1,19 +1,17 @@
 services:
-    # --- 1 FRONTEND ---
+    # --- 1. FRONTEND ---
     frontend:
         image: nginx:alpine
-        container_name: restaurante-app
         ports:
             - "8080:80"
         volumes:
-            - ./frontend/
+            - ./frontend:/usr/share/nginx/html
         networks:
             - red-restaurante
 
-    # --- 2 API GATEWAY ---
+    # --- 2. API GATEWAY ---
     api-gateway:
         image: nginx:alpine
-        container_name: api-gateway
         ports:
             - "3000:80"
         networks:
@@ -23,33 +21,42 @@ services:
             - ms-pedidos
             - ms-catalogo
 
-    # --- 3. MICROSERVICIO DE USUARIOS ---
+    # --- 3. USUARIOS (Con su propia DB) ---
     ms-usuarios:
         build: ./services/usuarios
-        container_name: ms-usuarios
+        environment:
+            - MONGO_URL=mongodb://db-usuarios:27017/users_db
+        networks:
+            - red-restaurante
+    db-usuarios:
+        image: mongo:latest
         networks:
             - red-restaurante
 
-    # --- 4. MICROSERVICIO DE PEDIDOS ---
+    # --- 4. PEDIDOS (Con su propia DB) ---
     ms-pedidos:
         build: ./services/pedidos
-        container_name: ms-pedidos
+        environment:
+            - MONGO_URL=mongodb://db-pedidos:27017/orders_db
+        networks:
+            - red-restaurante
+    db-pedidos:
+        image: mongo:latest
         networks:
             - red-restaurante
 
-    # --- 5. MICROSERVICIO DE CATALOGO ---
+    # --- 5. CATÁLOGO (Con su propia DB) ---
     ms-catalogo:
         build: ./services/catalogo
-        container_name: ms-catalogo
+        environment:
+            - MONGO_URL=mongodb://db-catalogo:27017/catalog_db
+        networks:
+            - red-restaurante
+    db-catalogo:
+        image: mongo:latest
         networks:
             - red-restaurante
 
-    # --- 6. BASE DE DATOS ---
-    db:
-        image: mongo:latest
-        container_name: mongodb-datos
-        networks:
-            - red-restaurante
 networks:
     red-restaurante:
         driver: bridge
