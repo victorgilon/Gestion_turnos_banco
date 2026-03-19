@@ -1,0 +1,55 @@
+services:
+    # --- 1 FRONTEND ---
+    frontend:
+        image: nginx:alpine
+        container_name: restaurante-app
+        ports:
+            - "8080:80"
+        volumes:
+            - ./frontend/
+        networks:
+            - red-restaurante
+
+    # --- 2 API GATEWAY ---
+    api-gateway:
+        image: nginx:alpine
+        container_name: api-gateway
+        ports:
+            - "3000:80"
+        networks:
+            - red-restaurante
+        depends_on:
+            - ms-usuarios
+            - ms-pedidos
+            - ms-catalogo
+
+    # --- 3. MICROSERVICIO DE USUARIOS ---
+    ms-usuarios:
+        build: ./services/usuarios
+        container_name: ms-usuarios
+        networks:
+            - red-restaurante
+
+    # --- 4. MICROSERVICIO DE PEDIDOS ---
+    ms-pedidos:
+        build: ./services/pedidos
+        container_name: ms-pedidos
+        networks:
+            - red-restaurante
+
+    # --- 5. MICROSERVICIO DE CATALOGO ---
+    ms-catalogo:
+        build: ./services/catalog
+        container_name: ms-catalogo
+        networks:
+            - red-restaurante
+
+    # --- 6. BASE DE DATOS ---
+    db:
+        image: mongo:latest
+        container_name: mongodb-datos
+        networks:
+            - red-restaurante
+networks:
+    red-restaurante:
+        driver: bridge
