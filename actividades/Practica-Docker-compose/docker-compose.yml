@@ -39,7 +39,7 @@ services:
 
     # --- 5. MICROSERVICIO DE CATALOGO ---
     ms-catalogo:
-        build: ./services/catalog
+        build: ./services/catalogo
         container_name: ms-catalogo
         networks:
             - red-restaurante
