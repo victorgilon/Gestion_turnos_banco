@@ -19,7 +19,7 @@ services:
         env_file:
             - ./backend/services/auth-service/.env
         ports:
-            - "3001:3000"
+            - "3001:3001"
         networks:
             - turnos-network
 
@@ -29,7 +29,7 @@ services:
         env_file:
             - ./backend/services/sucursal-service/.env
         ports:
-            - "3002:3000"
+            - "3002:3002"
         networks:
             - turnos-network
 
@@ -39,7 +39,7 @@ services:
         env_file:
             - ./backend/services/turno-service/.env
         ports:
-            - "3003:3000"
+            - "3003:3003"
         networks:
             - turnos-network
 
