@@ -8,7 +8,7 @@
 }
 
 /* ===============================
-   VARIABLES
+   VARIABLES 
 ================================ */
 :root {
     --color-primary: #1a330e;
@@ -25,10 +25,6 @@
     --text-soft: #1a5c0e;
     --text-error: #d97757;
 
-    --bg-body-start: #faf9f6;
-    --bg-body-mid: #1900ff;
-    --bg-body-end: #f0ede8;
-
     --bg-card: #ffffff;
     --bg-input: #ffffff;
 
@@ -43,11 +39,7 @@
 
     --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif;
 
-    /* FONDO VERDE */
     --gradient-body: linear-gradient(135deg, #0f3d1e 0%, #1a5c0e 50%, #4f992d 100%);
-
-    --gradient-primary: linear-gradient(135deg, #f0ceaa 0%, #e0be9c 100%);
-    --gradient-primary-hover: linear-gradient(135deg, #1a5c0e 0%, #4f992d 100%);
     --gradient-primary-green: linear-gradient(90deg, #56ab2f, #54a73f);
 }
 
@@ -93,32 +85,10 @@ body {
     animation: flotar 14s ease-in-out infinite;
 }
 
-.mancha-1 {
-    top: 10%;
-    left: 10%;
-    background: var(--color-primary-blanco);
-}
-
-.mancha-2 {
-    bottom: 15%;
-    right: 10%;
-    background: var(--color-primary-blanco);
-    animation-delay: 3s;
-}
-
-.mancha-3 {
-    top: 50%;
-    left: 70%;
-    background: var(--color-primary-blanco);
-    animation-delay: 6s;
-}
-
-.mancha-4 {
-    bottom: 50%;
-    left: 30%;
-    background: var(--color-primary-blanco);
-    animation-delay: 9s;
-}
+.mancha-1 { top: 10%; left: 10%; background: var(--color-primary-blanco); }
+.mancha-2 { bottom: 15%; right: 10%; background: var(--color-primary-blanco); animation-delay: 3s; }
+.mancha-3 { top: 50%; left: 70%; background: var(--color-primary-blanco); animation-delay: 6s; }
+.mancha-4 { bottom: 50%; left: 30%; background: var(--color-primary-blanco); animation-delay: 9s; }
 
 @keyframes flotar {
     0% { transform: translateY(0) translateX(0); }
@@ -133,46 +103,46 @@ body {
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:80px;
+    gap:100px;
     width:100%;
-    max-width:1100px;
+    max-width:1250px;
     position:relative;
     z-index:2;
 }
 
 /* ===============================
-   PANEL IZQUIERDO
+   PANEL IZQUIERDO (MEJORADO)
 ================================ */
 .panel-info{
-    max-width:420px;
+    max-width:520px;
     color:white;
 }
 
+.logo-bevs {
+    width: 210px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
 .titulo-info{
-    font-size:34px;
+    font-size:40px;
     font-weight:700;
-    margin-bottom:18px;
+    margin-bottom:20px;
+    line-height:1.2;
 }
 
 .texto-info{
-    font-size:16px;
-    line-height:1.6;
-    opacity:0.9;
+    font-size:18px;
+    line-height:1.7;
+    opacity:0.95;
 }
 
-/* ===============================
-   LOGO
-================================ */
-.logo-bevs {
-    width: 170px;
-    border-radius: 10px;
-}
 /* ===============================
    CONTENEDOR LOGIN
 ================================ */
 .contenedor-login {
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
     position: relative;
     z-index: 2;
 }
@@ -183,10 +153,11 @@ body {
 .carta {
     background: var(--bg-card);
     border-radius: var(--radius-xl);
-    padding: 32px;
+    padding: 40px 36px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     position: relative;
     overflow: hidden;
+    width: 460px;
 }
 
 /* ===============================
@@ -194,11 +165,11 @@ body {
 ================================ */
 .header {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
 }
 
 .titulo {
-    font-size: 2rem;
+    font-size: 2.1rem;
     color: #1a5c0e;
     font-weight: 700;
     letter-spacing: 2px;
@@ -225,11 +196,11 @@ body {
 
 .caja-login input {
     width: 100%;
-    padding: 14px 12px;
+    padding: 15px 13px;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-soft);
     background: var(--bg-input);
-    font-size: 14px;
+    font-size: 14.5px;
     outline: none;
 }
 
@@ -258,39 +229,15 @@ body {
 }
 
 /* ===============================
-   ERRORES
-================================ */
-.contenedor-error {
-    font-size: 12px;
-    color: var(--text-error);
-    margin-bottom: 8px;
-}
-
-/* ===============================
-   ENLACES
-================================ */
-.enlace-comodo {
-    font-size: 13px;
-    color: var(--text-soft);
-    text-align: right;
-    text-decoration: none;
-    margin-bottom: 16px;
-}
-
-.enlace-comodo:hover {
-    text-decoration: underline;
-}
-
-/* ===============================
    BOTÓN
 ================================ */
 .boton-login {
-    height: 48px;
+    height: 52px;
     border: none;
     border-radius: var(--radius-lg);
     background: var(--gradient-primary-green);
     color: white;
-    font-size: 15px;
+    font-size: 15.5px;
     cursor: pointer;
     transition: var(--transition-base);
 }
@@ -303,7 +250,7 @@ body {
    REGISTRO
 ================================ */
 .contenedor-registro {
-    margin-top: 24px;
+    margin-top: 22px;
     text-align: center;
     font-size: 13px;
     color: var(--text-soft);
