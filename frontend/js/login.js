@@ -15,7 +15,7 @@ formulario.addEventListener("submit", async (e) => {
     try {
         console.log("Antes del fetch");
 
-        const respuesta = await fetch("http://localhost:5100/api/autenticacion/login", {
+        const respuesta = await fetch("http://localhost:3000/api/autenticacion/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
