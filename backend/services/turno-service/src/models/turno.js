@@ -30,6 +30,12 @@ const esquemaTurno = new Schema(
             ref: "User",
             default: null,
         },
+        numeroTelefono: {
+            type: String,
+            trim: true,
+            match: [/^\+?[1-9]\d{1,14}$/, "Por favor, ingresa un número de teléfono válido"],
+            // Esta regex acepta formato internacional: +54911... o solo números
+        },
         tipoCliente: {
             type: String,
             enum: ["registrado", "visitante"],
