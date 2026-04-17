@@ -1,5 +1,6 @@
 //este controlador lo que hace es crear, eliminar
 import Turno from "../models/turno";
+import { publishEvent } from "../config/rabbitmq";
 
 export const crearTurno = async (req, res) => {
     try {
@@ -37,6 +38,15 @@ export const crearTurno = async (req, res) => {
         });
 
         const turnoGuardado = await newTurno.save();
+        console.log("Turno guardado:", turnoGuardado._id);
+
+        //PUBLICAR EVENTO AQUÍ
+        publishEvent("turno.created", {
+            user_id: usuarioId || "visitante",
+            turn_id: turnoGuardado._id.toString(),
+            date: fecha,
+        });
+        console.log("Evento enviado a RabbitMQ");
 
         res.status(201).json(turnoGuardado);
     } catch (error) {

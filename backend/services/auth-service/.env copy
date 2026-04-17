@@ -1,0 +1,6 @@
+PORT=4000
+SERVER_DB=api-proyecto.vaxvayc.mongodb.net
+USER_DB=leidyagredo_db_user
+PASS_DB=1058sofia.
+DB_NAME=db-turno
+JWT_SECRET=turnos-api
