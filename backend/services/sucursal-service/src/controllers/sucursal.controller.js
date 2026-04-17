@@ -15,7 +15,7 @@ export const crearSucursal = async (req, res) => {
 
         res.status(201).json(sucursalGuardada);
     } catch (error) {
-        console.error("ERROR CREANDO SUCURSAL:", error); // 👈 importante
+        console.error("ERROR CREANDO SUCURSAL:", error); 
         res.status(500).json({
             message: "Error al crear sucursal",
             error: error.message,

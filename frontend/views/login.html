@@ -1,65 +1,87 @@
+//login 
+
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../css/style.css" />
-        <title>Inicio de sesion</title>
-    </head>
-    <body>
-        <div class="contenedor-fondo">
-            <div class="contenedor-flotante">
-                <div class="mancha-suave mancha-1"></div>
-                <div class="mancha-suave mancha-2"></div>
-                <div class="mancha-suave mancha-3"></div>
-                <div class="mancha-suave mancha-4"></div>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../css/style.css" />
+<title>BEVS - Inicio de sesión</title>
+</head>
+
+<body>
+
+<!-- FONDO -->
+<div class="contenedor-fondo">
+    <div class="contenedor-flotante">
+        <div class="mancha-suave mancha-1"></div>
+        <div class="mancha-suave mancha-2"></div>
+        <div class="mancha-suave mancha-3"></div>
+        <div class="mancha-suave mancha-4"></div>
+    </div>
+</div>
+
+<div class="contenedor-principal">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="panel-info">
+
+        <img src="../BE.png" class="logo-bevs logo-dark" alt="Logo BEVS">
+
+        <h1 class="titulo-info">¡Bienvenido a BEVS TurnoBank!</h1>
+
+        <p class="texto-info">
+            Tu turno, más fácil y rápido. 
+            Gestiona tus reservas de forma eficiente 
+            y sin complicaciones.
+        </p>
+
+    </div>
+
+    <!-- LOGIN -->
+    <div class="contenedor-login">
+        <div class="carta">
+
+            <div class="header">
+                <h1 class="titulo">BEVS</h1>
+                <p class="subtitulo">Sistema de Gestión de Turnos</p>
             </div>
-        </div>
 
-        <div class="contenedor-login">
-            <div class="carta">
-                <div class="header">
-                    <h1 class="titulo">¡Hola!</h1>
+            <form class="contenedor-formulario" id="login-formulario">
+
+                <!-- EMAIL -->
+                <div class="caja-login">
+                    <input type="email" id="email" name="email" required autocomplete="email" placeholder=" ">
+                    <label for="email">Correo electrónico</label>
                 </div>
+                <span class="contenedor-error" id="emailError"></span>
 
-                <form class="contenedor-formulario" id="login-formulario">
-                    <div class="contenedor-login">
-                        <div class="caja-login">
-                            <input type="email" id="email" name="email" required autocomplete="email" />
-                            <label for="email">Correo electronico</label>
-                        </div>
-
-                        <span class="contenedor-error" id="emailError"></span>
-
-                        <div class="caja-login">
-                            <input type="password" id="password" name="password" required />
-                            <label for="password">Contraseña</label>
-                        </div>
-
-                        <span class="contenedor-error" id="passwordError"></span>
-                    </div>
-                    <a href="#" class="enlace-comodo">¿Olvidaste tu contraseña?</a>
-
-                    <button type="submit" class="boton-login">
-                        <div class="boton"></div>
-                        <div class="texto-boton">Ingresar</div>
-
-                        <div class="cargar-boton">
-                            <div class="spinner-suave">
-                                <div class="circulo-spinner"></div>
-                            </div>
-                        </div>
-                        <div class="brillo-boton"></div>
-                    </button>
-                </form>
-
-                <div class="contenedor-registro">
-                    <span class="texto-registro">¿No tienes una cuenta?</span>
-                    <a href="#" class="registro-enlace">Registrase</a>
+                <!-- PASSWORD -->
+                <div class="caja-login">
+                    <input type="password" id="password" name="password" required placeholder=" ">
+                    <label for="password">Contraseña</label>
                 </div>
+                <span class="contenedor-error" id="passwordError"></span>
+
+                <a href="#" class="enlace-comodo">¿Olvidaste tu contraseña?</a>
+
+                <button type="submit" class="boton-login">
+                    Ingresar
+                </button>
+
+            </form>
+
+            <div class="contenedor-registro">
+                <span>¿No tienes una cuenta?</span>
+                <a href="registro.html" class="registro-enlace">Registrarse</a>
             </div>
-        </div>
 
-        <script src="../js/login.js"></script>
-    </body>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/login.js"></script>
+
+</body>
 </html>

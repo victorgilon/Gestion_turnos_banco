@@ -1,0 +1,9 @@
+npm init -y
+
+npm install 
+
+npm install nodemon --save-dev
+
+npm install @babel/core @babel/node @babel/preset-env --save-dev
+
+npm install cors

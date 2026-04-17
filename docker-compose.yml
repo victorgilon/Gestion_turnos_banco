@@ -1,0 +1,74 @@
+services:
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        ports:
+            - "5672:5672" # Puerto de comunicación AMQP
+            - "15672:15672" # Interfaz web de administración
+        networks:
+            - turnos-network
+        healthcheck:
+            test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    api-gateway:
+        build: ./backend/services/api-gateway
+        image: api-gateway:1.0
+        env_file:
+            - ./backend/services/api-gateway/.env
+        ports:
+            - "3000:3000"
+        depends_on:
+            - auth-service
+            - sucursal-service
+            - turno-service
+        networks:
+            - turnos-network
+
+    auth-service:
+        build: ./backend/services/auth-service
+        image: auth-service:1.0
+        env_file:
+            - ./backend/services/auth-service/.env
+        ports:
+            - "3001:3001"
+        networks:
+            - turnos-network
+
+    sucursal-service:
+        build: ./backend/services/sucursal-service
+        image: sucursal-service:1.0
+        env_file:
+            - ./backend/services/sucursal-service/.env
+        ports:
+            - "3002:3002"
+        networks:
+            - turnos-network
+
+    turno-service:
+        build: ./backend/services/turno-service
+        image: turno-service:1.0
+        env_file:
+            - ./backend/services/turno-service/.env
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+        ports:
+            - "3003:3003"
+        networks:
+            - turnos-network
+
+    notificacion-service:
+        build: ./backend/services/notificacion-service
+        image: notificacion-service:1.0
+        env_file:
+            - ./backend/services/notificacion-service/.env
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+        networks:
+            - turnos-network
+
+networks:
+    turnos-network:
+        driver: bridge
