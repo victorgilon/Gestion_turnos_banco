@@ -1,0 +1,241 @@
+:root {
+    /* Paleta extraída de la imagen */
+    --primary-dark: #051f20; /* El verde más oscuro */
+    --primary-mid: #0b2b26; /* Verde profundo */
+    --primary-light: #235347; /* Verde bosque */
+    --accent: #8eb69b; /* Verde suave */
+    --bg-light: #daf1de; /* El verde más claro (fondo) */
+
+    /* Colores funcionales */
+    --white: #ffffff;
+    --text-main: #051f20;
+    --text-muted: #163832;
+    --success: #235347;
+    --danger: #9d2a2a; /* Mantenemos un rojo suave para alertas, pero oscuro */
+
+    /* Efectos */
+    --shadow: 0 4px 20px rgba(5, 31, 32, 0.12);
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.logo span {
+    color: var(--accent);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-logout {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    background: var(--accent);
+    color: var(--primary-dark);
+}
+
+/* Grid Layout */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Cards */
+.card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(142, 182, 155, 0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.icon-main {
+    font-size: 2rem;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background: var(--primary-mid);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Summary Stats */
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Ajuste de colores para los estados dentro de la paleta */
+.blue {
+    background: #e1e9e7;
+    color: var(--primary-mid);
+}
+.green {
+    background: var(--bg-light);
+    color: var(--primary-light);
+}
+.red {
+    background: #ffebeb;
+    color: var(--danger);
+}
+
+/* Table Styles */
+.table-section {
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background: var(--bg-light);
+    padding: 12px;
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.status-tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-activo {
+    background: var(--bg-light);
+    color: var(--primary-light);
+}
+
+.status-cancelado {
+    background: #f1f1f1;
+    color: #777;
+}
+
+.status-completado {
+    background: var(--primary-light);
+    color: var(--white);
+}
+
+.btn-action {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+    color: var(--primary-light);
+    font-size: 1.1rem;
+}
+
+.btn-cancel {
+    color: var(--danger);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .header-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

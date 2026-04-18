@@ -1,0 +1,85 @@
+<!-- ========================= -->
+<!-- MODAL RESERVA -->
+<!-- ========================= -->
+<section id="step-1" class="reserve-step">
+    <div id="reserve-modal" class="modal-overlay">
+        <div class="modal-content">
+            <nav class="modal-nav">
+                <button class="close-modal" onclick="closeReserve()">‹ Atrás</button>
+                <div class="logo-minimal"><i class="fas fa-bars"></i></div>
+                <span>Inicio ⌂</span>
+            </nav>
+
+            <div class="modal-body">
+                <h1 class="step-title">¿Quién eres?</h1>
+                <p class="step-subtitle">Ingresa tus datos para gestionar la reserva:</p>
+
+                <div class="input-field">
+                    <label>Tipo de documento</label>
+                    <select id="res-doc-type">
+                        <option>Cédula de ciudadanía</option>
+                        <option>Cédula de extranjería</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <label>Número de documento</label>
+                    <input id="res-doc-number" placeholder="Ej: 1061697441" />
+                </div>
+                <div class="input-field">
+                    <label>Número de celular</label>
+                    <input id="res-doc-number" placeholder="Ej: 3006314254" />
+                </div>
+
+                <button class="btn-continue-reserve" onclick="goToStepTwo()">Continuar</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= -->
+<!-- Selección de Trámite -->
+<!-- ========================= -->
+
+<section id="step-2" class="reserve-step" style="display: none">
+    <h1 class="step-title">¿Qué quieres hacer?</h1>
+
+    <div class="option-list">
+        <div class="procedure-card" onclick="selectProcedure('Trámites Generales')">
+            <div class="card-header">
+                <i class="fas fa-user-check icon-card"></i>
+                <div class="header-text">
+                    <h3>Trámites generales</h3>
+                    <ul>
+                        <li>Solicitar certificados</li>
+                        <li>Entregar y activar tarjetas</li>
+                        <li>Actualizar datos personales</li>
+                    </ul>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+        </div>
+
+        <div class="procedure-card compact" onclick="selectProcedure('Documentos')">
+            <div class="card-header">
+                <i class="fas fa-file-alt icon-card"></i>
+                <h3>Solicitar documentos</h3>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+        </div>
+
+        <div class="procedure-card" onclick="selectProcedure('Caja')">
+            <div class="card-header">
+                <i class="fas fa-cash-register icon-card"></i>
+                <div class="header-text">
+                    <h3>Transacciones en caja</h3>
+                    <ul>
+                        <li>Enviar, retirar y recibir plata</li>
+                        <li>Realizar pagos y giros</li>
+                    </ul>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+        </div>
+    </div>
+</section>
