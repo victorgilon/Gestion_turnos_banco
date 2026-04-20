@@ -1,0 +1,32 @@
+<div id="step-5" class="step-content" style="display: none">
+    <div id="ticket-print" style="background: white; padding: 20px">
+        <div class="success-header">
+            <div class="check-circle"><i class="fas fa-check"></i></div>
+            <h1 class="success-title">Reserva lista</h1>
+        </div>
+
+        <div class="summary-details">
+            <div class="detail-card">
+                <label>Número de documento</label>
+                <strong id="final-doc"></strong>
+            </div>
+            <div class="detail-card">
+                <label>Fecha y rango de hora</label>
+                <strong id="final-date-time"></strong>
+            </div>
+            <div class="detail-card">
+                <label>Sucursal</label>
+                <strong id="final-branch"></strong>
+            </div>
+            <div class="detail-card">
+                <label>Necesidad</label>
+                <strong id="final-need"></strong>
+            </div>
+        </div>
+    </div>
+    <div class="final-actions">
+        <button class="btn-outline" onclick="descargarTicketPNG()"><i class="fas fa-download"></i> Descargar PNG</button>
+    </div>
+
+    <button class="btn-primary-block" onclick="closeReserve()">Volver al Inicio</button>
+</div>

@@ -4,7 +4,7 @@ import { publishEvent } from "../config/rabbitmq";
 
 export const crearTurno = async (req, res) => {
     try {
-        const { fecha, hora, estado, disponible, sucursal, documento } = req.body;
+        const { fecha, hora, estado, disponible, sucursal, documento, numeroTelefono } = req.body;
 
         let usuarioId = null;
         let tipoCliente = "visitante";
@@ -29,12 +29,13 @@ export const crearTurno = async (req, res) => {
         const newTurno = new Turno({
             fecha,
             hora,
-            estado,
-            disponible,
             sucursal,
-            usuario: usuarioId,
-            tipoCliente,
-            documento: documentoCliente,
+            usuario: usuarioId, // Id del usuario si está logueado
+            documento: documentoCliente, // <--- Campo nuevo del esquema
+            numeroTelefono: numeroTelefono || null, // <--- Campo opcional del esquema
+            tipoCliente, // "visitante" o "registrado"
+            estado: "reservado", // Valor por defecto
+            disponible: false, // Al reservarse, ya no está disponible
         });
 
         const turnoGuardado = await newTurno.save();

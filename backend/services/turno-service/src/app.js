@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan"; //middelware de express
 import dotenv from "dotenv";
+import cors from "cors";
 
 //* ==== importar rutas ==== *//
 import turnoRutas from "./routes/turno.routes";
@@ -8,6 +9,7 @@ import turnoRutas from "./routes/turno.routes";
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 //* ==== Ajustes ==== *//
 app.set("port", process.env.PORT || 4002);

@@ -1,0 +1,26 @@
+<!-- ========================= -->
+<!-- MODAL RESERVA -->
+<!-- ========================= -->
+<div id="step-1" class="step-content">
+    <h1 class="step-title">¿Quién eres?</h1>
+    <p class="step-subtitle">Ingresa tus datos para gestionar la reserva:</p>
+
+    <div class="input-field">
+        <label>Tipo de documento</label>
+        <select id="res-doc-type">
+            <option>Cédula de ciudadanía</option>
+            <option>Cédula de extranjería</option>
+        </select>
+    </div>
+
+    <div class="input-field">
+        <label>Número de documento</label>
+        <input id="res-doc-number" placeholder="Ej: 1061697441" />
+    </div>
+    <div class="input-field">
+        <label>Número de celular</label>
+        <input id="res-number" placeholder="Ej: 3006314254" />
+    </div>
+
+    <button class="btn-continue-reserve" onclick="goToStepTwo()">Continuar</button>
+</div>
