@@ -4,10 +4,11 @@
     --primary-mid: #0b2b26;
     --primary-light: #235347;
     --accent: #8eb69b;
-    --bg-light: #daf1de;
+    --bg-light: #8EB69B;
 
     /* Colores funcionales */
     --white: #ffffff;
+    --grey: #eeeeee;
     --text-main: #051f20;
     --text-muted: #163832;
     --success: #235347;
@@ -35,7 +36,7 @@
 }
 
 .modal-content {
-    background: var(--bg-light);
+    background: var(--grey);
     width: 100%;
     max-width: 450px;
     height: 90vh; /* 90% de la altura de pantalla */
@@ -51,7 +52,7 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    background: var(--white);
+    background: var(--grey);
     align-items: center;
     border-bottom: 1px solid rgba(11, 43, 38, 0.1);
 }
@@ -345,6 +346,18 @@
     border-radius: 10px;
     font-size: 0.8rem;
     cursor: pointer;
+}
+
+.btn-secod {
+    background: var(--primary-mid);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: var(--transition);
 }
 
 .final-actions {

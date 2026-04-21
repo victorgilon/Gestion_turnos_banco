@@ -104,8 +104,8 @@ function selectTimeSlot(element, hour) {
 
     const confirmBtn = document.getElementById("btn-final-confirm");
     confirmBtn.disabled = false;
-    confirmBtn.style.backgroundColor = "#FDDA24";
-    confirmBtn.style.color = "#000";
+    confirmBtn.style.backgroundColor = "#235347";
+    confirmBtn.style.color = "#ffffffff";
 }
 
 // --- CONFIRMACIÓN FINAL (PASO 5) ---
@@ -242,8 +242,8 @@ document.addEventListener("input", function (e) {
         const btn = document.querySelector(".btn-continue-reserve");
         if (btn) {
             if (e.target.value.length > 5) {
-                btn.style.backgroundColor = "#FDDA24";
-                btn.style.color = "#000";
+                btn.style.backgroundColor = "#235347";
+                btn.style.color = "#ffffffff";
             } else {
                 btn.style.backgroundColor = "#E0E0E0";
                 btn.style.color = "#888";
