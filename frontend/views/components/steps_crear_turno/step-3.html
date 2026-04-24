@@ -1,0 +1,34 @@
+<div id="step-3" class="step-content" style="display: none">
+    <h1 class="step-title">¿A qué sucursal quieres ir?</h1>
+
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search-branch" placeholder="Buscar sucursal o ciudad..." onkeyup="filterBranches()" />
+    </div>
+
+    <div class="branch-list" id="branches-container">
+        <div class="branch-card" onclick="selectBranch('65f1a1234567890abcde1111', 'Modelo Popayán', 'CL 2 N° 7-74')">
+            <div class="branch-info">
+                <i class="fas fa-university branch-icon"></i>
+                <div class="branch-details">
+                    <h3>MODELO POPAYAN</h3>
+                    <p>CL 2 N° 7-74</p>
+                    <span class="branch-status">Abierto - Cierra 04:30 p.m.</span>
+                </div>
+            </div>
+            <button class="btn-reserve-small">Reservar</button>
+        </div>
+
+        <div class="branch-card" onclick="selectBranch('65f1a1234567890abcde2222', 'Campanario', 'Carrera 9 # 24AN-21')">
+            <div class="branch-info">
+                <i class="fas fa-university branch-icon"></i>
+                <div class="branch-details">
+                    <h3>CAMPANARIO POPAYAN</h3>
+                    <p>Carrera 9 # 24AN-21</p>
+                    <span class="branch-status">Abierto - Cierra 07:00 p.m.</span>
+                </div>
+            </div>
+            <button class="btn-reserve-small">Reservar</button>
+        </div>
+    </div>
+</div>

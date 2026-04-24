@@ -4,6 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Dashboard | BEVS TurnoBank</title>
+        <!--========== icons styles ==========-->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <!--=============== CSS ===============-->
         <link rel="stylesheet" href="../../css/panel.css" />
         <link rel="stylesheet" href="../../css/crear_turno.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -14,7 +24,7 @@
                 <div class="logo"><i class="fas fa-university"></i> BEVS<span>TurnoBank</span></div>
                 <div class="user-info">
                     <span id="welcome-msg">Bienvenido, Usuario</span>
-                    <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Salir</button>
+                    <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out"></i> Salir</button>
                 </div>
             </div>
         </header>
@@ -24,7 +34,7 @@
                 <div class="card action-card">
                     <i class="fas fa-calendar-plus icon-main"></i>
                     <h3>Reservar turno</h3>
-                    <p>Agenda una nueva cita en tu sucursal favorita.</p>   
+                    <p>Agenda una nueva cita en tu sucursal favorita.</p>
                     <button class="btn-primary" onclick="handleReserve()">Nueva Reserva</button>
                 </div>
 
@@ -57,8 +67,8 @@
                 <div class="table-header">
                     <h2>Mis Turnos</h2>
                     <div class="filters">
-                        <button class="filter-btn active" onclick="filterTurns('all')">Todos</button>
-                        <button class="filter-btn" onclick="filterTurns('Activo')">Activos</button>
+                        <button id="btn-secod" class="filter-btn active" onclick="filterTurns('all')">Todos</button>
+                        <button id="btn-secod" class="filter-btn" onclick="filterTurns('Activo')">Activos</button>
                     </div>
                 </div>
                 <div class="table-wrapper">
@@ -80,195 +90,18 @@
         <div id="reserve-modal" class="modal-overlay">
             <div class="modal-content">
                 <nav class="modal-nav">
-                    <button onclick="closeReserve()">‹ Atrás</button>
-                    <div class="logo-minimal"><i class="fas fa-bars"></i></div>
-                    <span>Inicio ⌂</span>
+                    <button class="btn-secod" onclick="closeReserve()"><i class="fa-solid fa-arrow-left-long"></i> Atrás</button>
+                    <!-- <div class="logo-minimal"><i class="fas fa-bars"></i></div> -->
+                    <button class="btn-secod" onclick="closeReserve()">Inicio <i class="fa-solid fa-house"></i></button>
                 </nav>
 
                 <!-- ========================= -->
                 <!-- MODAL RESERVA -->
                 <!-- ========================= -->
-                <div class="modal-body">
-                    <div id="step-1" class="step-content">
-                        <h1 class="step-title">¿Quién eres?</h1>
-                        <p class="step-subtitle">Ingresa tus datos para gestionar la reserva:</p>
-
-                        <div class="input-field">
-                            <label>Tipo de documento</label>
-                            <select id="res-doc-type">
-                                <option>Cédula de ciudadanía</option>
-                                <option>Cédula de extranjería</option>
-                            </select>
-                        </div>
-
-                        <div class="input-field">
-                            <label>Número de documento</label>
-                            <input id="res-doc-number" placeholder="Ej: 1061697441" />
-                        </div>
-                        <div class="input-field">
-                            <label>Número de celular</label>
-                            <input id="res-doc-number" placeholder="Ej: 3006314254" />
-                        </div>
-
-                        <button class="btn-continue-reserve" onclick="goToStepTwo()">Continuar</button>
-                    </div>
-
-                    <!-- ========================= -->
-                    <!-- Selección de Trámite -->
-                    <!-- ========================= -->
-                    <div id="step-2" class="step-content" style="display: none">
-                        <h1 class="step-title">¿Qué quieres hacer?</h1>
-                        <div class="option-list">
-                            <div class="procedure-card" onclick="selectProcedure('Trámites Generales')">
-                                <div class="card-header">
-                                    <i class="fas fa-user-check icon-card"></i>
-                                    <div class="header-text">
-                                        <h3>Trámites generales</h3>
-                                        <ul>
-                                            <li>Solicitar certificados</li>
-                                            <li>Entregar y activar tarjetas</li>
-                                            <li>Actualizar datos personales</li>
-                                        </ul>
-                                    </div>
-                                    <i class="fas fa-chevron-right arrow"></i>
-                                </div>
-                            </div>
-
-                            <div class="procedure-card compact" onclick="selectProcedure('Documentos')">
-                                <div class="card-header">
-                                    <i class="fas fa-file-alt icon-card"></i>
-                                    <h3>Solicitar documentos</h3>
-                                    <i class="fas fa-chevron-right arrow"></i>
-                                </div>
-                            </div>
-
-                            <div class="procedure-card" onclick="selectProcedure('Caja')">
-                                <div class="card-header">
-                                    <i class="fas fa-cash-register icon-card"></i>
-                                    <div class="header-text">
-                                        <h3>Transacciones en caja</h3>
-                                        <ul>
-                                            <li>Enviar, retirar y recibir plata</li>
-                                            <li>Realizar pagos y giros</li>
-                                        </ul>
-                                    </div>
-                                    <i class="fas fa-chevron-right arrow"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ========================= -->
-                    <!-- MODAL seleccionar sucursal -->
-                    <!-- ========================= -->
-                    <div id="step-3" class="step-content" style="display: none">
-                        <h1 class="step-title">¿A qué sucursal quieres ir?</h1>
-
-                        <div class="search-container">
-                            <i class="fas fa-search"></i>
-                            <input
-                                type="text"
-                                id="search-branch"
-                                placeholder="Buscar sucursal o ciudad..."
-                                onkeyup="filterBranches()"
-                            />
-                        </div>
-
-                        <div class="branch-list" id="branches-container">
-                            <div class="branch-card" onclick="selectBranch('Modelo Popayán', 'CL 2 N° 7-74')">
-                                <div class="branch-info">
-                                    <i class="fas fa-university branch-icon"></i>
-                                    <div class="branch-details">
-                                        <h3>MODELO POPAYAN</h3>
-                                        <p>CL 2 N° 7-74</p>
-                                        <span class="branch-status">Abierto - Cierra 04:30 p.m.</span>
-                                    </div>
-                                </div>
-                                <button class="btn-reserve-small">Reservar</button>
-                            </div>
-
-                            <div class="branch-card" onclick="selectBranch('Campanario', 'Carrera 9 # 24AN-21')">
-                                <div class="branch-info">
-                                    <i class="fas fa-university branch-icon"></i>
-                                    <div class="branch-details">
-                                        <h3>CAMPANARIO POPAYAN</h3>
-                                        <p>Carrera 9 # 24AN-21</p>
-                                        <span class="branch-status">Abierto - Cierra 07:00 p.m.</span>
-                                    </div>
-                                </div>
-                                <button class="btn-reserve-small">Reservar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ========================= -->
-                    <!-- MODAL seleccionar harario -->
-                    <!-- ========================= -->
-                    <div id="step-4" class="step-content" style="display: none">
-                        <h1 class="step-title">¿Cuándo quieres ir?</h1>
-                        <p class="step-subtitle">Selecciona el día y el horario de tu preferencia:</p>
-
-                        <div class="calendar-wrapper">
-                            <div class="input-field">
-                                <label><i class="fas fa-calendar-alt"></i> Fecha de reserva</label>
-                                <input type="date" id="res-date" min="2026-04-17" onchange="loadTimeSlots()" />
-                            </div>
-                        </div>
-
-                        <div id="time-selector" class="time-selector" style="display: none">
-                            <label class="section-label">Horarios disponibles</label>
-                            <div class="time-grid" id="time-slots-container"></div>
-                        </div>
-
-                        <button id="btn-final-confirm" class="btn-continue-reserve" onclick="confirmReservation()" disabled>
-                            Confirmar Reserva
-                        </button>
-                    </div>
-
-                    <!-- ========================= -->
-                    <!-- MODAL resumen -->
-                    <!-- ========================= -->
-                    <div id="step-5" class="step-content" style="display: none">
-                        <div id="ticket-print" style="background: white; padding: 20px">
-                            <div class="success-header">
-                                <div class="check-circle"><i class="fas fa-check"></i></div>
-                                <h1 class="success-title">Reserva lista</h1>
-                            </div>
-
-                            <div class="summary-details">
-                                <div class="detail-card">
-                                    <label>Número de documento</label>
-                                    <strong id="final-doc"></strong>
-                                </div>
-                                <div class="detail-card">
-                                    <label>Fecha y rango de hora</label>
-                                    <strong id="final-date-time"></strong>
-                                </div>
-                                <div class="detail-card">
-                                    <label>Sucursal</label>
-                                    <strong id="final-branch"></strong>
-                                </div>
-                                <div class="detail-card">
-                                    <label>Necesidad</label>
-                                    <strong id="final-need"></strong>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="final-actions">
-                            <button class="btn-outline" onclick="descargarTicketPNG()">
-                                <i class="fas fa-download"></i> Descargar PNG
-                            </button>
-                        </div>
-
-                        <button class="btn-primary-block" onclick="closeReserve()">Volver al Inicio</button>
-                    </div>
-
-                    <!-- ========================= -->
-                    <!-- MODAL ticket -->
-                    <!-- ========================= -->
-                </div>
+                <div id="modal-container" class="modal-body"></div>
             </div>
         </div>
-        <!-- <script src="../../js/panel.js"></script> -->
+        <script src="../../js/panel.js"></script>
         <script src="../../js/crear_turno.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     </body>

@@ -1,0 +1,18 @@
+<div id="step-4" class="step-content" style="display: none">
+    <h1 class="step-title">¿Cuándo quieres ir?</h1>
+    <p class="step-subtitle">Selecciona el día y el horario de tu preferencia:</p>
+
+    <div class="calendar-wrapper">
+        <div class="input-field">
+            <label><i class="fas fa-calendar-alt"></i> Fecha de reserva</label>
+            <input type="date" id="res-date" min="2026-04-17" onchange="loadTimeSlots()" />
+        </div>
+    </div>
+
+    <div id="time-selector" class="time-selector" style="display: none">
+        <label class="section-label">Horarios disponibles</label>
+        <div class="time-grid" id="time-slots-container"></div>
+    </div>
+
+    <button id="btn-final-confirm" class="btn-continue-reserve" onclick="confirmReservation()" disabled>Confirmar Reserva</button>
+</div>
