@@ -19,7 +19,7 @@ app.set("json spaces", 4);
 app.use(morgan("dev"));
 app.use(express.json());
 
-//* ==== rutas ==== *//s
+//* ==== rutas ==== *//
 app.use("/api/turnos", turnoRutas);
 
 export default app;

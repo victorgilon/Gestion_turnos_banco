@@ -14,7 +14,7 @@ router.post("/", verificacionToken, crearTurno);
 
 router.get("/", verificacionToken, obtenerTurno); //pensar si se verifica toker
 
-router.get("/:turnoId", obtenerTurnoPorId); //pensar si se verifica toker
+router.get("/:turnoId", verificacionToken, obtenerTurnoPorId); //pensar si se verifica toker
 
 router.put("/:turnoId", verificacionToken, actualizarTurnoPorId);
 
