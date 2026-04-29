@@ -1,13 +1,17 @@
 import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import cors from "cors";
+import dotenv from "dotenv";
+
+// Cargar variables de entorno
+dotenv.config();
 
 const app = express();
 
-//Habilitar CORS para que el Frontend pueda comunicarse
+// Habilitar CORS usando la URL del Gateway si es necesario
 app.use(
     cors({
-        origin: "http://127.0.0.1:5500",
+        origin: "http://127.0.0.1:5500", // Tu frontend
         credentials: true,
     }),
 );
@@ -17,38 +21,33 @@ const onProxyError = (err, req, res) => {
     res.status(502).json({ error: "Microservicio no disponible en este momento." });
 };
 
-//rutas
+// --- RUTAS DINÁMICAS BASADAS EN VARIABLES DE ENTORNO ---
+
+// Autenticación y Usuarios
 app.use(
-    "/api/autenticacion",
+    ["/api/autenticacion", "/api/users"],
     createProxyMiddleware({
-        target: "http://auth-service:3001",
+        target: `http://${process.env.AUTH_SERVICE_HOST}:${process.env.AUTH_SERVICE_PORT}`,
         changeOrigin: true,
         onError: onProxyError,
     }),
 );
 
-app.use(
-    "/api/users",
-    createProxyMiddleware({
-        target: "http://auth-service:3001",
-        changeOrigin: true,
-        onError: onProxyError,
-    }),
-);
-
+// Sucursales
 app.use(
     "/api/sucursales",
     createProxyMiddleware({
-        target: "http://sucursal-service:3002",
+        target: `http://${process.env.SUCURSAL_SERVICE_HOST}:${process.env.SUCURSAL_SERVICE_PORT}`,
         changeOrigin: true,
         onError: onProxyError,
     }),
 );
 
+// Turnos
 app.use(
     "/api/turnos",
     createProxyMiddleware({
-        target: "http://turno-service:3003",
+        target: `http://${process.env.TURNO_SERVICE_HOST}:${process.env.TURNO_SERVICE_PORT}`,
         changeOrigin: true,
         onError: onProxyError,
     }),

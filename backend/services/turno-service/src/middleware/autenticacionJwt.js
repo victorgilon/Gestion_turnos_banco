@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 import { SECRET } from "../config/config";
 
-export const verificacionToken = async (req, res, next) => {
+export const    verificacionToken = async (req, res, next) => {
     try {
         const token = req.headers["x-access-token"];
 
