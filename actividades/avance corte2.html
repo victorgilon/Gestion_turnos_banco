@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avance Proyecto - BEVS Turno Bank</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    line-height: 1.7;
+    color: #222;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1,h2,h3,h4{
+    color:#003366;
+}
+
+.portada{
+    text-align:center;
+    margin-top:80px;
+    margin-bottom:100px;
+}
+
+hr{
+    margin:50px 0;
+}
+
+.seccion{
+    margin-top:40px;
+}
+
+ul{
+    margin-left:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table, th, td{
+    border:1px solid #ccc;
+}
+
+th,td{
+    padding:10px;
+    text-align:left;
+}
+
+ol li{
+    margin-bottom:8px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="portada">
+<h1>Avance Proyecto del Primero al Segundo Corte</h1>
+<h2>BEVS Turno Bank</h2>
+<h3>Gestión de Turnos</h3>
+
+<br><br>
+
+<p><strong>Presentado por:</strong><br>
+Brayan David Solis<br>
+Leidy Sofia Agredo<br>
+Victor Alfonso Pino<br>
+Yilmer Eduardo Guaca
+</p>
+
+<p><strong>Docente:</strong><br>
+Leidy Mariani Dorado Flórez
+</p>
+
+<p>
+Corporación Universitaria Comfacauca – Unicomfacauca<br>
+Ingeniería de Sistemas<br>
+Popayán, Cauca<br>
+2026
+</p>
+</div>
+
+<hr>
+
+<h2>TABLA DE CONTENIDO</h2>
+
+<ol>
+<li>Introducción</li>
+<li>Descripción del avance</li>
+<li>Arquitectura actualizada</li>
+<li>Comunicación entre servicios</li>
+</ol>
+
+<div class="seccion">
+<h2>1. INTRODUCCIÓN</h2>
+
+<p>
+En el primer avance se realizó el análisis del problema y se propuso una arquitectura basada en microservicios para un sistema de gestión de turnos.
+En este segundo avance se presenta el avance funcional del sistema, evidenciando la implementación real de los servicios y la comunicación entre ellos dentro de un entorno distribuido.
+</p>
+</div>
+
+<div class="seccion">
+<h2>2. DESCRIPCIÓN DEL AVANCE</h2>
+
+<h3>2.1 Evolución del Sistema</h3>
+
+<p>
+En el primer corte se planteó una arquitectura teórica basada en microservicios, contemplando componentes como autenticación, gestión de turnos, sucursales y notificaciones. Además, se definió el uso de comunicación síncrona mediante servicios REST y la posibilidad de incorporar comunicación asíncrona basada en eventos.
+</p>
+
+<p>
+Para el segundo corte, se inició la implementación de esta arquitectura en un entorno real utilizando contenedores Docker. Se añadió el servicio de notificaciones (notification-service), el cual ya se encuentra en ejecución; sin embargo, actualmente no realiza funciones activas.
+</p>
+
+<p>
+Por otro lado, el bróker de eventos RabbitMQ se encuentra en proceso de implementación, por lo que aún no está configurado ni integrado en el sistema. Debido a esto, la comunicación asíncrona entre los microservicios todavía no ha sido puesta en funcionamiento.
+</p>
+
+<h3>2.2 Partes del Sistema Implementadas</h3>
+
+<p>
+Actualmente el sistema cuenta con una implementación parcial de una arquitectura basada en microservicios, en la cual se han desarrollado los siguientes componentes:
+</p>
+
+<ul>
+<li>API Gateway como punto de entrada al sistema</li>
+<li>Auth-Service para la autenticación de usuarios</li>
+<li>Turno-Service para la gestión de turnos</li>
+<li>Sucursal-Service para la administración de sucursales</li>
+<li>Notification-Service agregado y en ejecución (sin procesamiento de eventos por el momento)</li>
+</ul>
+
+<h3>2.3 Funcionalidades Operativas</h3>
+
+<p>
+El sistema actualmente cuenta con funcionalidades básicas que permiten la gestión de usuarios, turnos y sucursales. Estas funcionalidades evidencian un avance en la integración de algunos servicios y el funcionamiento inicial del sistema BEVS en un entorno distribuido.
+</p>
+
+<p>Actualmente, el sistema permite:</p>
+
+<ul>
+<li>El registro de usuarios</li>
+<li>El inicio de sesión (autenticación)</li>
+<li>La creación de turnos</li>
+<li>La creación y gestión de sucursales</li>
+</ul>
+
+<h3>2.4 Componentes No Implementados</h3>
+
+<p>
+Aunque el sistema cuenta con funcionalidades operativas, aún existen componentes en desarrollo o pendientes de implementación. Estos elementos son importantes para mejorar la experiencia del usuario y fortalecer la robustez del sistema.
+</p>
+
+<p>Actualmente, se encuentran pendientes:</p>
+
+<ul>
+<li>La implementación del envío de notificaciones (como correos electrónicos), ya que por el momento la información solo se almacena en la base de datos. Este proceso estará ligado a la futura comunicación entre servicios basada en eventos.</li>
+
+<li>La integración completa del frontend con todos los servicios disponibles.</li>
+
+<li>La validación de datos entre servicios, por ejemplo, verificar que la sucursal exista al momento de crear un turno.</li>
+</ul>
+
+</div>
+
+<div class="seccion">
+<h2>3. ARQUITECTURA ACTUALIZADA</h2>
+
+<h3>3.1 Diagrama del Sistema</h3>
+
+<p>(Insertar imagen del diagrama aquí)</p>
+
+<h3>3.2 Relación entre Servicios</h3>
+
+<p>
+El sistema funciona mediante una arquitectura de microservicios, donde cada componente cumple una función específica y se comunica con los demás a través de mecanismos principalmente síncronos.
+</p>
+
+<p>
+Este enfoque permite un bajo acoplamiento entre los servicios, ya que cada uno gestiona su propia lógica de negocio.
+</p>
+
+<p>El flujo general del sistema para la creación de un turno es el siguiente:</p>
+
+<ul>
+<li>El cliente envía una solicitud al API Gateway</li>
+<li>El API Gateway redirige la petición al microservicio correspondiente</li>
+<li>El Turno-Service recibe la solicitud y ejecuta un middleware de verificación para validar el acceso del usuario mediante token</li>
+<li>Una vez validado, el Turno-Service procesa la lógica de negocio para la creación del turno</li>
+<li>Finalmente, la información del turno es almacenada en la base de datos</li>
+</ul>
+
+<h3>3.3 Cambios Respecto al Primer Avance</h3>
+
+<p>
+En el primer avance se había propuesto el uso de Service Discovery para la comunicación entre los microservicios. Sin embargo, en la implementación actual este componente no se incluyó.
+</p>
+
+<p>
+En su lugar, se utilizó Docker, ya que permite gestionar los servicios en contenedores y facilita su ejecución en un mismo entorno.
+</p>
+
+<p>
+Además, Docker permite que los contenedores se comuniquen entre sí mediante el uso de nombres dentro de la misma red, lo que hizo innecesario agregar una herramienta adicional para el descubrimiento de servicios.
+</p>
+
+</div>
+
+<div class="seccion">
+<h2>4. COMUNICACIÓN ENTRE SERVICIOS</h2>
+
+<h3>4.1 Tipo de Comunicación</h3>
+
+<p>
+El sistema utiliza comunicación síncrona mediante servicios REST para el intercambio de información entre los microservicios.
+</p>
+
+<p>
+Este tipo de comunicación se basa en solicitudes HTTP, donde un servicio envía una petición y espera una respuesta inmediata.
+</p>
+
+<p>
+En el caso de la creación de turnos, el cliente envía una solicitud al API Gateway, el cual actúa como intermediario y redirige la petición al Turno-Service.
+</p>
+
+<p>
+Durante este proceso, la información viaja a través de la red en formato JSON, permitiendo una comunicación clara y estructurada entre los componentes del sistema.
+</p>
+
+<p>
+El Turno-Service recibe la solicitud, procesa la información y devuelve una respuesta que sigue el mismo flujo de regreso hasta el cliente.
+</p>
+
+<h3>4.2 Endpoints Utilizados</h3>
+
+<ul>
+<li>POST /api/turnos → Crear un nuevo turno (requiere autenticación)</li>
+<li>GET /api/turnos → Obtener lista de turnos (requiere autenticación)</li>
+<li>GET /api/turnos/:turnoId → Obtener turno por ID</li>
+<li>PUT /api/turnos/:turnoId → Actualizar turno (requiere autenticación)</li>
+<li>DELETE /api/turnos/:turnoId → Eliminar turno (requiere autenticación y rol administrador o moderador)</li>
+</ul>
+
+<h3>4.3 Flujo Completo de Interacción Entre Servicios</h3>
+
+<p>(Insertar imagen del flujo aquí)</p>
+
+<h3>4.4 Decisiones Tomadas en la Implementación</h3>
+
+<ul>
+<li>Uso de arquitectura basada en microservicios</li>
+<li>Uso de Docker para despliegue</li>
+<li>Uso de Docker Compose</li>
+<li>Uso de variables de entorno mediante archivos .env</li>
+<li>Uso de API Gateway</li>
+</ul>
+
+<h3>4.5 Configuración del Entorno</h3>
+
+<p>
+El proyecto utiliza archivos .env gestionados por la librería dotenv. Esta estrategia permite desacoplar el código fuente de la configuración específica garantizando seguridad y flexibilidad.
+</p>
+
+<table>
+<tr>
+<th>Categoría</th>
+<th>Variables</th>
+<th>Propósito</th>
+</tr>
+
+<tr>
+<td>Servidor</td>
+<td>PORT, JWT_SECRET</td>
+<td>Define puertos y clave para validación de tokens</td>
+</tr>
+
+<tr>
+<td>Persistencia</td>
+<td>USER_DB, PASS_DB, SERVER_DB, DB_NAME</td>
+<td>Credenciales y conexión MongoDB Atlas</td>
+</tr>
+</table>
+
+<h3>4.6 Gestión de Configuraciones</h3>
+
+<p>
+La gestión de configuraciones se realiza mediante variables de entorno para credenciales, puertos y conexiones externas sin incluirlos directamente en el código fuente.
+</p>
+
+<ul>
+<li>Mayor seguridad</li>
+<li>Portabilidad</li>
+<li>Configuración independiente por microservicio</li>
+<li>Escalabilidad y mantenibilidad</li>
+</ul>
+
+<h3>4.7 Cómo se Asegura la Portabilidad del Sistema</h3>
+
+<p>
+La portabilidad del sistema se asegura mediante Docker, variables de entorno y Docker Compose.
+</p>
+
+<p>
+Estas tecnologías permiten ejecutar el sistema en distintos entornos sin modificar el código fuente, manteniendo consistencia y facilidad de despliegue.
+</p>
+
+</div>
+
+</body>
+</html>
