@@ -1,3 +1,4 @@
+<img width="763" height="211" alt="image" src="https://github.com/user-attachments/assets/7ff5c772-f095-44d7-b3b3-d197bf6fae53" />
 # BEVS TurnoBank - asignacion y gestion de turnos
 
 ## Acerca del proyecto
