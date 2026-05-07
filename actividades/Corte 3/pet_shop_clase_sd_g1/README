@@ -1,0 +1,53 @@
+# Laboratorio: Implementación del Patrón Circuit Breaker
+
+[cite_start]Este proyecto documenta la implementación y pruebas de un patrón **Circuit Breaker** (Disyuntor) en un sistema distribuido para gestionar fallos en cascada y mejorar la resiliencia mediante un Gateway[cite: 58, 64].
+
+---
+
+## FASE 1: Detección y Bloqueo Inicial
+[cite_start]Se inició el sistema verificando que funciona correctamente al solicitar información del servicio de mascotas, entregando los registros exitosamente[cite: 58, 59]. [cite_start]Al apagar el servicio manualmente (`docker stop`), el Gateway detecta la pérdida de conectividad y, tras 3 intentos fallidos, bloquea el servicio[cite: 61, 62].
+
+### Preguntas de la Fase 1
+* **¿Qué hace el sistema actualmente?**
+    [cite_start]El sistema actúa como un intermediario (Gateway) que gestiona fallos en cascada detectando la pérdida de conectividad, contando errores consecutivos y cambiando su estado a "Circuito Abierto" al alcanzar el umbral crítico de 3 fallos[cite: 63, 64, 69]. [cite_start]Esto permite responder de inmediato con un error 503 en lugar de esperar un timeout largo[cite: 70].
+* **¿Se protege o insiste?**
+    Se protege. [cite_start]Una vez el circuito está abierto, el Gateway deja de intentar conectarse al backend para esa solicitud específica[cite: 71, 72]. [cite_start]Esto evita el bloqueo de hilos de ejecución o memoria, previniendo el colapso del propio Gateway[cite: 73, 74].
+
+---
+
+## FASE 2: Aislamiento por Servicio
+[cite_start]Se implementó la lógica de monitoreo en todos los endpoints (Mascotas, Usuarios, Relación) para asegurar que el comportamiento de cada uno sea independiente[cite: 77, 78].
+
+### Preguntas de la Fase 2
+* **¿Cada servicio debe tener su propio contador de fallos?**
+    Sí. Cada servicio debe monitorearse individualmente para evitar que los errores de uno "contaminen" las métricas de los demás[cite: 81, 82]. Esto permite identificar exactamente qué microservicio es inestable sin castigar a los servicios sanos[cite: 84].
+* **¿El circuito debe abrirse de forma independiente por servicio?**
+    Sí. El objetivo principal es el aislamiento de fallos[cite: 85, 86]. Si un servicio específico (como Mascotas) falla, el "fusible" debe saltar solo para esa ruta, permitiendo que el tráfico hacia Usuarios o Relación fluya sin interrupciones[cite: 87, 88].
+* **¿Qué pasa si falla un servicio pero el otro sigue funcionando?**
+    Ocurre una "Degradación Graciosa" (Graceful Degradation)[cite: 89, 90]. El sistema no se apaga por completo, sino que solo "apaga" la sección afectada[cite: 91]. El usuario solo verá indisponibilidad en la funcionalidad específica mientras el resto de la infraestructura sigue operando normalmente[cite: 92, 95].
+
+---
+
+## FASE 3: Lógica de Transición (Half-Open)
+[cite_start]Esta fase describe la teoría y los estados de transición necesarios para la recuperación automática del sistema[cite: 97].
+
+### Preguntas de la Fase 3
+* **1. ¿Qué significa “half-open”?**
+    [cite_start]Es un estado de prueba o transición[cite: 98, 99]. [cite_start]Después de estar abierto un tiempo, el sistema permite que pase una sola petición (o un número limitado) hacia el servicio como una "sonda" para evaluar su salud[cite: 100, 101, 102].
+* **2. ¿Cuándo se vuelve a intentar una llamada?**
+    [cite_start]Se intenta tras cumplirse un tiempo de espera (Timeout) predefinido[cite: 103, 104]. [cite_start]Al expirar el temporizador, la siguiente petición cambia el estado de Open a Half-Open para verificar el servicio[cite: 107, 109].
+* **3. ¿Qué pasa si el servicio vuelve a fallar?**
+    [cite_start]Si la petición de prueba falla, el sistema asume que sigue caído, vuelve al estado Open y reinicia el temporizador de espera[cite: 111, 112, 113]. [cite_start]Si tiene éxito, el circuito cambia a Closed, permitiendo el tráfico normal y reseteando los contadores[cite: 115, 116].
+
+---
+
+## FASE 4: Implementación de la Lógica de Recuperación
+[cite_start]Se define la lógica técnica para el manejo del tiempo de reintento (configurado en 20 segundos) y el uso de `response.raise_for_status()` para asegurar que cualquier error dispare la protección del circuito[cite: 117, 120, 50, 51, 52].
+
+---
+
+## FASE 5: Pruebas de Sistema y Resultados
+Se realizaron pruebas en diferentes escenarios:
+1.  [cite_start]**Funcionamiento normal:** El circuito permanece cerrado[cite: 54].
+2.  [cite_start]**Simulación de caída:** El circuito abre al alcanzar el límite de fallos[cite: 55, 56].
+3.  [cite_start]**Restauración:** Tras 20 segundos de espera, el Gateway detecta la disponibilidad, realiza la verificación en modo Half-Open y cierra el circuito automáticamente al confirmar el éxito[cite: 57].
