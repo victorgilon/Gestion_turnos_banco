@@ -1,0 +1,204 @@
+from flask import Flask, request, jsonify
+import requests
+import time
+
+app= Flask(__name__)
+
+fallos_backend = 0
+circuito_abierto = False
+
+estado_usuarios = {
+    "fallos": 0,
+    "circuito": False,
+    "ultimo_fallo": 0
+}
+
+estados = {
+
+    "usuarios": {
+        "fallos": 0,
+        "circuito": False
+    },
+
+    "mascotas": {
+        "fallos": 0,
+        "circuito": False
+    },
+
+    "resumen": {
+        "fallos": 0,
+        "circuito": False
+    }
+
+}
+
+@app.route("/mascotas")
+def mascotas():
+   global fallos_backend, circuito_abierto
+   if circuito_abierto:
+        return {"error": "Servicio temporalmente bloqueado"}, 503
+   try:
+        response = requests.get("http://backend:5000/mascotas", timeout=2)
+        fallos_backend = 0
+        return response.json()
+   except:
+        fallos_backend += 1
+        print(f"Fallo número {fallos_backend}", flush=True)
+
+        if fallos_backend >= 3:
+            circuito_abierto = True
+            print("Circuito abierto", flush=True)
+
+        return {"error": "Servicio no disponible (BACKEND)"}, 503
+ 
+
+@app.route("/usuarios")
+def usuarios():
+
+    if estado_usuarios["circuito"]:
+
+        tiempo_actual = time.time()
+
+        if tiempo_actual - estado_usuarios["ultimo_fallo"] > 10:
+
+            print(
+                "Intentando recuperar servicio usuarios...",
+                flush=True
+            )
+
+            estado_usuarios["circuito"] = False
+
+        else:
+
+            return jsonify({
+                "error": "Servicio bloqueado"
+            }), 503
+
+    try:
+
+        print(
+            "[GATEWAY] Llamando servicio usuarios...",
+            flush=True
+        )
+
+        response = requests.get(
+            "http://usuarios:5000/usuarios",
+            timeout=2
+        )
+
+        estado_usuarios["fallos"] = 0
+
+        return jsonify(response.json())
+
+    except:
+
+        estado_usuarios["fallos"] += 1
+
+        print(
+            f"Fallo usuarios número {estado_usuarios['fallos']}",
+            flush=True
+        )
+
+        if estado_usuarios["fallos"] >= 3:
+
+            estado_usuarios["circuito"] = True
+
+            estado_usuarios["ultimo_fallo"] = time.time()
+
+            print(
+                "Servicio bloqueado",
+                flush=True
+            )
+
+        return jsonify({
+            "error": "Servicio usuarios no disponible"
+        }), 503
+
+
+##LLAMADO PO ID
+@app.route("/mascotas/<int:id>")
+def mascota_gateway(id):
+    response = requests.get(f"http://backend:5000/mascotas/{id}")
+
+    return (
+        response.content,
+        response.status_code,
+        response.headers.items()
+    )
+
+
+@app.route("/usuarios/<int:id>")
+def usuario_gateway(id):
+    response = requests.get(f"http://usuarios:5000/usuarios/{id}")
+
+    return (
+        response.content,
+        response.status_code,
+        response.headers.items()
+    )
+
+# MOSTRAR ERRO POR FALTA DE INGRESAR ID
+
+@app.route("/mascotas/", methods=["GET"])
+def mascotas_sin_id():
+    return {"mensaje": "Por favor, ingrese un ID de la mascota"}, 400
+
+@app.route("/usuarios/", methods=["GET"])
+def usuarios_sin_id_gateway():
+    return {"mensaje": "Por favor, ingrese un ID del usuario"}, 400
+
+
+
+@app.route("/resumen")
+def resumen():
+    if estados["resumen"]["circuito"]:
+        return jsonify({
+            "error": "Circuito abierto resumen"
+        }), 503
+    respuesta = {}
+    try:
+        print(
+            "[GATEWAY] Consultando usuarios...",
+            flush=True
+        )
+        usuarios_response = requests.get(
+            "http://usuarios:5000/usuarios",
+            timeout=2
+        )
+        respuesta["usuarios"] = usuarios_response.json()
+    except:
+        respuesta["usuarios"] = "Servicio usuarios no disponible"
+        print(
+            "[GATEWAY] Error en usuarios",
+            flush=True
+        )
+    try:
+        print(
+            "[GATEWAY] Consultando mascotas...",
+            flush=True
+        )
+        mascotas_response = requests.get(
+            "http://backend:5000/mascotas",
+            timeout=2
+        )
+        respuesta["mascotas"] = mascotas_response.json()
+        estados["resumen"]["fallos"] = 0
+    except:
+        estados["resumen"]["fallos"] += 1
+        respuesta["mascotas"] = "Servicio mascotas no disponible"
+        print(
+            f"Fallo resumen número {estados['resumen']['fallos']}",
+            flush=True
+        )
+        if estados["resumen"]["fallos"] >= 3:
+            estados["resumen"]["circuito"] = True
+            print(
+                "Circuito abierto resumen",
+                flush=True
+            )
+    return jsonify(respuesta)
+
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
