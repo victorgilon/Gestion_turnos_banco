@@ -18,12 +18,11 @@ Se inició el sistema verificando que funciona correctamente. Al solicitar infor
 
 ### Simulación de Caída
 Se procedió a apagar el servicio de mascotas con el comando:
-`docker stop pet_shop_clase_sd_g1-backend-1`
+`docker stop pet_shop_clase_sd_g1-backend-1`Como resultado, la información deja de estar disponible.
 
-Como resultado, la información deja de estar disponible.
+#### imagen
+<img width="738" height="441" alt="image" src="https://github.com/user-attachments/assets/8287597f-01f3-4b54-b17e-0e28ef8ff8d8" />
 
-![Imagen 4](img/image_4.png)
-![Imagen 5](img/image_5.png)
 
 Al realizar 3 intentos fallidos, el Gateway detecta la pérdida de conectividad y bloquea las solicitudes enviando un estado **503**.
 
