@@ -23,10 +23,13 @@ Figura 5. Logs generados por el Gateway durante las fallas del servicio de masco
 Nota: En la figura se puede observar que el Gateway intenta conectarse varias veces con el servicio de mascotas, pero como el backend se encuentra apagado, se generan errores 503. Además, en los logs se registran los intentos fallidos (“Fallo número 1”, “Fallo número 2” y “Fallo número 3”) hasta que el sistema activa el “Circuito abierto”. Esto permite evidenciar cómo el Gateway detecta las fallas consecutivas y protege el sistema dejando de realizar más intentos de conexión al servicio caído.
 
 Responder:
+
 •	¿Qué hace el sistema actualmente?
+
 El gateway intenta comunicarse con el servicio de mascotas y, al estar apagado, se generan errores 503. El sistema registra los fallos consecutivos hasta activar el Circuito abierto.
 
 •	¿Se protege o insiste?
+
 Primero el sistema insiste realizando varios intentos de conexión. Después de varios fallos, activa el Circuito abierto y se protege dejando de intentar conectarse al servicio caído.
 
 
