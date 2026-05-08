@@ -26,8 +26,7 @@ Se procedió a apagar el servicio de mascotas con el comando:
 
 Al realizar 3 intentos fallidos, el Gateway detecta la pérdida de conectividad y bloquea las solicitudes enviando un estado **503**.
 
-![Imagen 6](img/image_6.png)
-![Imagen 7](img/image_7.png)
+<img width="737" height="482" alt="image" src="https://github.com/user-attachments/assets/09f1cb3b-b0ce-4760-904b-d7516d0536ac" />
 
 ---
 
