@@ -1,6 +1,6 @@
 # Laboratorio: Implementación del Patrón Circuit Breaker
 **Asignatura:** Sistemas Distribuidos  
-**Objetivo:** Gestión de fallos en cascada y resiliencia mediante estados de circuito.
+**Objetivo:** Gestión de fallos y resiliencia mediante estados de circuito.
 
 ---
 
