@@ -9,7 +9,8 @@
 
 Se inició el sistema verificando que funciona correctamente. Al solicitar información del servicio de mascotas, se obtienen los registros exitosamente. Los logs muestran que la solicitud pasa por el `gateway-1`, este delega al `backend-1` y entrega la respuesta al usuario.
 
-![Imagen 1](img/image_1.png)
+![Imagen 1](<img width="972" height="227" alt="image" src="https://github.com/user-attachments/assets/8448d5e0-f6cb-4ff7-87f1-048150ce9894" />
+)
 ![Imagen 2](img/image_2.png)
 ![Imagen 3](img/image_3.png)
 
