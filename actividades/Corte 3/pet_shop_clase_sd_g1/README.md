@@ -2,7 +2,7 @@
 **Asignatura:** Sistemas Distribuidos  
 **Objetivo:** Gestión de fallos en cascada y resiliencia mediante estados de circuito.
 
----<img width="512" height="193" alt="image" src="https://github.com/user-attachments/assets/bf84f838-58b1-4f0b-b8fd-7a8beb44bbd2" />
+---
 
 
 ## FASE 1: Inicio del Sistema y Detección de Fallos
