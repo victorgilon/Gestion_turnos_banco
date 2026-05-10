@@ -62,7 +62,7 @@ Se utiliza una comparación de tiempos para determinar si se debe permitir el re
 
 ---
 
-## FASE 5: Pruebas de Estrés y Recuperación del Sistema
+## FASE 5: Pruebas y Recuperación del Sistema
 
 ### Escenario: Servicio Funcionando
 Verificación de peticiones respondidas correctamente con el circuito cerrado.
