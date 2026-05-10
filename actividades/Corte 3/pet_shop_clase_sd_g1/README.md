@@ -34,13 +34,12 @@ Al realizar 3 intentos fallidos, el Gateway detecta la pérdida de conectividad 
 
 Se implementó una lógica de contadores independientes para evitar que la caída de un servicio afecte a otros (ej. si falla mascotas, que usuarios siga funcionando).
 
-![Imagen 8](img/image_8.png)
-![Imagen 9](img/image_9.png)
+<img width="885" height="431" alt="image" src="https://github.com/user-attachments/assets/cf190fc0-d14d-4d71-a10a-a8c60d5c23f7" />
 
-**Degradación Graciosa:** Se observa que, aunque un servicio esté caído, los demás endpoints responden correctamente.
 
-![Imagen 10](img/image_10.png)
-![Imagen 11](img/image_11.png)
+**Degradación:** Se observa que, aunque un servicio esté caído, los demás endpoints responden correctamente.
+
+<img width="897" height="494" alt="image" src="https://github.com/user-attachments/assets/cffc19ba-72df-49ef-98ab-bcc0974d71c8" />
 
 ---
 
@@ -52,18 +51,14 @@ Se incorporó el estado **Half-Open** con un temporizador de **20 segundos**.
 2. **Estado Half-Open:** Pasado el tiempo, se permite una "petición de prueba" o sonda.
 3. **Decisión:** Si la sonda tiene éxito, el circuito se cierra. Si falla, vuelve a abrirse.
 
-![Imagen 12](img/image_12.png)
-![Imagen 13](img/image_13.png)
-![Imagen 14](img/image_14.png)
-![Imagen 15](img/image_15.png)
+<img width="893" height="313" alt="image" src="https://github.com/user-attachments/assets/5d4d5e53-50fc-40e4-a1ff-dc2d42ab7355" />
+
 
 ### Implementación del Código
 Se utiliza una comparación de tiempos para determinar si se debe permitir el reintento.
 
-![Imagen 16](img/image_16.png)
-![Imagen 17](img/image_17.png)
-![Imagen 18](img/image_18.png)
-![Imagen 19](img/image_19.png)
+<img width="842" height="411" alt="image" src="https://github.com/user-attachments/assets/5eb4be53-bb27-4c02-9729-e42357787016" />
+
 
 ---
 
@@ -72,34 +67,20 @@ Se utiliza una comparación de tiempos para determinar si se debe permitir el re
 ### Escenario: Servicio Funcionando
 Verificación de peticiones respondidas correctamente con el circuito cerrado.
 
-![Imagen 20](img/image_20.png)
-![Imagen 21](img/image_21.png)
-![Imagen 22](img/image_22.png)
+<img width="533" height="382" alt="image" src="https://github.com/user-attachments/assets/efdca54c-890e-4411-8963-c1e5a3bf28bd" />
 
-### Escenario: Transición de Estados
-Simulación de errores para forzar la apertura y posterior cierre tras la recuperación.
-
-![Imagen 23](img/image_23.png)
-![Imagen 24](img/image_24.png)
-![Imagen 25](img/image_25.png)
-![Imagen 26](img/image_26.png)
-![Imagen 27](img/image_27.png)
-![Imagen 28](img/image_28.png)
-![Imagen 29](img/image_29.png)
 
 ### Escenario: Caída del Servicio de Usuarios
 Se detiene manualmente el servicio de usuarios para observar el cambio de estado en los logs.
 
-![Imagen 30](img/image_30.png)
-![Imagen 31](img/image_31.png)
-![Imagen 32](img/image_32.png)
+<img width="501" height="232" alt="image" src="https://github.com/user-attachments/assets/b5b2a6e9-1bb0-4b8a-8123-070e91b3615a" />
+
 
 ### Recuperación Final
 Se restaura el servicio manualmente y se observa cómo el Gateway, tras esperar los 20 segundos de seguridad, realiza la verificación y cierra el circuito automáticamente.
 
-![Imagen 33](img/image_33.png)
-![Imagen 34](img/image_34.png)
-![Imagen 35](img/image_35.png)
+<img width="599" height="253" alt="image" src="https://github.com/user-attachments/assets/af535ae7-8f73-49cf-b9db-da770fcdc328" />
+
 
 ---
 
