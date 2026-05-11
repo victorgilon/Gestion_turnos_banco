@@ -1,42 +1,10 @@
-# Laboratorio: Sistema que aprende a fallar – Circuit Breaker
-
----
-
-# Introducción
-
-En este laboratorio se implementó el patrón Circuit Breaker en un sistema distribuido basado en microservicios utilizando Flask y Docker.
-
-El objetivo fue evitar que el gateway continuara realizando peticiones infinitas a servicios caídos, permitiendo proteger el sistema y mejorar la resiliencia.
-
-Se trabajó con los siguientes servicios:
-
-- Gateway
-- Backend mascotas
-- Servicio usuarios
-
----
-
-# Arquitectura del sistema
-
-Cliente → Gateway → Servicios
-
-Servicios implementados:
-
-- /mascotas
-- /usuarios
-- /relacion
-
-Cada servicio cuenta con un circuito independiente dentro del gateway.
-
----
-
 # FASE 1 – OBSERVAR
 
 Aquí se muestra la primera fase del sistema funcionando correctamente.
 
 ![](evidencias/fase1.png)
 
-![](image.png)
+![](evidencias/fase1.1.png)
 
 ## ¿Qué hicimos?
 
@@ -65,7 +33,7 @@ Servicio no disponible
 
 # FASE 2 – APLICAR (Extensión del Circuit Breaker)
 
-![](image-1.png)
+![](evidencias/fase2.png)
 
 ## ¿Qué hicimos?
 
@@ -119,9 +87,11 @@ Los demás servicios continúan funcionando normalmente.
 
 # FASE 3 – INVESTIGAR (HALF_OPEN)
 
-![](image-2.png)
+![](evidencias/fase3.png)
 
-![](image-5.png)
+![](evidencias/fase3.1.png)
+
+![](evidencias/faase3.png)
 
 ## ¿Qué significa HALF_OPEN?
 
@@ -149,13 +119,11 @@ HALF_OPEN - reintentando conexión
 
 # FASE 4 – IMPLEMENTAR (Recuperación)
 
-![](image-4.png)
+![](evidencias/fase4.png)
 
-![](image-3.png)
+![](evidencias/fase4.1.1.png)
 
-![](image.png)
-
-![](image-1.png)
+![](evidencias/fase4.2.png)
 
 ## ¿Qué implementamos?
 
@@ -195,13 +163,13 @@ El gateway realiza una nueva prueba de conexión.
 
 # FASE 5 – VALIDAR
 
-![](image.png)
+![](evidencias/fase5.png)
 
-![](image-1.png)
+![](evidencias/fase5.1.png)
 
-![](image-2.png)
+![](evidencias/fase5.3.png)
 
-![](image-3.png)
+![](evidencias/fase5.4.png)
 
 ## Escenarios probados
 
@@ -275,68 +243,3 @@ También se probó el endpoint `/relacion`, el cual continuó respondiendo parci
 - circuitos independientes
 - tolerancia parcial a fallos
 - resiliencia del sistema
-
----
-
-# Código implementado
-
-## Gateway
-
-El gateway implementa:
-
-- Circuit Breaker
-- estados OPEN, CLOSED y HALF_OPEN
-- contador independiente por servicio
-- recuperación automática
-- función reutilizable
-
-## Servicios
-
-Los servicios backend y usuarios mantienen únicamente:
-
-- endpoints
-- lógica de negocio
-- logs
-- consultas
-
-La protección se realiza exclusivamente desde el gateway.
-
----
-
-# Análisis final
-
-## ¿Qué cambió en el comportamiento del sistema?
-
-El sistema dejó de insistir infinitamente cuando un servicio fallaba.
-
-Ahora el gateway detecta múltiples errores y bloquea temporalmente las solicitudes al servicio afectado.
-
----
-
-## ¿Qué decisiones tomaron en la implementación?
-
-- Se implementaron circuitos independientes por servicio.
-- Se creó una función reutilizable para evitar duplicar código.
-- Se implementó recuperación automática mediante HALF_OPEN.
-- Se agregó tiempo de espera controlado.
-
----
-
-## ¿Qué dificultades encontraron?
-
-La principal dificultad fue manejar correctamente la transición entre los estados OPEN y HALF_OPEN para evitar múltiples intentos innecesarios al backend caído.
-
-También fue necesario controlar correctamente los tiempos de recuperación y los contadores de fallos.
-
----
-
-# Conclusión
-
-El patrón Circuit Breaker permitió mejorar la resiliencia del sistema distribuyendo correctamente los fallos entre servicios independientes.
-
-Gracias a la implementación realizada, el gateway ahora puede:
-
-- detectar fallos
-- bloquear conexiones innecesarias
-- recuperarse automáticamente
-- mantener disponibles los servicios sanos
