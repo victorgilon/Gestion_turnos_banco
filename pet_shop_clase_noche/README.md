@@ -1,3 +1,36 @@
+# Laboratorio: Sistema que aprende a fallar – Circuit Breaker
+
+---
+
+# Introducción
+
+En este laboratorio se implementó el patrón Circuit Breaker en un sistema distribuido basado en microservicios utilizando Flask y Docker.
+
+El objetivo fue evitar que el gateway continuara realizando peticiones infinitas a servicios caídos, permitiendo proteger el sistema y mejorar la resiliencia.
+
+Se trabajó con los siguientes servicios:
+
+- Gateway
+- Backend mascotas
+- Servicio usuarios
+
+---
+
+# Arquitectura del sistema
+
+Cliente → Gateway → Servicios
+
+Servicios implementados:
+
+- /mascotas
+- /usuarios
+- /relacion
+
+Cada servicio cuenta con un circuito independiente dentro del gateway.
+
+---
+
+
 # FASE 1 – OBSERVAR
 
 Aquí se muestra la primera fase del sistema funcionando correctamente.
