@@ -67,12 +67,14 @@ A partir de lo implementado en clase para /mascotas, deben:
 • Extensión del circuit breaker a usuarios 
 
 Figura 6. Variable de control del estado del servicio de usuarios
+
 <img width="333" height="159" alt="image" src="https://github.com/user-attachments/assets/376577db-69b9-44c4-9bd1-68980b93afbc" />
 
 Nota: En la figura se muestra la variable `estado_usuarios`, utilizada para controlar el funcionamiento del servicio de usuarios. La propiedad `fallos` almacena la cantidad de errores consecutivos detectados, mientras que `circuito` indica si el servicio se encuentra funcionando normalmente (`False`) o bloqueado temporalmente (`True`) debido a múltiples fallos en la comunicación.
 
 
 Figura 7. Código implementado en el Gateway para el servicio de usuarios
+
 <img width="438" height="506" alt="image" src="https://github.com/user-attachments/assets/b5eb0dee-7c45-4c4e-afc1-a2289a6decf0" />
 
 Nota: En la figura se muestra el código implementado en el Gateway para el servicio de usuarios. En este código se incluyen logs para registrar los eventos del sistema, manejo de errores y un mecanismo de circuit breaker que permite detectar múltiples fallos consecutivos. Cuando el servicio no responde después de varios intentos, el sistema bloquea temporalmente las solicitudes para evitar más errores y proteger la comunicación entre servicios.
