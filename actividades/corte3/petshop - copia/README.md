@@ -246,3 +246,48 @@ Figura 23. Registro de errores cuando los servicios se encuentran apagados
 Nota: En esta figura se observan los errores generados cuando los contenedores de usuarios y mascotas se encuentran apagados. Los logs muestran que el endpoint /resumen ya no puede obtener información de los servicios y comienza a registrar los fallos correspondientes, indicando que los microservicios no se encuentran disponibles.
 
 
+
+Fase 4 – IMPLEMENTACION del endpoint de mascotas con HAL Open
+
+
+Figura 24: Variables para el control del circuito
+<img width="297" height="101" alt="image" src="https://github.com/user-attachments/assets/1bb4f7c4-b540-4d65-a1c9-4c306544713d" />
+
+
+Nota: Aquí se inicializan las variables que permiten controlar los fallos del backend, el estado del circuito y el tiempo del último fallo del servicio.
+
+
+Figura 25: Consulta de información desde localhost
+<img width="447" height="350" alt="image" src="https://github.com/user-attachments/assets/30744098-1352-4730-9f07-8ba9423ab41f" />
+
+Nota: El endpoint de mascotas muestra correctamente la información, como se observa en la imagen.
+
+
+Figura 26. Error de conexión del endpoint de mascotas desde la Gateway.
+<img width="546" height="140" alt="image" src="https://github.com/user-attachments/assets/31e82a81-71b4-4e47-885e-659423317e4d" />
+
+
+<img width="501" height="142" alt="image" src="https://github.com/user-attachments/assets/7ec3a017-f42e-487e-a559-61105b49a401" />
+
+Nota: Al realizar el llamado del endpoint de mascotas desde la Gateway, el servicio no responde correctamente y se genera un error del servidor, como se observa en la imagen. Después de realizar los 3 intentos configurados en el sistema, el circuito se bloquea automáticamente para evitar más fallos, mostrando el mensaje de que el servicio no se encuentra disponible en ese momento.
+
+
+Figura 27. Reactivación del contenedor de mascotas
+<img width="851" height="167" alt="image" src="https://github.com/user-attachments/assets/87b0392c-08a0-4322-b18f-200696843655" />
+
+Nota: Cuando el sistema presenta fallos y el circuito queda bloqueado, la implementación del HAL Open espera 10 segundos para intentar recuperar nuevamente el servicio. Después de ese tiempo, el contenedor de mascotas se reactiva y el endpoint vuelve a mostrar correctamente la información solicitada desde la Gateway.
+
+Figura 28. Logs del funcionamiento del endpoint de mascotas.
+<img width="860" height="330" alt="image" src="https://github.com/user-attachments/assets/42cf946f-af56-4693-aea8-c5bd47b87ca4" />
+
+Nota: Aquí se observa el funcionamiento del endpoint de mascotas realizando el llamado desde localhost. Primero, con el contenedor encendido, el sistema trae correctamente la información. Luego, al apagar o desconectar el contenedor, se presenta el error del servicio. Finalmente, gracias a la implementación del HAL Open, al volver a activar el contenedor el sistema recupera nuevamente el servicio y muestra la información correctamente.
+
+
+Nota general: Durante el desarrollo de este laboratorio seguí paso a paso la guía proporcionada en Classroom, realizando las diferentes implementaciones solicitadas en los endpoints de usuarios y mascotas. En el proceso trabajé la lógica del HAL Open, el control de fallos, los intentos de reconexión, el bloqueo y recuperación de servicios, además de las pruebas de funcionamiento desde localhost, Gateway y PowerShell.
+Gracias a este laboratorio pude entender mejor cómo funciona la comunicación entre servicios y la recuperación automática cuando un contenedor falla. Todo el desarrollo fue realizado de acuerdo a mi comprensión y aprendizaje durante la práctica. Aunque considero que el código y la lógica podrían seguir mejorándose u optimizándose, esta implementación me permitió comprender mucho más el funcionamiento de los microservicios y la tolerancia a fallos dentro del sistema.
+
+
+
+
+
+
