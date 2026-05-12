@@ -143,7 +143,7 @@ def resumen():
     resultado = {}
     errores = {}
 
-    # 🔹 Usuarios
+    # Usuarios
     if not circuito_abierto_usuarios:
         try:
             usuarios_data = requests.get(
@@ -159,7 +159,7 @@ def resumen():
     else:
         errores["usuarios"] = "Bloqueado"
 
-    # 🔹 Mascotas
+    # Mascotas
     if not circuito_abierto_mascotas:
         try:
             mascotas_data = requests.get(
@@ -175,14 +175,14 @@ def resumen():
     else:
         errores["mascotas"] = "Bloqueado"
 
-    # 🔹 Si algún servicio falla
+    # Si algún servicio falla
     if errores:
         return jsonify({
             "data": resultado,
             "errores": errores
         }), 206
 
-    # 🔹 Si todo funciona
+    # Si todo funciona
     return jsonify(resultado), 200
 
 if __name__ == "__main__":
