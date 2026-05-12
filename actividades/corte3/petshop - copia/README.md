@@ -188,23 +188,56 @@ FASE 4 – IMPLEMENTAR (Recuperación)
 IMPLEMENTACIÓN DEL ESTADO HALF-OPEN EN USUARIOS
 
 Figura 17. Implementación del HAL Open en usuarios
+
 <img width="602" height="797" alt="image" src="https://github.com/user-attachments/assets/e8d81139-56f1-4154-8335-ee635dd7772d" />
 
 Nota: Aquí se muestra la implementación del HAL Open en el endpoint de usuarios junto con los requisitos solicitados en el laboratorio.
 
 <img width="271" height="36" alt="image" src="https://github.com/user-attachments/assets/fb081e78-f45f-4a2e-8656-984f793639a0" />
+
 <img width="397" height="58" alt="image" src="https://github.com/user-attachments/assets/24da7c3f-8133-4519-a96d-1459b7b7a5ee" />
 
 Nota: En esta parte del código se implementa el estado Half-Open del Circuit Breaker. El sistema verifica si ya pasó el tiempo de espera definido para volver a intentar la conexión con el servicio de usuarios. Si el tiempo se cumple, el gateway realiza una nueva petición de prueba para comprobar si el microservicio volvió a funcionar correctamente.
 
-Figura 18. Logs de errores del servicio de usuarios
+Figura 18. Configuración de recuperación del servicio de usuarios
+<img width="457" height="28" alt="image" src="https://github.com/user-attachments/assets/de2ea69a-0989-4c56-aec8-f275076ca680" />
+
+Nota: En esta parte del código se configura el tiempo de espera para restablecer nuevamente el servicio de usuarios y permitir que vuelva a mostrar información correctamente.
+
+
+Figura 19. Logs de errores del servicio de usuarios
 <img width="828" height="282" alt="image" src="https://github.com/user-attachments/assets/2cde768e-c40b-44c8-90db-2718e4b71360" />
 
 Nota: El gateway registra cada fallo consecutivo cuando el servicio de usuarios no responde. Cada intento fallido incrementa el contador de errores hasta alcanzar el límite configurado por el Circuit Breaker.
 
+IMPLEMENTACIÓN DEL CONTADOR DE FALLOS EN RESUMEN
+
+Figura 20. Visualización de la información del endpoint /resumen
+<img width="591" height="715" alt="image" src="https://github.com/user-attachments/assets/cfaf7542-de6b-43ce-a335-990a0e503876" />
+
+Nota: En esta figura se observa el funcionamiento del endpoint /resumen desde el navegador localhost. El gateway consulta los microservicios de usuarios y mascotas, mostrando en una sola respuesta la información almacenada de ambos servicios. Esto demuestra la integración y comunicación entre los microservicios dentro del sistema distribuido.
+
+Figura 21. Funcionamiento del endpoint /resumen cuando los servicios presentan fallos
+<img width="584" height="521" alt="image" src="https://github.com/user-attachments/assets/5abdb385-5fc2-44d1-9741-4d7f46b03475" />
+
+<img width="571" height="478" alt="image" src="https://github.com/user-attachments/assets/2ca43bb2-be52-4160-80be-3232350f1666" />
+
+<img width="583" height="250" alt="image" src="https://github.com/user-attachments/assets/5e1ec130-34a1-4aea-8f7e-f91979bb4e5c" />
+
+Nota: En esta figura se puede observar cómo responde el endpoint /resumen cuando algunos servicios se encuentran apagados. Al desactivar el servicio de usuarios, el sistema muestra el mensaje indicando que el servicio no está disponible. De igual manera, al apagar el servicio de mascotas, el gateway continúa funcionando y muestra el error correspondiente de mascotas. Cuando ambos servicios están apagados, el endpoint informa que tanto usuarios como mascotas no se encuentran disponibles. Esto demuestra que cada servicio funciona de manera independiente y que el sistema puede manejar fallos sin detener completamente la aplicación.
 
 
 
+Figura 22. Registro de funcionamiento correcto de los servicios en los logs
+<img width="870" height="98" alt="image" src="https://github.com/user-attachments/assets/e2e817fe-75f1-4c9a-b2ee-c29e086877c4" />
 
+
+Nota:En esta figura se puede observar, mediante los logs mostrados en PowerShell, que los servicios de usuarios y mascotas se encuentran funcionando correctamente. Esto se evidencia porque las peticiones realizadas al gateway responden con código 200, indicando que la comunicación entre los microservicios y el sistema se está ejecutando de manera exitosa.
+
+Figura 23. Registro de errores cuando los servicios se encuentran apagados
+<img width="863" height="492" alt="image" src="https://github.com/user-attachments/assets/b15b71ee-3389-4a02-af46-6d1cccc14e56" />
+
+
+Nota: En esta figura se observan los errores generados cuando los contenedores de usuarios y mascotas se encuentran apagados. Los logs muestran que el endpoint /resumen ya no puede obtener información de los servicios y comienza a registrar los fallos correspondientes, indicando que los microservicios no se encuentran disponibles.
 
 
