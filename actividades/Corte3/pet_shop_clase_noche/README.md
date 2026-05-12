@@ -45,17 +45,21 @@ Esto no debería bloquear automáticamente el servicio de usuarios.
 
 ## ¿Qué pasa si falla un servicio pero el otro sigue funcionando?
 
-Si falla un servicio pero el otro sigue funcionando, el sistema puede seguir respondiendo parcialmente.
+El sistema puede continuar funcionando de forma parcial.
 
-En el caso del endpoint `/resumen`, este puede identificar qué servicio está bloqueado y mostrar cuál dependencia falló.
-
-Ejemplo de respuesta:
+Si uno de los microservicios falla, el endpoint /resumen devuelve la información del servicio que sigue disponible y muestra cuál servicio se encuentra bloqueado o no disponible.
 
 ```json
 {
-    "error": "Resumen no disponible. Servicio dependiente bloqueado",
-    "detalles": {
-        "usuarios": "Disponible",
+    "data": {
+        "usuarios": [
+            {
+                "id": 1,
+                "nombre": "Juan"
+            }
+        ]
+    },
+    "errores": {
         "mascotas": "Bloqueado"
     }
 }
@@ -150,8 +154,8 @@ Esto hace que el sistema sea más estable, resiliente y eficiente.
 Durante el desarrollo se tomaron las siguientes decisiones:
 
 - Cada microservicio tiene su propio Circuit Breaker independiente.
-  - `usuarios`
-  - `mascotas`
+    - `usuarios`
+    - `mascotas`
 
 - Se definió un límite de fallos antes de abrir el circuito (3 intentos).
 - Se implementó un tiempo de espera antes de intentar la reconexión (`tiempo_bloqueo`).

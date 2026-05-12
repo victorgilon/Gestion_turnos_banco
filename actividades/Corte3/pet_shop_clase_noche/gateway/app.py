@@ -1,91 +1,189 @@
-import time
-import requests
 from flask import Flask, jsonify
+import requests
+import time
 
 app = Flask(__name__)
 
-class CircuitBreaker:
-    def __init__(self, name, url, timeout=4, fallos_máximos=3, tiempo_recuperación=10):
-        self.name = name
-        self.url = url
-        self.timeout = timeout
-        self.fallos_máximos = fallos_máximos
-        self.tiempo_recuperación = tiempo_recuperación
-        
-        # Estado interno
-        self.fallos = 0
-        self.circuito_abierto = False
-        self.ultimo_fallo = 0
+# Configuración para el servicio de Mascotas
+fallos_mascotas = 0
+circuito_abierto_mascotas = False
+tiempo_bloqueo_mascotas = 10
+ultimo_fallo_mascotas = 0
 
-    #metodo
-    def call(self):
-        tiempo_actual = time.time()
-
-        # Lógica de Reintento (Half-Open)
-        if self.circuito_abierto:
-            if tiempo_actual - self.ultimo_fallo > self.tiempo_recuperación:
-                print(f"[{self.name}] Estado Half-Open: Intentando reconexión...", flush=True)
-            else:
-                print(f"[{self.name}] Circuito abierto. Bloqueando petición.", flush=True)
-                return {"error": f"Servicio {self.name} temporalmente bloqueado"}, 503
-
-        try:
-            response = requests.get(self.url, timeout=self.timeout)
-            response.raise_for_status() # Lanza excepción si hay error 4xx o 5xx
-            
-            # Éxito: Reiniciar estado
-            self.circuito_abierto = False
-            self.fallos = 0
-            return response.json(), 200
-
-        except Exception as e:
-            self.fallos += 1
-            self.ultimo_fallo = time.time()
-            print(f"[{self.name}] Fallo número {self.fallos}: {e}", flush=True)
-
-            if self.fallos >= self.fallos_máximos:
-                self.circuito_abierto = True
-                print(f"[{self.name}] !!! CIRCUITO ABIERTO !!!", flush=True)
-
-            return {"error": f"Servicio {self.name} no disponible"}, 503
-
-# Instanciamos los breakers para cada servicio
-breaker_mascotas = CircuitBreaker("Mascotas", "http://backend:5000/mascotas", timeout=4)
-breaker_usuarios = CircuitBreaker("Usuarios", "http://usuarios:5000/usuarios", timeout=2)
+# Configuración para el servicio de Usuarios
+fallos_usuarios = 0
+circuito_abierto_usuarios = False
+tiempo_bloqueo_usuarios = 10
+ultimo_fallo_usuarios = 0
 
 @app.route("/mascotas")
 def mascotas():
-    data, status = breaker_mascotas.call()
-    return jsonify(data), status
+
+    global fallos_mascotas, circuito_abierto_mascotas, ultimo_fallo_mascotas
+
+    # Circuit Breaker abierto
+    if circuito_abierto_mascotas:
+
+        tiempo_actual = time.time()
+
+        #Espera controlada
+        if tiempo_actual - ultimo_fallo_mascotas > tiempo_bloqueo_mascotas:
+            print("Estado Half-Open: Intentando reconexión...", flush=True)
+
+            try:
+
+                #Nuevo intanto para la reconexion
+                response = requests.get("http://backend:5000/mascotas", timeout=4)
+
+                 # Si funciona → cerrar circuito
+                circuito_abierto_mascotas = False
+                fallos_mascotas = 0
+
+                print("Servicio recuperado, circuito cerrado", flush=True)
+
+                return response.json()
+            
+            except Exception as e:
+                print(e, flush=True)
+
+                # Si vuelve a fallar → abrir otra vez
+                ultimo_fallo_mascotas = time.time()
+
+                print("El servicio sigue fallando. Circuito abierto nuevamente", flush=True)
+
+                return {"error": "Servicio temporalmente bloqueado"}, 503
+        else:
+            print("El circuito esta abierto", flush=True)
+
+            return {"error": "Servicio temporalmente bloqueado"}, 503
+    
+    try:
+        response = requests.get("http://backend:5000/mascotas", timeout=4)
+        fallos_mascotas = 0
+        return response.json()
+    
+    except Exception as e:
+        print(e, flush=True)
+
+        fallos_mascotas += 1
+        print(f"Fallo número {fallos_mascotas}", flush=True)
+
+        # Abrir circuito
+        if fallos_mascotas >= 3:
+            circuito_abierto_mascotas = True
+            ultimo_fallo_mascotas = time.time()
+            print("Circuito abierto", flush=True)
+
+        return {"error": "Servicio no disponible"}, 503
+
 
 @app.route("/usuarios")
 def usuarios():
-    data, status = breaker_usuarios.call()
-    return jsonify(data), status
 
+    global fallos_usuarios, circuito_abierto_usuarios, ultimo_fallo_usuarios
+
+    # Circuit Breaker abierto
+    if circuito_abierto_usuarios:
+
+        tiempo_actual = time.time()
+
+        # Espera controlada
+        if tiempo_actual - ultimo_fallo_usuarios > tiempo_bloqueo_usuarios:
+
+            print("Estado Half-Open: Intentando reconexión a usuarios...", flush=True)
+
+            try:
+                # nuevo intento
+                response = requests.get("http://usuarios:5000/usuarios", timeout=2)
+
+                # SI FUNCIONA → cerrar circuito
+                circuito_abierto_usuarios = False
+                fallos_usuarios = 0
+
+                print("Servicio recuperado, circuito cerrado", flush=True)
+
+                return jsonify(response.json())
+
+            except Exception as e:
+
+                print(e, flush=True)
+                # SI FALLA → volver a abrir circuito
+                ultimo_fallo_usuarios = time.time()
+                print("Sigue fallando, circuito abierto nuevamente", flush=True)
+                return {"error": "Servicio de usuarios temporalmente bloqueado"}, 503
+
+        else:
+            print("El circuito está abierto", flush=True)
+            return {"error": "Servicio de usuarios temporalmente bloqueado"}, 503
+
+    try:
+        response = requests.get("http://usuarios:5000/usuarios", timeout=2)
+        fallos_usuarios = 0
+        return jsonify(response.json())
+
+    except:
+
+        fallos_usuarios += 1
+        print(f"Fallo número {fallos_usuarios} en Usuarios", flush=True)
+
+        # Abrir circuito después de 3 fallos
+        if fallos_usuarios >= 3:
+            circuito_abierto_usuarios = True
+            ultimo_fallo_usuarios = time.time()
+            print("Circuito de usuarios abierto", flush=True)
+
+        return {"error": "Servicio de usuarios no disponible"}, 503
+
+
+# resumne
+# resumen
 @app.route("/resumen")
 def resumen():
-    # El resumen depende de ambos, podemos consultar el estado de los breakers directamente
-    if breaker_mascotas.circuito_abierto or breaker_usuarios.circuito_abierto:
-        return jsonify({
-            "error": "Resumen no disponible",
-            "estados": {
-                "usuarios": "Abierto" if breaker_usuarios.circuito_abierto else "Cerrado",
-                "mascotas": "Abierto" if breaker_mascotas.circuito_abierto else "Cerrado"
-            }
-        }), 503
 
-    # Si ambos están cerrados, intentamos obtener la data
-    usuarios_data, usuarios_status = breaker_usuarios.call()
-    mascotas_data, mascotas_status = breaker_mascotas.call()
+    resultado = {}
+    errores = {}
 
-    if usuarios_status == 200 and mascotas_status == 200:
+    # 🔹 Usuarios
+    if not circuito_abierto_usuarios:
+        try:
+            usuarios_data = requests.get(
+                "http://usuarios:5000/usuarios",
+                timeout=2
+            ).json()
+
+            resultado["usuarios"] = usuarios_data
+
+        except:
+            errores["usuarios"] = "No disponible"
+
+    else:
+        errores["usuarios"] = "Bloqueado"
+
+    # 🔹 Mascotas
+    if not circuito_abierto_mascotas:
+        try:
+            mascotas_data = requests.get(
+                "http://backend:5000/mascotas",
+                timeout=4
+            ).json()
+
+            resultado["mascotas"] = mascotas_data.get("mascotas", [])
+
+        except:
+            errores["mascotas"] = "No disponible"
+
+    else:
+        errores["mascotas"] = "Bloqueado"
+
+    # 🔹 Si algún servicio falla
+    if errores:
         return jsonify({
-            "usuarios": usuarios_data,
-            "mascotas": mascotas_data.get("mascotas", [])
-        })
-    
-    return jsonify({"error": "Error parcial en servicios dependientes"}), 500
+            "data": resultado,
+            "errores": errores
+        }), 206
+
+    # 🔹 Si todo funciona
+    return jsonify(resultado), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
