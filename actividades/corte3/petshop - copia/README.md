@@ -182,9 +182,25 @@ La llamada se vuelve a intentar después de que el circuito ha permanecido abier
 El estado “Half-Open” es una fase en la que, tras mantener el circuito bloqueado por fallos, se permite un número limitado de llamadas de prueba. Este estado se activa después de un tiempo de espera para darle margen al servicio de recuperarse. Si la llamada en este estado tiene éxito, el circuito se cierra y el sistema vuelve a su funcionamiento normal. Sin embargo, si la prueba falla, el circuito se abre nuevamente de inmediato, bloqueando las peticiones a ese servicio para proteger el sistema. El proceso se repite después de otro período de espera, manteniendo la estabilidad general.
 
 
+FASE 4 – IMPLEMENTAR (Recuperación)
 
 
+IMPLEMENTACIÓN DEL ESTADO HALF-OPEN EN USUARIOS
 
+Figura 17. Implementación del HAL Open en usuarios
+<img width="602" height="797" alt="image" src="https://github.com/user-attachments/assets/e8d81139-56f1-4154-8335-ee635dd7772d" />
+
+Nota: Aquí se muestra la implementación del HAL Open en el endpoint de usuarios junto con los requisitos solicitados en el laboratorio.
+
+<img width="271" height="36" alt="image" src="https://github.com/user-attachments/assets/fb081e78-f45f-4a2e-8656-984f793639a0" />
+<img width="397" height="58" alt="image" src="https://github.com/user-attachments/assets/24da7c3f-8133-4519-a96d-1459b7b7a5ee" />
+
+Nota: En esta parte del código se implementa el estado Half-Open del Circuit Breaker. El sistema verifica si ya pasó el tiempo de espera definido para volver a intentar la conexión con el servicio de usuarios. Si el tiempo se cumple, el gateway realiza una nueva petición de prueba para comprobar si el microservicio volvió a funcionar correctamente.
+
+Figura 18. Logs de errores del servicio de usuarios
+<img width="828" height="282" alt="image" src="https://github.com/user-attachments/assets/2cde768e-c40b-44c8-90db-2718e4b71360" />
+
+Nota: El gateway registra cada fallo consecutivo cuando el servicio de usuarios no responde. Cada intento fallido incrementa el contador de errores hasta alcanzar el límite configurado por el Circuit Breaker.
 
 
 
