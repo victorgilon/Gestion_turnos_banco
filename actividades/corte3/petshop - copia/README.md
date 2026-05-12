@@ -187,15 +187,18 @@ FASE 4 – IMPLEMENTAR (Recuperación)
 
 IMPLEMENTACIÓN DEL ESTADO HALF-OPEN EN USUARIOS
 
-Figura 17:Implementación del HAL Open en usuarios
+Figura 17:Implementación del HAL Open en usuarios.
+
 
 
 <img width="602" height="797" alt="image" src="https://github.com/user-attachments/assets/e8d81139-56f1-4154-8335-ee635dd7772d" />
 
 Nota: Aquí se muestra la implementación del HAL Open en el endpoint de usuarios junto con los requisitos solicitados en el laboratorio.
 
-figura 17: Implementación del estado Half-Open para la recuperación del servicio de usuarios
+figura 17: Implementación del estado Half-Open para la recuperación del servicio de usuarios.
+
 <img width="271" height="36" alt="image" src="https://github.com/user-attachments/assets/fb081e78-f45f-4a2e-8656-984f793639a0" />
+
 
 <img width="397" height="58" alt="image" src="https://github.com/user-attachments/assets/24da7c3f-8133-4519-a96d-1459b7b7a5ee" />
 
