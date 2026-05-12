@@ -126,6 +126,24 @@ Nota: No quiero ver el mismo código copiado…quiero ver cómo adaptan la lógi
 
 
 
+FASE 3 – INVESTIGAR (Half-Open)
+
+
+Cada grupo debe investigar:
+
+
+•	¿Qué significa “half-open”?
+
+el estado “Half-Open” es un periodo de prueba controlada en el que el sistema deja pasar algunas solicitudes para verificar si el servicio está de nuevo disponible. Si las respuestas son exitosas, el circuito se cierra y el servicio retoma su funcionamiento normal. Si falla, el circuito se abre de nuevo, protegiendo al sistema. Así se evita que se reanude el tráfico sin que el servicio esté listo.
+
+
+•	¿Cuándo se vuelve a intentar una llamada?
+
+La llamada se vuelve a intentar después de que el circuito ha permanecido abierto durante un tiempo determinado. Este tipo sirve para darle oportunidad al servidor de recuperarse antes de volver a recibir solicitudes. Cuando llega ese momento, el sistema permite una petición de prueba para comprobar el estado del servicio. Si la respuesta es éxito, el circuito breaker considera que el servicio ya está estable y vuelve a estado normal. Esto permite que el sistema se recupere automáticamente sin necesidad de reiniciar manualmente.
+
+•	¿Qué pasa si el servicio vuelve a fallar?
+
+El estado “Half-Open” es una fase en la que, tras mantener el circuito bloqueado por fallos, se permite un número limitado de llamadas de prueba. Este estado se activa después de un tiempo de espera para darle margen al servicio de recuperarse. Si la llamada en este estado tiene éxito, el circuito se cierra y el sistema vuelve a su funcionamiento normal. Sin embargo, si la prueba falla, el circuito se abre nuevamente de inmediato, bloqueando las peticiones a ese servicio para proteger el sistema. El proceso se repite después de otro período de espera, manteniendo la estabilidad general.
 
 
 
