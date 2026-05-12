@@ -5,6 +5,9 @@
 El sistema realiza peticiones a los microservicios internos a través del gateway.
 
 Cuando un servicio falla (por ejemplo, porque está caído o no responde), el gateway captura la excepción, incrementa un contador de fallos y retorna un código de error **503 (Servicio no disponible)**.
+<img width="879" height="205" alt="image" src="https://github.com/user-attachments/assets/f3e7f8d6-d9c7-4c52-9b59-d8077be0c86a" />
+
+<img width="972" height="227" alt="image" src="https://github.com/user-attachments/assets/656be743-91d4-48e1-8534-2558b2ac1c5d" />
 
 ---
 
@@ -13,6 +16,9 @@ Cuando un servicio falla (por ejemplo, porque está caído o no responde), el ga
 El sistema inicialmente intenta realizar las peticiones, pero luego **se protege**.
 
 Cuando el número de fallos consecutivos alcanza o supera el límite definido (3 fallos), el sistema activa el **Circuit Breaker**, cambiando su estado a abierto (`circuito_abierto = True`) y deja de realizar nuevas solicitudes al servicio afectado, evitando así la sobrecarga del sistema.
+
+<img width="738" height="441" alt="image" src="https://github.com/user-attachments/assets/269f428f-1e03-4caf-9a03-78c01be6d91d" />
+<img width="737" height="482" alt="image" src="https://github.com/user-attachments/assets/69eb20ab-1605-4f3c-a1f3-51e81671b21a" />
 
 ---
 
@@ -26,6 +32,7 @@ Sí. Cada servicio debe tener su propio contador de fallos porque cada microserv
 fallos_mascotas
 fallos_usuarios
 ```
+<img width="1225" height="296" alt="image" src="https://github.com/user-attachments/assets/baf48357-1c22-47f6-8b4a-9037e4550d6f" />
 
 ---
 
@@ -36,26 +43,31 @@ Sí. El circuito debe abrirse de forma independiente por servicio. Esto permite 
 Por ejemplo:
 
 ```python
-circuito_abierto_mascotas = True
+circuito_abierto_usurios = True
 ```
 
-Esto no debería bloquear automáticamente el servicio de usuarios.
+Esto no debería bloquear automáticamente el servicio de mascotas.
+<img width="640" height="198" alt="image" src="https://github.com/user-attachments/assets/fe6ccb41-a373-4f5b-a90e-2e2437eebe72" />
 
 ---
 
 ## ¿Qué pasa si falla un servicio pero el otro sigue funcionando?
 
-Si falla un servicio pero el otro sigue funcionando, el sistema puede seguir respondiendo parcialmente.
+El sistema puede continuar funcionando de forma parcial.
 
-En el caso del endpoint `/resumen`, este puede identificar qué servicio está bloqueado y mostrar cuál dependencia falló.
-
-Ejemplo de respuesta:
+Si uno de los microservicios falla, el endpoint /resumen devuelve la información del servicio que sigue disponible y muestra cuál servicio se encuentra bloqueado o no disponible.
 
 ```json
 {
-    "error": "Resumen no disponible. Servicio dependiente bloqueado",
-    "detalles": {
-        "usuarios": "Disponible",
+    "data": {
+        "usuarios": [
+            {
+                "id": 1,
+                "nombre": "Juan"
+            }
+        ]
+    },
+    "errores": {
         "mascotas": "Bloqueado"
     }
 }
