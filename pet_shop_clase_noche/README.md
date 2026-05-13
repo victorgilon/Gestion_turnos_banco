@@ -1,6 +1,5 @@
 # Laboratorio: Sistema que aprende a fallar – Circuit Breaker
 
----
 
 # Introducción
 
@@ -14,7 +13,7 @@ Se trabajó con los siguientes servicios:
 - Backend mascotas
 - Servicio usuarios
 
----
+
 
 # Arquitectura del sistema
 
@@ -63,7 +62,7 @@ Error de conexión
 Servicio no disponible
 ```
 
----
+
 
 # FASE 2 – APLICAR (Extensión del Circuit Breaker)
 
@@ -150,7 +149,7 @@ HALF_OPEN - reintentando conexión
 ![](evidencias/fase3.1.png)
 
 ![](evidencias/faase3.png)
----
+
 
 # FASE 4 – IMPLEMENTAR (Recuperación)
 
@@ -211,7 +210,7 @@ El circuito permaneció en estado CLOSED.
 Estado CLOSED - servicio funcionando
 ```
 
----
+
 
 ### 2. Servicio caído
 
@@ -221,7 +220,7 @@ El gateway detectó errores consecutivos.
 
 ```text
 Error de conexión - fallo #1
-```
+
 
 ---
 
@@ -263,8 +262,8 @@ También se probó el endpoint `/relacion`, el cual continuó respondiendo parci
 {
   "usuario": "Servicio usuarios no disponible",
   "mascota": "Firulais"
-}
-```
+
+
 ![](evidencias/fase5.png)
 
 ![](evidencias/fase5.1.png)
