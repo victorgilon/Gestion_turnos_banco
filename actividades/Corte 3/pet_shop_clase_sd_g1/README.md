@@ -5,7 +5,7 @@
 
 
 
-### FASE 1: Inicio del Sistema y Detección de Fallos
+## FASE 1: Inicio del Sistema y Detección de Fallos
 Se inició el sistema verificando que funciona correctamente. Al solicitar información del servicio de mascotas, se obtienen los registros exitosamente. Los logs muestran que la solicitud pasa por el `gateway-1`, este delega al `backend-1` y entrega la respuesta al usuario.
 
 <img width="972" height="227" alt="image" src="https://github.com/user-attachments/assets/1af98b58-1681-41a7-ad9d-c690ff5bcd69" />
