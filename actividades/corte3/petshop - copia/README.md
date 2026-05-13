@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 FASE 1 – OBSERVAR (sin modificar código)
 
 Figura 1. Código fuente completo del Gateway para el servicio de mascotas con manejo de errores y circuit breaker
