@@ -60,7 +60,7 @@ El sistema:
 ```text
 Error de conexión
 Servicio no disponible
-```
+
 
 
 
@@ -117,7 +117,7 @@ Los demás servicios continúan funcionando normalmente.
 [mascotas] Estado OPEN
 ```
 
----
+
 
 # FASE 3 – INVESTIGAR (HALF_OPEN)
 
@@ -248,7 +248,6 @@ HALF_OPEN - reintentando conexión
 Estado CLOSED - servicio funcionando
 ```
 
----
 
 ### 5. Resiliencia entre servicios
 
