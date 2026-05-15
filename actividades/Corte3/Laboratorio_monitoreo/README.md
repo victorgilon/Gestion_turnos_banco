@@ -102,6 +102,7 @@ Cada servicio genera logs personalizados para identificar:
 - estado del servicio
 - tiempos de respuesta
 - errores
+- veces_caido
 
 ## Ejemplo
 
@@ -109,6 +110,7 @@ Cada servicio genera logs personalizados para identificar:
 [MONITOREO] Consultando inventario
 [MONITOREO] Tiempo de respuesta: 0.0012 segundos
 [MONITOREO] Servicio inventario disponible
+[MONITOREO] ver las veces que el sistemas se ha caido
 ```
 
 ---
@@ -141,7 +143,7 @@ El gateway consulta automáticamente todos los servicios.
 Endpoint:
 
 ```text
-/status
+/estado
 ```
 
 El gateway:
@@ -150,6 +152,7 @@ El gateway:
 - mide tiempo de respuesta
 - detecta fallos
 - registra errores
+- veces_caido
 
 ---
 
@@ -198,6 +201,7 @@ Cuando todos los servicios estaban activos:
 [MONITOREO] Verificando servicio: pedidos
 [MONITOREO] Servicio disponible: pedidos
 [MONITOREO] Tiempo de respuesta: 0.0021 segundos
+[MONITOREO] ver las veces que el sistemas se ha caido
 ```
 
 ---
