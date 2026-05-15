@@ -225,9 +225,10 @@ Al apagar el servicio de pagos:
 [MONITOREO] Verificando servicio: pagos
 [MONITOREO] Servicio caido: pagos
 ```
+## metricas
+<img width="1536" height="176" alt="image" src="https://github.com/user-attachments/assets/7434eb49-485b-46ee-87f9-82e2e4186810" />
 
 ---
-
 # Conclusiones
 
 Se implementó un sistema básico de monitoreo en una arquitectura distribuida utilizando:
