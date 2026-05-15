@@ -186,6 +186,7 @@ Se apagó el servicio de pagos utilizando Docker.
 ```bash
 docker stop actividad_en_clase-pagos-1
 ```
+<img width="1530" height="587" alt="image" src="https://github.com/user-attachments/assets/2b8895f9-7db7-44e4-b42a-cc4cf5a9de64" />
 
 ---
 
