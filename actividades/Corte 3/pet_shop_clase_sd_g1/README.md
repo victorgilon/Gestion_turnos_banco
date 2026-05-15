@@ -2,13 +2,12 @@
 **Asignatura:** Sistemas Distribuidos  
 **Objetivo:** Gestión de fallos y resiliencia mediante estados de circuito.
 
----
+
 
 
 ## FASE 1: Inicio del Sistema y Detección de Fallos
-
 Se inició el sistema verificando que funciona correctamente. Al solicitar información del servicio de mascotas, se obtienen los registros exitosamente. Los logs muestran que la solicitud pasa por el `gateway-1`, este delega al `backend-1` y entrega la respuesta al usuario.
-#### imagen 1
+
 <img width="972" height="227" alt="image" src="https://github.com/user-attachments/assets/1af98b58-1681-41a7-ad9d-c690ff5bcd69" />
 
 <img width="879" height="205" alt="image" src="https://github.com/user-attachments/assets/b19c3bde-b3e6-47df-b179-2fa9a0198fa0" />
@@ -28,7 +27,7 @@ Al realizar 3 intentos fallidos, el Gateway detecta la pérdida de conectividad 
 
 <img width="737" height="482" alt="image" src="https://github.com/user-attachments/assets/09f1cb3b-b0ce-4760-904b-d7516d0536ac" />
 
----
+
 
 ## FASE 2: Aislamiento de Fallos
 
@@ -41,7 +40,7 @@ Se implementó una lógica de contadores independientes para evitar que la caíd
 
 <img width="897" height="494" alt="image" src="https://github.com/user-attachments/assets/cffc19ba-72df-49ef-98ab-bcc0974d71c8" />
 
----
+
 
 ## FASE 3 y 4: Lógica de Recuperación (Half-Open)
 
@@ -60,7 +59,7 @@ Se utiliza una comparación de tiempos para determinar si se debe permitir el re
 <img width="842" height="411" alt="image" src="https://github.com/user-attachments/assets/5eb4be53-bb27-4c02-9729-e42357787016" />
 
 
----
+
 
 ## FASE 5: Pruebas y Recuperación del Sistema
 
@@ -82,7 +81,7 @@ Se restaura el servicio manualmente y se observa cómo el Gateway, tras esperar 
 <img width="599" height="253" alt="image" src="https://github.com/user-attachments/assets/af535ae7-8f73-49cf-b9db-da770fcdc328" />
 
 
----
+
 
 ## Conclusiones del Laboratorio
 
@@ -104,7 +103,7 @@ El sistema actúa como un intermediario (**Gateway**) que gestiona fallos en cas
 ### ¿Se protege o insiste?
 **Se protege.** Una vez que el circuito está abierto, el Gateway deja de intentar conectarse al backend para esa solicitud específica. Esto evita que recursos como hilos de ejecución o memoria se bloqueen, previniendo el colapso del Gateway. El sistema deja de insistir temporalmente bloqueando el paso de nuevas peticiones.
 
----
+
 
 ### ¿Cada servicio debe tener su propio contador de fallos?
 **Sí.** Cada servicio se monitorea de forma individual. Un único contador global contaminaría las métricas; si un servicio falla, no debe castigarse a los servicios que están sanos.
@@ -115,7 +114,7 @@ El sistema actúa como un intermediario (**Gateway**) que gestiona fallos en cas
 ### ¿Qué pasa si falla un servicio pero el otro sigue funcionando?
 Ocurre una **Degradación Graciosa (Graceful Degradation)**. El sistema no se apaga por completo, solo inhabilita la sección afectada. El Gateway actúa como un filtro inteligente que devuelve un error 503 inmediato para el servicio caído mientras procesa con normalidad el resto, evitando un efecto dominó.
 
----
+
 
 ### ¿Qué significa “half-open”?
 Es un **estado de prueba o transición**. Tras estar un tiempo en estado *Open*, el sistema permite que pase una sola petición (o un número limitado) a modo de "sonda" para evaluar si el servicio ya se ha recuperado.
@@ -127,7 +126,7 @@ La llamada de prueba se intenta tras cumplirse un **Timeout de 20 segundos**. Du
 * **Si falla:** El sistema asume que el servicio sigue caído, vuelve al estado **Open** y reinicia el temporizador.
 * **Si tiene éxito:** El sistema asume que el backend está sano, cambia a estado **Closed** (Cerrado) y reinicia el contador de fallos a cero.
 
----
+
 
 ### ¿Qué cambió en el comportamiento del sistema?
 El sistema pasó de una comunicación directa vulnerable a una arquitectura resiliente. Ahora detecta fallos automáticamente, bloquea peticiones tras 3 intentos para proteger recursos y aplica aislamiento por servicio con una lógica de recuperación inteligente en estado *Half-Open*.
