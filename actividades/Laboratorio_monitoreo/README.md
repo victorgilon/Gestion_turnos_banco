@@ -112,6 +112,7 @@ Cada servicio genera logs personalizados para identificar:
 [MONITOREO] Servicio inventario disponible
 [MONITOREO] ver las veces que el sistemas se ha caido
 ```
+<img width="991" height="207" alt="image" src="https://github.com/user-attachments/assets/0d79c1ab-4709-46a5-952e-9225fe2feecf" />
 
 ---
 
