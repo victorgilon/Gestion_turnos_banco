@@ -157,6 +157,8 @@ El gateway:
 - veces_caido
 
 ---
+<img width="1572" height="635" alt="image" src="https://github.com/user-attachments/assets/fa6f3acc-a232-46d3-acbf-d5b4cbdb1db2" />
+
 
 ## 4. Métricas implementadas
 
