@@ -134,6 +134,7 @@ Este endpoint permite validar si el servicio está disponible.
   "estado": "activo"
 }
 ```
+<img width="1515" height="341" alt="image" src="https://github.com/user-attachments/assets/defc566c-7531-486f-98b7-4dce9538c6cf" />
 
 ---
 
