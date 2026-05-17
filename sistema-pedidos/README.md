@@ -4,10 +4,6 @@ Este laboratorio implementa un sistema de pedidos distribuido basado en microser
 Se desarrollaron los servicios de pedidos, inventario, pagos y monitoreo, permitiendo simular fallos, tiempos de espera y errores de comunicación entre servicios.
 Además, se implementaron logs descriptivos, health checks y monitoreo básico para analizar la disponibilidad y el comportamiento del sistema ante fallos del servicio de pagos.
 
----
-
-## Monitoreo implementado
-
 ### Fase 1 — Logs descriptivos
 
 ![](Evidencias/fase1.1.png)
@@ -16,8 +12,6 @@ Además, se implementaron logs descriptivos, health checks y monitoreo básico p
 En los logs se observa cómo el gateway monitorea los servicios de pagos e inventario,
 registrando tiempos de respuesta, errores de timeout y estados de disponibilidad
 para analizar el comportamiento del sistema distribuido.
-
----
 
 ### Fase 2 — Health Checks
 
@@ -35,8 +29,6 @@ El gateway los consulta individualmente a través de `/estado/pedidos`, `/estado
 **Pagos**
 ![](Evidencias/fase2pagos.png)
 ![](Evidencias/fase2.1.pagos.png)
-
----
 
 ### Fase 3 — Monitoreo central
 
@@ -58,8 +50,6 @@ Los logs muestran el ciclo completo de verificación: pedidos responde en 0.0031
 con HTTP 200, mientras que pagos agota el timeout del gateway y genera un `Read timed out`,
 registrándose como caído. Esto confirma que el sistema de monitoreo detecta y diferencia
 correctamente los servicios disponibles de los caídos en tiempo real.
-
----
 
 ### Fase 4 — Simulación de fallos
 
@@ -85,9 +75,6 @@ de `Read timed out` a `Failed to resolve 'pagos'`, indicando que el contenedor
 desapareció completamente de la red Docker. El gateway detecta la caída en el
 monitoreo y retorna HTTP 500 en el endpoint `/pagos`, mientras pedidos e
 inventario continúan operando con normalidad.
-
----
-
 ### Fase 5 — Métricas
 
 ![](Evidencias/fase5metricas.png)
