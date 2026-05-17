@@ -1,6 +1,5 @@
 # Laboratorio: Sistema que aprende a fallar – Circuit Breaker
 
----
 
 # Introducción
 
@@ -14,7 +13,7 @@ Se trabajó con los siguientes servicios:
 - Backend mascotas
 - Servicio usuarios
 
----
+
 
 # Arquitectura del sistema
 
@@ -38,6 +37,7 @@ Aquí se muestra la primera fase del sistema funcionando correctamente.
 ![](evidencias/fase1.png)
 
 ![](evidencias/fase1.1.png)
+![](image.png)
 
 ## ¿Qué hicimos?
 
@@ -60,19 +60,20 @@ El sistema:
 ```text
 Error de conexión
 Servicio no disponible
-```
 
----
+
+
 
 # FASE 2 – APLICAR (Extensión del Circuit Breaker)
 
-![](evidencias/fase2.png)
 
 ## ¿Qué hicimos?
 
 Se implementó el patrón Circuit Breaker en múltiples endpoints del gateway.
 
 En lugar de copiar el mismo código para cada endpoint, se creó una función reutilizable:
+![](image-1.png)
+![](evidencias/fase2.png)
 
 ```python
 def llamar_servicio(nombre, url):
@@ -116,15 +117,10 @@ Los demás servicios continúan funcionando normalmente.
 [mascotas] Estado OPEN
 ```
 
----
+
 
 # FASE 3 – INVESTIGAR (HALF_OPEN)
 
-![](evidencias/fase3.png)
-
-![](evidencias/fase3.1.png)
-
-![](evidencias/faase3.png)
 
 ## ¿Qué significa HALF_OPEN?
 
@@ -148,15 +144,16 @@ El circuito vuelve a estado OPEN y bloquea nuevamente las solicitudes.
 HALF_OPEN - reintentando conexión
 ```
 
----
+![](evidencias/fase3.png)
+
+![](evidencias/fase3.1.png)
+
+![](evidencias/faase3.png)
+
 
 # FASE 4 – IMPLEMENTAR (Recuperación)
 
-![](evidencias/fase4.png)
 
-![](evidencias/fase4.1.1.png)
-
-![](evidencias/fase4.2.png)
 
 ## ¿Qué implementamos?
 
@@ -191,18 +188,15 @@ El gateway realiza una nueva prueba de conexión.
 [mascotas] Estado OPEN - demasiados fallos
 [mascotas] Circuito OPEN - acceso bloqueado
 ```
+![](evidencias/fase4.png)
 
+![](evidencias/fase4.1.1.png)
+
+![](evidencias/fase4.2.png)
 ---
 
 # FASE 5 – VALIDAR
 
-![](evidencias/fase5.png)
-
-![](evidencias/fase5.1.png)
-
-![](evidencias/fase5.3.png)
-
-![](evidencias/fase5.4.png)
 
 ## Escenarios probados
 
@@ -216,7 +210,7 @@ El circuito permaneció en estado CLOSED.
 Estado CLOSED - servicio funcionando
 ```
 
----
+
 
 ### 2. Servicio caído
 
@@ -226,7 +220,7 @@ El gateway detectó errores consecutivos.
 
 ```text
 Error de conexión - fallo #1
-```
+
 
 ---
 
@@ -254,7 +248,6 @@ HALF_OPEN - reintentando conexión
 Estado CLOSED - servicio funcionando
 ```
 
----
 
 ### 5. Resiliencia entre servicios
 
@@ -268,8 +261,15 @@ También se probó el endpoint `/relacion`, el cual continuó respondiendo parci
 {
   "usuario": "Servicio usuarios no disponible",
   "mascota": "Firulais"
-}
-```
+
+
+![](evidencias/fase5.png)
+
+![](evidencias/fase5.1.png)
+
+![](evidencias/fase5.3.png)
+
+![](evidencias/fase5.4.png)
 
 ## Esto demostró:
 
