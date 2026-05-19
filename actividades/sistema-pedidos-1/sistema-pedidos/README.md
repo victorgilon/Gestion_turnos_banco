@@ -22,7 +22,12 @@ El servicio de inventario permite simular consultas de productos disponibles y a
 El servicio de pagos procesa las solicitudes de pago. En este laboratorio también se utilizó para simular errores y validar el comportamiento del sistema frente a fallos.
 Todos los servicios se encuentran conectados mediante Docker Compose, permitiendo la comunicación entre ellos.
 
+# Funcionamiento general del sistema
 
+<img width="210" height="192" alt="image" src="https://github.com/user-attachments/assets/06fbe414-e0b0-4476-8dab-9b442e187179" />
+
+# Resultado observado
+Durante las pruebas pude observar que el gateway funciona como intermediario entre los servicios, permitiendo centralizar las consultas y verificar constantemente el estado de cada microservicio.
 
 
 
