@@ -1,5 +1,53 @@
 # Sistema de Pedidos Distribuido
 
+En este laboratorio desarrollé un sistema de pedidos distribuido utilizando Flask, Docker y Docker Compose, con el fin de comprender cómo funciona la comunicación entre microservicios y cómo se comporta un sistema cuando uno de sus servicios presenta fallos.
+El sistema está conformado por varios servicios independientes: pedidos, inventario y pagos, además de un gateway, que se encarga de centralizar las consultas y monitorear el estado de cada servicio.
+Durante el desarrollo del laboratorio implementé logs descriptivos, health checks, monitoreo centralizado, simulación de fallos y métricas, con el propósito de analizar la disponibilidad y comportamiento de los servicios.
+
+# Arquitectura del sistema
+
+Para este laboratorio implementé una arquitectura basada en microservicios, donde cada componente funciona de manera independiente dentro de un contenedor Docker.
+Cada servicio cumple una función específica:
+
+# Gateway
+El gateway es el servicio principal del sistema. Este se encarga de consultar los demás servicios, verificar si están disponibles, registrar errores y mostrar información general del monitoreo.
+
+# Servicio de pedidos
+Este servicio se encarga de procesar la información relacionada con pedidos y responder las solicitudes realizadas desde el gateway.
+
+# Servicio de inventario
+El servicio de inventario permite simular consultas de productos disponibles y además se configuró para responder con tiempos de espera controlados.
+
+# Servicio de pagos
+El servicio de pagos procesa las solicitudes de pago. En este laboratorio también se utilizó para simular errores y validar el comportamiento del sistema frente a fallos.
+Todos los servicios se encuentran conectados mediante Docker Compose, permitiendo la comunicación entre ellos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Este laboratorio implementa un sistema de pedidos distribuido basado en microservicios utilizando Flask y Docker.
 Se desarrollaron los servicios de pedidos, inventario, pagos y monitoreo, permitiendo simular fallos, tiempos de espera y errores de comunicación entre servicios.
 Además, se implementaron logs descriptivos, health checks y monitoreo básico para analizar la disponibilidad y el comportamiento del sistema ante fallos del servicio de pagos.
