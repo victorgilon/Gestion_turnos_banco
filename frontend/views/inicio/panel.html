@@ -67,8 +67,8 @@
                 <div class="table-header">
                     <h2>Mis Turnos</h2>
                     <div class="filters">
-                        <button id="btn-secod" class="filter-btn active" onclick="filterTurns('all')">Todos</button>
-                        <button id="btn-secod" class="filter-btn" onclick="filterTurns('Activo')">Activos</button>
+                        <button class="filter-btn active" onclick="filterTurns('all')">Todos</button>
+                        <button class="filter-btn" onclick="filterTurns('Activo')">Activos</button>
                     </div>
                 </div>
                 <div class="table-wrapper">
@@ -82,7 +82,17 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="turns-body"></tbody>
+                        <tbody id="turns-body">
+                            <tr>
+                                <td>20/5/2026</td>
+                                <td>14:00</td>
+                                <td>Sin sucursal</td>
+                                <td><span class="status-tag status-activo">reservado</span></td>
+                                <td>
+                                    <button class="btn-action-cancel" onclick="cancelTurn(id)">Cancelar</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </section>
