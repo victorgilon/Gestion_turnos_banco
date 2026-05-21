@@ -4,6 +4,7 @@
 // Variable global para guardar datos
 let reservationData = {
     documento: "",
+    numeroTelefono: "",
     procedure: "",
     branch: { name: "", address: "" },
     date: "",
@@ -31,6 +32,9 @@ async function showStep(stepNumber) {
         const html = await response.text();
 
         container.innerHTML = html;
+        if (stepNumber === 3) {
+            await cargarSucursales();
+        }
 
         const content = container.querySelector(".step-content");
         if (content) {
@@ -46,8 +50,16 @@ async function showStep(stepNumber) {
 // Paso 1 -> 2
 function goToStepTwo() {
     const docInput = document.getElementById("res-doc-number");
+
+    // NUEVO
+    const phoneInput = document.getElementById("res-number");
+
     if (docInput.value.length > 5) {
-        reservationData.documento = docInput.value; // <--- GUARDAMOS
+        reservationData.documento = docInput.value;
+
+        // NUEVO
+        reservationData.numeroTelefono = phoneInput.value;
+
         showStep(2);
     } else {
         alert("Número de documento muy corto.");
@@ -106,6 +118,51 @@ function selectTimeSlot(element, hour) {
     confirmBtn.disabled = false;
     confirmBtn.style.backgroundColor = "#235347";
     confirmBtn.style.color = "#ffffffff";
+}
+
+// --- cargarSucursales (PASO 3) ---
+async function cargarSucursales() {
+    const container = document.getElementById("branches-container");
+
+    try {
+        const response = await fetch("http://localhost:3000/api/sucursales");
+
+        const sucursales = await response.json();
+
+        container.innerHTML = "";
+
+        sucursales.forEach((sucursal) => {
+            const card = document.createElement("div");
+
+            card.className = "branch-card";
+
+            card.innerHTML = `
+                <div class="branch-info">
+                    <i class="fas fa-university branch-icon"></i>
+
+                    <div class="branch-details">
+                        <h3>${sucursal.nombre.toUpperCase()}</h3>
+
+                        <p>${sucursal.direccion}</p>
+
+                        <span class="branch-status">
+                            ${sucursal.estado ? "Abierto" : "Cerrado"}
+                        </span>
+                    </div>
+                </div>
+
+                <button class="btn-reserve-small">
+                    Reservar
+                </button>
+            `;
+
+            card.onclick = () => selectBranch(sucursal._id, sucursal.nombre, sucursal.direccion);
+
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error cargando sucursales:", error);
+    }
 }
 
 // --- CONFIRMACIÓN FINAL (PASO 5) ---
@@ -189,7 +246,7 @@ async function enviarReservaAlBackend(datos) {
 
     // 3. Solo añadir el header de autorización si el token existe
     if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
+        headers["x-access-token"] = token;
     } else {
         console.warn("No se encontró token en localStorage. La petición podría ser rechazada.");
     }
@@ -226,6 +283,8 @@ function formatearDatosParaBackend() {
         hora: convertirHora24h(reservationData.time), // "08:30"
         sucursal: reservationData.branch.id, // "65f1a..."
         documento: reservationData.documento,
+        numeroTelefono: reservationData.numeroTelefono,
+        tramite: reservationData.procedure,
     };
 }
 
