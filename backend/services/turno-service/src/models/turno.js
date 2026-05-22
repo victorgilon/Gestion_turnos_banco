@@ -26,7 +26,7 @@ const esquemaTurno = new Schema(
 
         sucursal: {
             type: Schema.Types.ObjectId,
-            ref: "BranchOffice",
+            ref: "Sucursal",
             required: true,
         },
 
@@ -65,8 +65,6 @@ const esquemaTurno = new Schema(
         versionKey: false,
     },
 );
-
-
 
 esquemaTurno.index(
     {

@@ -1,6 +1,6 @@
 //este controlador lo que hace es crear, eliminar
 import Turno from "../models/turno";
-import BranchOffice from "../models/branchOffice";
+import BranchOffice from "../models/esquemaSucursal";
 import { publishEvent } from "../config/rabbitmq";
 
 export const crearTurno = async (req, res) => {

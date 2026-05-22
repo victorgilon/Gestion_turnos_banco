@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const branchOfficeSchema = new Schema(
+const esquemaSucursal = new Schema(
     {
         nombre: String,
         direccion: String,
@@ -10,4 +10,4 @@ const branchOfficeSchema = new Schema(
     },
 );
 
-export default model("BranchOffice", branchOfficeSchema);
+export default model("Sucursal", esquemaSucursal);
