@@ -1,68 +1,43 @@
-=====================================================
+# Auth Service - Sistema de Gestión de Turnos
 
-## 1. INICIALIZAR PROYECTO NODE
+Este microservicio es el encargado de gestionar la seguridad del sistema. Su responsabilidad principal dentro de la arquitectura es el registro de usuarios, la autenticación (login) y la generación/validación de tokens JWT.
 
-=====================================================
+## Tecnologías Utilizadas
 
-Este comando crea el archivo package.json del proyecto:
+- **Node.js & Express**: Entorno de ejecución y framework web.
+- **Mongoose**: ODM para la conexión y modelado de datos con MongoDB.
+- **Bcryptjs**: Encriptación de contraseñas.
+- **JSON Web Token (JWT)**: Generación de credenciales de acceso seguras.
+- **Babel**: Transpilador para utilizar sintaxis moderna de JavaScript (ES6+).
+- **Morgan & Helmet**: Middlewares para registro de peticiones HTTP y seguridad de cabeceras.
 
-npm init -y
+## Requisitos Previos
 
-=====================================================
+Asegúrate de estar ubicado en la raíz del proyecto antes de comenzar. La ruta de este servicio es:
+`cd backend/services/auth-service`
 
-## 2. CONFIGURACIÓN AUTH-SERVICE
+## Instalación y Configuración
 
-=====================================================
+1. **Inicializar el proyecto Node.js** (si aún no tiene el `package.json`):
 
-### 0. Entrada a esta carpeta para instalar configuraciones
+    ```bash
+    npm init -y
 
-cd backend/services/auth-service
+    ```
 
-### 1. Ir al directorio del servicio:
+2. **Instalación de dependencias** Para instalar todas las dependencias necesarias del proyecto (si ya existe el package.json), ejecuta:
 
-cd backend/services/auth-service
+    ```bash
+    npm install
 
-### 2. Inicializar proyecto:
+    ```
 
-npm init -y
+3. **Manualmente** O si necesitas instalar las dependencias manualmente desde cero:
 
-### 3. Instalar dependencias principales:
+    ```bash
+    npm i express dotenv mongoose morgan helmet
+    npm i -D nodemon @babel/core @babel/cli @babel/node @babel/preset-env
 
-npm i express bcryptjs cors dotenv jsonwebtoken mongoose
+    ```
 
-### 4. Instalar dependencia de desarrollo:
-
-npm install -D nodemon
-
-### 5. Compilar (si se usa Babel):
-
-npm run build
-
-=====================================================
-
-## 3. RECOMENDACIÓN (BUENA PRÁCTICA)
-
-=====================================================
-Para evitar instalar dependencias una por una, se recomienda:
-
-npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet
-npm i -D nodemon @babel/core @babel/cli @babel/node @babel/preset-env
-
-=====================================================
-
-## 4. NAVEGACIÓN A CARPETAS SRC
-
-=====================================================
-
-cd backend/services/auth-service/src
-
-npm run dev
-
-=====================================================
-
-## 5. RESUMEN ARQUITECTÓNICO DEL SISTEMA
-
-=====================================================
-
-- auth-service:
-  Maneja registro de usuarios, login y generación de tokens JWT.
+4. **Scripts de Ejecución**

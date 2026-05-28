@@ -2,13 +2,12 @@
 import jwt from "jsonwebtoken";
 import { SECRET } from "../config/config";
 
-export const verificacionToken = async (req, res, next) => {
+export const    verificacionToken = async (req, res, next) => {
     try {
         const token = req.headers["x-access-token"];
 
         if (!token) {
-            res.userId = null;
-            return next();
+            return res.status(403).json({ message: "No se proporcionó un token" });
         }
 
         const descifrado = jwt.verify(token, SECRET);

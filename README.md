@@ -1,123 +1,243 @@
-
 # BEVS TurnoBank - asignacion y gestion de turnos
 
 ## Acerca del proyecto
 
-"BEVS TurnoBank" es una aplicacion web que permite a los clientes de un servicio, 
-ofrecido por parte del banco para la reserva de turno, edicion y cancelacion. Asimismo
-, permite su gestion desde un rol de cliente y administrador.
+"BEVS TurnoBank" es una aplicación web que permite a los clientes de un servicio, ofrecido por parte del banco para la reserva de turnos, su edición y cancelación. Asimismo, permite su gestión desde un rol de cliente y administrador.
 
-#### ¿Qué problema resuelve el sistema?
+## Arquitectura del sistema
 
-Los problemas que resuelve es la Reduccion de tiempo de espera,
-la mejora en la organizacion y gestion de la fila, la parte de mayor eficiencia en la atencion al cliente, tambien la reduccion del estres y la frustractacion de clientes.
+El sistema utiliza un enfoque mixto:
 
-### ¿Quién lo usará?
+- **Tipo de arquitectura global:** MicroServicios.
+- **Arquitectura interna de los servicios:** Modelo Vista Controlador (MVC).
+<img width="748" height="566" alt="image" src="https://github.com/user-attachments/assets/6c7ef7df-d87e-49cc-ab1b-3be9bb68578e" />
 
-El sistema sera utilizado por:
- - clientes del banco: para solicitar los servicios como los depositos, retiros, pagos.
- - Empleados de banco: es la parte para atender a los clientes y gestionar los turnos.
--  Administradores del banco: para configurar y gestionar el sistema de turnos.
+
+## Análisis y Definición del Sistema
+
+### Problema que resuelve
+
+Resuelve principalmente el problema de la organización y la atención eficiente de servicios donde hay bastante flujo de gente.
 
 ### ¿Qué pasaría si no existiera?
 
-Si no existiera el sistema de gestion de turnos, lo probable seria:
- - habrian largas filas y tambien el tiempo de espera
--  la atencion del cliente seria ineficiente
-  -  la parte de los empleados del banco estarian sobrecargados, los clientes se sentirian frustados
+Generaría varios inconvenientes y confusión en el orden de atención y, a la vez, una mala experiencia tanto para el usuario como para los trabajadores.
 
-## IDENTIFICAR LOS SERVICIOS
+### ¿Qué funciones principales tiene el sistema?
 
-## ¿Qué funciones principales tiene el sistema?
+Las funciones principales serían las siguientes: crear, actualizar, ver y eliminar turnos, y también la autenticación de acceso.
 
-Las funciones del sistema son:
--  Registro: para que los clientes se registren y obtengan su turno
--  Atencion: Es la parte en que los empleados del banco van a atender al cliente.
+### ¿Qué partes pueden trabajar por separado y qué procesos son independientes?
 
-## ¿Qué partes pueden trabajar por separado?
+- Las partes que pueden trabajar por separado son el registro, login y autenticación.
+- Los procesos totalmente independientes son el login y la validación de autenticación.
 
-Las partes que pueden trabajar por separado son el sistema de usuarios, el modulo de gestion de turnos y el area de atencion al cliente. Cada uno cumple una funcion diferente y puede funcionar de manera independiente sin afectar directamente a los demas.
+### ¿Qué servicio necesita información de otro?
 
-## ¿Qué procesos son independientes?
+El servicio de gestión de turnos depende del servicio de autenticación, ya que necesita del JWT para poder identificar al usuario y a su vez el rol.
 
-Los procesos independientes suelen ser registro del cliente, asignacion de turnos, atencion al cliente.
+### Flujo de datos (Peticiones)
 
-## CÓMO SE COMUNICAN
+- **¿Quién solicita datos?:** usuario solicita -> Gestion turno -> JWT
+- **¿Quién responde?:** JWT -> Gestion turno -> usuario solicita
 
-## ¿Qué servicio necesita información de otro?
+### Dimensionamiento y Escalabilidad
 
-El servicio de pagos o atencion al cliente responde enviando la informacion solicitada para completar el proceso correctamente.
+- **¿Es un sistema pequeño o grande?** Es un sistema mediano.
+- **¿Cuántos usuarios tendrá el sistema?** 100 usuarios.
+- **¿Necesita escalar?** Sí, ya que debería de poder soportar más cosas.
 
-## ¿Quién solicita datos?
+### Gestión de Datos
 
-El servicio de turnos es quien solicita los datos cuando necesita confirmar informacion del usuario.
+- **¿Qué información debe guardarse?** - nombreUsuario
+    - Rol
+    - email
+    - password
+    - sucursal
+    - fecha
+    - hora
+- **¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?** Cada uno usa la suya.
+- **¿Qué datos son críticos?** El identificador de usuario JWT.
+- **¿Qué pasaría si se pierden?** El sistema no podría validar usuarios ni roles.
 
-## ¿Quién responde?
+### Usuarios y Roles
 
-El servicio de pagos o atencion al cliente responde enviando la informacion solicitada para completar el proceso correctamente.
-## ELEGIR LA ARQUITECTURA
+- **¿Quién usará el sistema?** - admin
+    - moderador
+    - usuario
+- **¿Todos pueden hacer lo mismo?** No, ya que el usuario solo puede gestionar su turno, en cambio el moderador puede llamar turnos y el admin tiene más privilegios.
 
-## Tipo de Arquitectura:
-MicroServicios: El sistema se divide en servicios pequeños e independientes, donde cada uno cumple una funcion especifica.
+### Tolerancia a fallos
 
-## ¿Cuántos usuarios tendrá el sistema?
-100
-## ¿Necesita escalar?
+- **¿Qué pasaría si falla?** Si llegara a fallar el sistema no podría guardar ni consultar información de los usuarios.
 
-Si, necesita escalar para soportar mas usuarios y turnos sin que el sistema se vuelva lento o falle.
-## ¿Es un sistema pequeño o grande?
-Es pequeño.
-## BASE DE DATOS
+### Posibles soluciones
 
-## ¿Qué información debe guardarse?
+_(Sección pendiente de definir según los planes de contingencia del proyecto)_
 
-* informacion del turno (numero de turno, fecha, hora del servicio)
-* estado de turno (pendiente, proceso, atentido)
+---
 
-## ¿Qué datos son críticos?
+## Stack de tecnologías utilizadas
 
-Es el identificador de usuario JWT, ya que nos permite autentificar al usuario y tambien validar los permisos, poder asegurar que solo se puede acceder a las funciones correspondientes a su rol.
+#### Back End:
 
-## ¿Qué pasaría si se pierden?
+- Node.js
+- express
+- JWT
 
-Un token de autenticacion es un codigo de seguridad que identifica al usuario cuando inicia sesion y permite al sistema verificar sus permisos dentro de la aplicacion.
+#### Front End:
 
-### Pregunta clave:
+- html
+- css
+- javaScript
 
-¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
+#### Base de datos:
 
-En este sistema, cada servicio tiene su propia base de datos. Esto permite que funcionen de manera independiente, facilita el crecimiento del sistema y reduce el impacto de posibles fallos, ya que si un servicio presenta un problema, los demas no se ven afectados directamente.
+- MongoDb Atlas
 
-## FALLAS Y RIESGOS
+#### Arquitectura y comunicación
 
-## ¿Quién usará el sistema?
+- Docker
+- Docker Compose
+- RabbitMQ
+- Microservicios
+- Arquitectura MVC
 
-El sistema sera utilizado por tres tipos de usuarios:
--  Administrador
--  Moderador
-- usuario
+## Configuración
 
-## ¿Todos pueden hacer lo mismo?
+_(Instrucciones de despliegue y configuración pendientes)_
 
-No, cada rol tiene funciones diferentes. El usuario solo puede gestionar su propio turno. El moderador puede administrar y llamar turnos. El administrador tiene control total del sistema y de los usuarios.
+## Instrucciones de ejecución
 
-## Pensar como ingenieros reales
-## ¿Qué pasaría si falla?
-Servicio de pagos: No se podrían confirmar los pagos ni completar algunas operaciones.
-Base de datos: No se podría guardar ni consultar información de turnos o usuarios.
-Servidor principal: El sistema dejaría de funcionar temporalmente.
+### 1. Ubicarse en la carpeta principal del proyecto
 
-## Escriban posibles soluciones:
-Reintentos: Intentar nuevamente la operación cuando falle.
-Notificaciones: Avisar al usuario cuando ocurra un error.
-Respaldo de datos: Tener copias de seguridad para recuperar la información en caso de fallos.
+Abrir una terminal y dirigirse a la carpeta raíz del proyecto:
 
-## Stack de tecnologias utilizadas
-Back End:
-Node.js express JWT
+```bash
+cd GESTION_TURNOS_BANCO
+```
 
-Front End:
-html css javaScript
+---
 
-Base de datos:
-MongoDb Atlas
+### 2. Verificar que exista el archivo docker-compose.yml
+
+Ejecutar el siguiente comando:
+
+```bash
+ls
+```
+
+Debe aparecer un archivo similar a:
+
+```txt
+docker-compose.yml
+```
+
+---
+
+### 3. Construir y levantar los contenedores
+
+Ejecutar el siguiente comando:
+
+```bash
+docker compose up --build
+```
+
+Este comando:
+
+- Construye las imágenes Docker de cada servicio.
+- Levanta los contenedores del frontend y backend.
+- Inicia RabbitMQ y la comunicación entre microservicios.
+
+---
+
+### 4. Acceder al sistema
+
+Una vez iniciado el proyecto, acceder desde el navegador a:
+
+#### Frontend
+
+```txt
+http://localhost:8080
+```
+
+#### API Gateway
+
+```txt
+http://localhost:3000
+```
+
+#### Panel de administración RabbitMQ
+
+```txt
+http://localhost:15672
+```
+
+---
+
+### 5. Detener el sistema
+
+Para detener todos los contenedores ejecutar:
+
+```bash
+docker compose down
+```
+
+# Circuit Breaker
+
+## Servicio funcionando
+
+El API Gateway se comunica normalmente con los microservicios y las solicitudes son procesadas correctamente.
+
+```txt
+Frontend → API Gateway → Microservicio
+```
+
+---
+
+## Servicio caído
+
+Cuando un microservicio falla o no responde, las solicitudes comienzan a generar errores.
+
+```txt
+Frontend → API Gateway → Servicio caído
+```
+<img width="377" height="94" alt="image" src="https://github.com/user-attachments/assets/03e14586-77e0-465c-8a57-185da63f6df8" />
+
+---
+
+## Circuito abierto
+
+Después de varios fallos, el sistema bloquea temporalmente las solicitudes hacia el servicio afectado para evitar sobrecarga.
+
+```txt
+Frontend → API Gateway ✖ Servicio bloqueado
+```
+
+<img width="1161" height="295" alt="image" src="https://github.com/user-attachments/assets/f68e0a79-9364-4ed2-963a-e9f635db6f0d" />
+
+---
+
+## Recuperación (Half-Open)
+
+Después de un tiempo de espera, el Circuit Breaker pasa al estado **Half-Open**, donde permite algunas solicitudes de prueba al servicio.
+
+Si el servicio responde correctamente, el circuito se cierra nuevamente y la comunicación vuelve a funcionar con normalidad.
+
+```txt
+Frontend → API Gateway → Servicio recuperado
+```
+<img width="550" height="80" alt="image" src="https://github.com/user-attachments/assets/3322e2e1-c82d-4e6d-9b9c-5aafe2c6d1ab" />
+
+
+# Monitoreo básico
+
+El sistema implementa monitoreo básico para verificar el funcionamiento de los microservicios y detectar posibles fallos.
+
+Se incluyen:
+
+- Logs funcionales para registrar eventos y errores.
+- Health checks para validar el estado de los servicios.
+- Monitoreo de disponibilidad, latencia y cantidad de errores en las solicitudes.
+<img width="307" height="475" alt="image" src="https://github.com/user-attachments/assets/169c546e-ba96-4aa3-b26e-6f86482accf1" />
+

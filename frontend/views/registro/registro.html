@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../../css/style.css" />
+        <title>BEVS - Registro</title>
+    </head>
+
+    <body>
+        <!-- FONDO -->
+        <div class="contenedor-fondo">
+            <div class="contenedor-flotante">
+                <div class="mancha-suave mancha-1"></div>
+                <div class="mancha-suave mancha-2"></div>
+                <div class="mancha-suave mancha-3"></div>
+                <div class="mancha-suave mancha-4"></div>
+            </div>
+        </div>
+
+        <div class="contenedor-principal">
+            <!-- PANEL IZQUIERDO -->
+            <div class="panel-info">
+                <!-- LOGO -->
+                <img src="../../assets/img/BE.png" class="logo-bevs" alt="Logo BEVS" />
+
+                <h1 class="titulo-info">¡Únete a BEVS TurnoBank!</h1>
+
+                <p class="texto-info">
+                    Crea tu cuenta en BEVS y gestiona tus turnos de forma rápida, segura y sin complicaciones.
+                </p>
+            </div>
+
+            <!-- FORMULARIO -->
+            <div class="contenedor-login">
+                <div class="carta">
+                    <div class="header">
+                        <h1 class="titulo">BEVS</h1>
+                        <p class="subtitulo">Registro de Usuario</p>
+                    </div>
+
+                    <form class="contenedor-formulario" id="registro-formulario">
+                        <div class="contenedor-login">
+                            <!-- NOMBRE -->
+                            <div class="caja-login">
+                                <input type="text" name="nombre" required placeholder=" " />
+                                <label>Nombre completo</label>
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="caja-login">
+                                <input type="email" name="email" required placeholder=" " />
+                                <label>Correo electrónico</label>
+                            </div>
+
+                            <!-- DOCUMENTO -->
+                            <div class="caja-login">
+                                <input type="text" name="documento" required placeholder=" " />
+                                <label>Número de documento</label>
+                            </div>
+
+                            <!-- CONTRASEÑA -->
+                            <div class="caja-login">
+                                <input type="password" name="password" required placeholder=" " />
+                                <label>Contraseña</label>
+                            </div>
+
+                            <!-- CONFIRMAR -->
+                            <div class="caja-login">
+                                <input type="password" name="confirmar" required placeholder=" " />
+                                <label>Confirmar contraseña</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="boton-login">Registrarse</button>
+                    </form>
+
+                    <div class="contenedor-registro">
+                        <span>¿Ya tienes una cuenta?</span>
+                        <a href="../login/login.html" class="registro-enlace">Iniciar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../js/registro.js"></script>
+    </body>
+</html>

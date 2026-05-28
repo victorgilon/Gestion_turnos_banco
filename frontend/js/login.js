@@ -15,7 +15,7 @@ formulario.addEventListener("submit", async (e) => {
     try {
         console.log("Antes del fetch");
 
-        const respuesta = await fetch("http://localhost:5100/api/autenticacion/login", {
+        const respuesta = await fetch("http://localhost:3000/api/autenticacion/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +51,7 @@ formulario.addEventListener("submit", async (e) => {
         console.log("Login correcto:", data);
 
         // Redirigir a la página principal
-        window.location.href = "../views/panel.html"; // ajusta la ruta según tu estructura
+        window.location.href = "../inicio/panel.html"; // ajusta la ruta según tu estructura
     } catch (error) {
         console.error("Error en fetch:", error);
         document.getElementById("passwordError").textContent = "Error de conexión con el servidor";
