@@ -112,6 +112,7 @@ Cada servicio genera logs personalizados para identificar:
 [MONITOREO] Servicio inventario disponible
 [MONITOREO] ver las veces que el sistemas se ha caido
 ```
+<img width="991" height="207" alt="image" src="https://github.com/user-attachments/assets/0d79c1ab-4709-46a5-952e-9225fe2feecf" />
 
 ---
 
@@ -133,6 +134,7 @@ Este endpoint permite validar si el servicio está disponible.
   "estado": "activo"
 }
 ```
+<img width="1515" height="341" alt="image" src="https://github.com/user-attachments/assets/defc566c-7531-486f-98b7-4dce9538c6cf" />
 
 ---
 
@@ -155,6 +157,8 @@ El gateway:
 - veces_caido
 
 ---
+<img width="1572" height="635" alt="image" src="https://github.com/user-attachments/assets/fa6f3acc-a232-46d3-acbf-d5b4cbdb1db2" />
+
 
 ## 4. Métricas implementadas
 
@@ -182,6 +186,7 @@ Se apagó el servicio de pagos utilizando Docker.
 ```bash
 docker stop actividad_en_clase-pagos-1
 ```
+<img width="1530" height="587" alt="image" src="https://github.com/user-attachments/assets/2b8895f9-7db7-44e4-b42a-cc4cf5a9de64" />
 
 ---
 
@@ -220,9 +225,10 @@ Al apagar el servicio de pagos:
 [MONITOREO] Verificando servicio: pagos
 [MONITOREO] Servicio caido: pagos
 ```
+## metricas
+<img width="1536" height="176" alt="image" src="https://github.com/user-attachments/assets/7434eb49-485b-46ee-87f9-82e2e4186810" />
 
 ---
-
 # Conclusiones
 
 Se implementó un sistema básico de monitoreo en una arquitectura distribuida utilizando:
