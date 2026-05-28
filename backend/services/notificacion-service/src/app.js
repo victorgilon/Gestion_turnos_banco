@@ -13,7 +13,7 @@ dotenv.config();
 app.use(express.json());
 
 // ==== rutas ====
-app.use("/health", healthRoutes);
+app.use(healthRoutes);
 
 const PORT = process.env.PORT || 3004;
 
@@ -54,6 +54,3 @@ export const startApp = async () => {
         process.exit(1);
     }
 };
-
-
-

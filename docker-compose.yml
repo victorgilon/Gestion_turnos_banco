@@ -66,6 +66,8 @@ services:
         depends_on:
             rabbitmq:
                 condition: service_healthy
+        ports:
+            - "3004:3004"
         networks:
             - turnos-network
 
