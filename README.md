@@ -1,143 +1,243 @@
-## SISTEMA DISTRIBUIDO DE GESTIÓN DE TURNOS (EPS, BANCOS)
+# BEVS TurnoBank - asignacion y gestion de turnos
 
-## ENTENDER EL PROBLEMA
+## Acerca del proyecto
 
-# ¿Qué problema resuelve el sistema?
-Este sistema resuelve el desorden y las largas filas en lugares como EPS o bancos.
+"BEVS TurnoBank" es una aplicación web que permite a los clientes de un servicio, ofrecido por parte del banco para la reserva de turnos, su edición y cancelación. Asimismo, permite su gestión desde un rol de cliente y administrador.
 
-# ¿Quién lo usará?
-los clientes que necesitan un turno y también los empleados que atienden en las ventanillas.
+## Arquitectura del sistema
 
-# ¿Qué pasaría si no existiera?
-Sin el sistema habría desorden, discusiones por el turno, más tiempo de espera y mala organización en la atención.
+El sistema utiliza un enfoque mixto:
 
-## IDENTIFICAR LOS SERVICIOS
-
-# ¿Qué funciones principales tiene el sistema?
-- Registro: Es cuando el cliente llega y solicita su turno. El sistema genera automáticamente un número y lo guarda para que quede en la fila de espera.
-- Atención: Es el momento en que el empleado llama al número correspondiente y atiende al cliente según el servicio que necesite.
-- Cierre:  Es cuando termina la atención y el sistema marca el turno como finalizado, guardando el registro de que ya fue atendido.
-
-# ¿Qué partes pueden trabajar por separado?
-Las partes que pueden trabajar por separado son el registro, la atención y el cierre del turno. Cada una cumple su función de manera independiente, una genera el turno, otra atiende al cliente y la última finaliza el proceso.
-
-# ¿Qué procesos son independientes?
-Los procesos independientes son el registro del turno, la atención y el cierre. Cada uno puede ejecutarse por separado
+- **Tipo de arquitectura global:** MicroServicios.
+- **Arquitectura interna de los servicios:** Modelo Vista Controlador (MVC).
+<img width="748" height="566" alt="image" src="https://github.com/user-attachments/assets/6c7ef7df-d87e-49cc-ab1b-3be9bb68578e" />
 
 
-## CÓMO SE COMUNICAN
+## Análisis y Definición del Sistema
 
-# ¿Qué servicio necesita información de otro?
-El servicio de atención necesita información del registro para saber qué turnos están en espera. El cierre necesita información de la atención.
+### Problema que resuelve
 
-# ¿Quién solicita datos?
-El servicio de atención solicita la lista de turnos pendientes al servicio de registro.
-El servicio de cierre solicita los datos del turno que está siendo atendido.
+Resuelve principalmente el problema de la organización y la atención eficiente de servicios donde hay bastante flujo de gente.
 
-# ¿Quién responde?
-El servicio de registro responde enviando los turnos en espera.
-El servicio de atención responde confirmando qué turno fue atendido para que el servicio de cierre lo marque como finalizado.
+### ¿Qué pasaría si no existiera?
+
+Generaría varios inconvenientes y confusión en el orden de atención y, a la vez, una mala experiencia tanto para el usuario como para los trabajadores.
+
+### ¿Qué funciones principales tiene el sistema?
+
+Las funciones principales serían las siguientes: crear, actualizar, ver y eliminar turnos, y también la autenticación de acceso.
+
+### ¿Qué partes pueden trabajar por separado y qué procesos son independientes?
+
+- Las partes que pueden trabajar por separado son el registro, login y autenticación.
+- Los procesos totalmente independientes son el login y la validación de autenticación.
+
+### ¿Qué servicio necesita información de otro?
+
+El servicio de gestión de turnos depende del servicio de autenticación, ya que necesita del JWT para poder identificar al usuario y a su vez el rol.
+
+### Flujo de datos (Peticiones)
+
+- **¿Quién solicita datos?:** usuario solicita -> Gestion turno -> JWT
+- **¿Quién responde?:** JWT -> Gestion turno -> usuario solicita
+
+### Dimensionamiento y Escalabilidad
+
+- **¿Es un sistema pequeño o grande?** Es un sistema mediano.
+- **¿Cuántos usuarios tendrá el sistema?** 100 usuarios.
+- **¿Necesita escalar?** Sí, ya que debería de poder soportar más cosas.
+
+### Gestión de Datos
+
+- **¿Qué información debe guardarse?** - nombreUsuario
+    - Rol
+    - email
+    - password
+    - sucursal
+    - fecha
+    - hora
+- **¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?** Cada uno usa la suya.
+- **¿Qué datos son críticos?** El identificador de usuario JWT.
+- **¿Qué pasaría si se pierden?** El sistema no podría validar usuarios ni roles.
+
+### Usuarios y Roles
+
+- **¿Quién usará el sistema?** - admin
+    - moderador
+    - usuario
+- **¿Todos pueden hacer lo mismo?** No, ya que el usuario solo puede gestionar su turno, en cambio el moderador puede llamar turnos y el admin tiene más privilegios.
+
+### Tolerancia a fallos
+
+- **¿Qué pasaría si falla?** Si llegara a fallar el sistema no podría guardar ni consultar información de los usuarios.
+
+### Posibles soluciones
+
+_(Sección pendiente de definir según los planes de contingencia del proyecto)_
+
+---
+
+## Stack de tecnologías utilizadas
+
+#### Back End:
+
+- Node.js
+- express
+- JWT
+
+#### Front End:
+
+- html
+- css
+- javaScript
+
+#### Base de datos:
+
+- MongoDb Atlas
+
+#### Arquitectura y comunicación
+
+- Docker
+- Docker Compose
+- RabbitMQ
+- Microservicios
+- Arquitectura MVC
+
+## Configuración
+
+_(Instrucciones de despliegue y configuración pendientes)_
+
+## Instrucciones de ejecución
+
+### 1. Ubicarse en la carpeta principal del proyecto
+
+Abrir una terminal y dirigirse a la carpeta raíz del proyecto:
+
+```bash
+cd GESTION_TURNOS_BANCO
+```
+
+---
+
+### 2. Verificar que exista el archivo docker-compose.yml
+
+Ejecutar el siguiente comando:
+
+```bash
+ls
+```
+
+Debe aparecer un archivo similar a:
+
+```txt
+docker-compose.yml
+```
+
+---
+
+### 3. Construir y levantar los contenedores
+
+Ejecutar el siguiente comando:
+
+```bash
+docker compose up --build
+```
+
+Este comando:
+
+- Construye las imágenes Docker de cada servicio.
+- Levanta los contenedores del frontend y backend.
+- Inicia RabbitMQ y la comunicación entre microservicios.
+
+---
+
+### 4. Acceder al sistema
+
+Una vez iniciado el proyecto, acceder desde el navegador a:
+
+#### Frontend
+
+```txt
+http://localhost:8080
+```
+
+#### API Gateway
+
+```txt
+http://localhost:3000
+```
+
+#### Panel de administración RabbitMQ
+
+```txt
+http://localhost:15672
+```
+
+---
+
+### 5. Detener el sistema
+
+Para detener todos los contenedores ejecutar:
+
+```bash
+docker compose down
+```
+
+# Circuit Breaker
+
+## Servicio funcionando
+
+El API Gateway se comunica normalmente con los microservicios y las solicitudes son procesadas correctamente.
+
+```txt
+Frontend → API Gateway → Microservicio
+```
+
+---
+
+## Servicio caído
+
+Cuando un microservicio falla o no responde, las solicitudes comienzan a generar errores.
+
+```txt
+Frontend → API Gateway → Servicio caído
+```
+<img width="377" height="94" alt="image" src="https://github.com/user-attachments/assets/03e14586-77e0-465c-8a57-185da63f6df8" />
+
+---
+
+## Circuito abierto
+
+Después de varios fallos, el sistema bloquea temporalmente las solicitudes hacia el servicio afectado para evitar sobrecarga.
+
+```txt
+Frontend → API Gateway ✖ Servicio bloqueado
+```
+
+<img width="1161" height="295" alt="image" src="https://github.com/user-attachments/assets/f68e0a79-9364-4ed2-963a-e9f635db6f0d" />
+
+---
+
+## Recuperación (Half-Open)
+
+Después de un tiempo de espera, el Circuit Breaker pasa al estado **Half-Open**, donde permite algunas solicitudes de prueba al servicio.
+
+Si el servicio responde correctamente, el circuito se cierra nuevamente y la comunicación vuelve a funcionar con normalidad.
+
+```txt
+Frontend → API Gateway → Servicio recuperado
+```
+<img width="550" height="80" alt="image" src="https://github.com/user-attachments/assets/3322e2e1-c82d-4e6d-9b9c-5aafe2c6d1ab" />
 
 
-## ELEGIR LA ARQUITECTURA
+# Monitoreo básico
 
-# Arquitectura
-Microservicios, porque cada módulo (registro, atención y cierre) funciona de manera independiente. Esto permite que el sistema sea más flexible y que, si un servicio falla, los demás sigan funcionando
+El sistema implementa monitoreo básico para verificar el funcionamiento de los microservicios y detectar posibles fallos.
 
-# ¿Cuántos usuarios tendrá el sistema?
-El sistema será usado por varias personas al mismo tiempo, como los clientes que solicitan turno y los empleados que están atendiendo en las ventanillas y estos daran un  cierre a la solicitud atendida.
+Se incluyen:
 
-# ¿Necesita escalar?
-Sí, con el tiempo sí necesitará escalar, ya que podría aumentar la cantidad de usuarios, como más clientes solicitando turnos o más empleados atendiendo. Además, también podría requerir mejoras y actualizaciones de seguridad para adaptarse a nuevas necesidades o a un uso más grande.
-
-# ¿Es un sistema pequeño o grande?
-Es un sistema pequeño, ya que por ahora solo incluye funciones básicas como registro, atención y cierre de turnos. Sin embargo, en el futuro podría crecer y volverse más grande, agregando más funcionalidades, más usuarios y nuevas mejoras según las necesidades.
-
-# Justificación
-Elegí la arquitectura Microservicios porque permite que el sistema sea más organizado y flexible. Cada módulo puede funcionar de manera independiente, lo que facilita su mantenimiento y futuras mejoras.
-
-
-## BASE DE DATOS
-
-# ¿Qué información debe guardarse?
-- Número del turno generado.
-- Fecha y hora en que se creó el turno.
-- Tipo de servicio solicitado.
-- Datos del empleado que atiende.
-- Estado del turno (pendiente, en atención o finalizado).
-- Historial de las atenciones realizadas.
-- Estado de turno (abierto o cerrado).
-
-# ¿Qué datos son críticos?
-Los datos más críticos son el número del turno, el estado del turno y el registro de atención. También es importante guardar correctamente qué empleado atendió cada turno y en qué momento, porque eso permite llevar control adecuado en el banco.
-
-# ¿Qué pasaría si se pierden?
-Si se pierden los datos, habría desorden en la atención, se repetirían turnos y no se sabría quién ya fue atendido. Esto generaría confusión y afectaría la organización y la confianza en el sistema.
-
-# ¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
-En una arquitectura de microservicios, en general cada servicio tiene su propia base de datos. Esto permite que funcionen de manera independiente, que sean más seguros y que si uno falla no afecte completamente a los demás.
-
-## FALLAS Y RIESGOS
-
-# ¿Quién usará el sistema?
-- Cliente: Es la persona que solicita el turno.
-- Empleado: Es quien llama y atiende los turnos en ventanilla.
-- Administrador: Es quien supervisa el sistema
-
-# ¿Todos pueden hacer lo mismo?
-No todos pueden hacer lo mismo. Cada usuario tiene un rol diferente dentro del sistema. El cliente solo puede generar su turno, el empleado se encarga de llamar y cerrar los turnos, y el administrador tiene acceso a configuraciones y reportes.
-
-
-## FALLAS Y RIESGOS
-
-# ¿Qué pasaría si falla el servicio de pagos?
-No se podrían procesar los cobros y algunos turnos quedarían pendientes.
-
-# ¿Qué pasaría si falla la base de datos?
-No se podrían guardar ni consultar los turnos.
-
-# ¿Qué pasaría si falla el servidor principal?
-El sistema dejaría de funcionar temporalmente y se detendría la atención a los usuaros del banco.
-
-# Soluciones más comunes ante fallas
-- Reintentos automáticos: para que el sistema vuelva a intentar cuando haya un error de conexión.
-- Notificaciones al administrador: para avisar cuando algo falle.
-- Respaldo de datos: hacer copias de seguridad para no perder la información.
-- Servidor de respaldo: en caso de que el principal deje de funcionar.
-- Registro de errores: para identificar y corregir problemas.
-
-
-## TECNOLOGÍAS UTILIZADAS
-
-# Back End
-- Node.js: Entorno que permite ejecutar JavaScript en el servidor.
-- Express.js: Framework para crear la API y manejar las rutas del sistema.
-
-# Front End
-- HTML: Estructura de las páginas del sistema.
-- CSS: Diseño y apariencia visual.
-
-# Base de Datos
-MongoDB Atlas:Base de datos en la nube que almacena los turnos, usuarios, estados y el historial del sistema.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Logs funcionales para registrar eventos y errores.
+- Health checks para validar el estado de los servicios.
+- Monitoreo de disponibilidad, latencia y cantidad de errores en las solicitudes.
+<img width="307" height="475" alt="image" src="https://github.com/user-attachments/assets/169c546e-ba96-4aa3-b26e-6f86482accf1" />
 

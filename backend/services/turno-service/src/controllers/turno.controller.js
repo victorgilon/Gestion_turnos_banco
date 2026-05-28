@@ -1,10 +1,11 @@
 //este controlador lo que hace es crear, eliminar
 import Turno from "../models/turno";
+import BranchOffice from "../models/esquemaSucursal";
 import { publishEvent } from "../config/rabbitmq";
 
 export const crearTurno = async (req, res) => {
     try {
-        const { fecha, hora, estado, disponible, sucursal, documento } = req.body;
+        const { fecha, hora, estado, disponible, sucursal, documento, numeroTelefono, tramite } = req.body;
 
         let usuarioId = null;
         let tipoCliente = "visitante";
@@ -29,12 +30,14 @@ export const crearTurno = async (req, res) => {
         const newTurno = new Turno({
             fecha,
             hora,
-            estado,
-            disponible,
             sucursal,
-            usuario: usuarioId,
-            tipoCliente,
-            documento: documentoCliente,
+            usuario: usuarioId, // Id del usuario si está logueado
+            documento: documentoCliente, // <--- Campo nuevo del esquema
+            numeroTelefono: numeroTelefono || null, // <--- Campo opcional del esquema
+            tramite,
+            tipoCliente, // "visitante" o "registrado"
+            estado: "reservado", // Valor por defecto
+            disponible: false, // Al reservarse, ya no está disponible
         });
 
         const turnoGuardado = await newTurno.save();
@@ -62,10 +65,18 @@ export const crearTurno = async (req, res) => {
 
 export const obtenerTurno = async (req, res) => {
     try {
-        const turno = await Turno.find();
+        const turno = await Turno.find({
+            usuario: req.userId,
+        }).populate("sucursal", "nombre direccion");
+
         res.json(turno);
     } catch (error) {
-        return res.status(500).json({ message: "Error al obtener turnos", error });
+        console.log("ERROR REAL:", error);
+
+        return res.status(500).json({
+            message: "Error al obtener turnos",
+            error: error.message,
+        });
     }
 };
 

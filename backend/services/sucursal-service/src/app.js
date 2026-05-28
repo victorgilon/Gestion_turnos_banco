@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 //* ==== importar rutas ==== *//
 import sucursalRoutes from "./routes/sucursal.routes";
+import healthRoutes from "./routes/health.routes";
 
 dotenv.config();
 const app = express();
@@ -18,5 +19,6 @@ app.use(cors());
 
 //* ==== rutas ==== *//s
 app.use("/api/sucursales", sucursalRoutes);
+app.use(healthRoutes);
 
 export default app;

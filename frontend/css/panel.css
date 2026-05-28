@@ -26,7 +26,7 @@
 
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-light);
+    background-color: var(--white);
     color: var(--text-main);
     line-height: 1.6;
 }
@@ -112,12 +112,24 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-mid);
+    background: var(--primary-light);
     color: var(--white);
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
     width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: var(--transition);
+}
+
+#btn-secod {
+    background: var(--primary-light);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 1rem;
@@ -160,45 +172,118 @@ body {
     color: var(--danger);
 }
 
-/* Table Styles */
-.table-section {
-    overflow: hidden;
+/* ==========================================================================
+   Mejoras para la Sección de Tabla y Filtros
+   ========================================================================== */
+
+/* Encabezado de la tabla */
+.table-header h2 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    font-weight: 700;
 }
 
-.table-header {
+/* Contenedor de botones de filtro */
+.filters {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+    gap: 0.5rem;
 }
 
-.table-wrapper {
-    overflow-x: auto;
+/* Estilo base para los botones de filtro */
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--primary-light);
+    color: var(--primary-light);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
+/* Estado activo del filtro (Intercambiado dinámicamente) */
+.filter-btn.active {
+    background: var(--primary-mid);
+    border-color: var(--primary-mid);
+    color: var(--white);
+}
+
+.filter-btn:hover:not(.active) {
+    background: rgba(35, 83, 71, 0.1);
+}
+
+/* ==========================================================================
+   Estilos de la Tabla
+   ========================================================================== */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; /* Cambiado para permitir border-radius en celdas si se desea */
+    border-spacing: 0;
     text-align: left;
+    margin-top: 0.5rem;
 }
 
 th {
     background: var(--bg-light);
     padding: 12px;
-    color: var(--primary-dark);
-    font-weight: bold;
+    color: var(--primary-dark); /* Asegura que use el color más oscuro */
+    font-weight: 700 !important; /* Fuerza el grosor de negrilla máxima */
+    font-size: 0.9rem; /* Un toque más pequeño suele mejorar la estética si está en mayúsculas */
+    letter-spacing: 0.5px; /* Separa un poco las letras para mejorar la lectura */
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between; /* Empuja el título a la izquierda y los filtros a la derecha */
+    align-items: center;
+    margin-bottom: 1.5rem;
+    width: 100%; /* Asegura que tome todo el ancho de la tarjeta */
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto; /* Refuerzo: si algo falla, esto empuja el bloque a la derecha */
+}
+
+/* Redondear esquinas superiores de la tabla */
+th:first-child {
+    border-top-left-radius: 8px;
+}
+th:last-child {
+    border-top-right-radius: 8px;
 }
 
 td {
-    padding: 15px 12px;
-    border-bottom: 1px solid var(--bg-light);
+    padding: 16px;
+    border-bottom: 1px solid rgba(142, 182, 155, 0.2);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    vertical-align: middle;
 }
 
+/* Efecto hover en las filas */
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background-color: rgba(218, 241, 222, 0.15);
+}
+
+/* ==========================================================================
+   Componentes: Etiquetas de Estado y Botones de Acción
+   ========================================================================== */
+
+/* Etiquetas de estado estilizadas */
 .status-tag {
-    padding: 4px 10px;
-    border-radius: 20px;
+    padding: 6px 14px;
+    border-radius: 50px;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: capitalize;
+    display: inline-block;
 }
 
 .status-activo {
@@ -206,27 +291,33 @@ td {
     color: var(--primary-light);
 }
 
-.status-cancelado {
-    background: #f1f1f1;
-    color: #777;
-}
-
-.status-completado {
-    background: var(--primary-light);
-    color: var(--white);
-}
-
-.btn-action {
-    border: none;
-    background: none;
-    cursor: pointer;
-    margin-right: 10px;
-    color: var(--primary-light);
-    font-size: 1.1rem;
-}
-
-.btn-cancel {
+/* Botón moderno de Cancelar */
+.btn-action-cancel {
+    background: transparent;
+    border: 1px solid var(--danger);
     color: var(--danger);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-action-cancel:hover {
+    background: var(--danger);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(157, 42, 42, 0.2);
+}
+
+table,
+th,
+td,
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
 }
 
 /* Responsive */
