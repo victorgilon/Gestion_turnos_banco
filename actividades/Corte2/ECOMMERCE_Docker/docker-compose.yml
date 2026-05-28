@@ -1,0 +1,41 @@
+services:
+    web:
+        image: nginx:alpine
+        container_name: frontend
+        ports:
+            - "8080:80"
+        volumes:
+            - ./frontend:/usr/share/nginx/html:ro
+        depends_on:
+            - backend
+
+    backend:
+        build: ./backend
+        container_name: backend
+        ports:
+            - "3000:3000"
+        environment:
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_NAME: tienda
+            DB_USER: root
+            DB_PASSWORD: 123456
+            PORT: 3000
+        depends_on:
+            - db
+
+    db:
+        image: mysql:8.0
+        container_name: mysql_db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: tienda
+        ports:
+            - "3307:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+    mysql_data:
