@@ -1,0 +1,62 @@
+services:
+    # --- 1. FRONTEND ---
+    frontend:
+        image: nginx:alpine
+        ports:
+            - "8080:80"
+        volumes:
+            - ./frontend:/usr/share/nginx/html
+        networks:
+            - red-restaurante
+
+    # --- 2. API GATEWAY ---
+    api-gateway:
+        image: nginx:alpine
+        ports:
+            - "3000:80"
+        networks:
+            - red-restaurante
+        depends_on:
+            - ms-usuarios
+            - ms-pedidos
+            - ms-catalogo
+
+    # --- 3. USUARIOS (Con su propia DB) ---
+    ms-usuarios:
+        build: ./services/usuarios
+        environment:
+            - MONGO_URL=mongodb://db-usuarios:27017/users_db
+        networks:
+            - red-restaurante
+    db-usuarios:
+        image: mongo:latest
+        networks:
+            - red-restaurante
+
+    # --- 4. PEDIDOS (Con su propia DB) ---
+    ms-pedidos:
+        build: ./services/pedidos
+        environment:
+            - MONGO_URL=mongodb://db-pedidos:27017/orders_db
+        networks:
+            - red-restaurante
+    db-pedidos:
+        image: mongo:latest
+        networks:
+            - red-restaurante
+
+    # --- 5. CATÁLOGO (Con su propia DB) ---
+    ms-catalogo:
+        build: ./services/catalogo
+        environment:
+            - MONGO_URL=mongodb://db-catalogo:27017/catalog_db
+        networks:
+            - red-restaurante
+    db-catalogo:
+        image: mongo:latest
+        networks:
+            - red-restaurante
+
+networks:
+    red-restaurante:
+        driver: bridge
