@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "http://127.0.0.1:5500",
+        origin: ["http://localhost:8080", "http://127.0.0.1:8080"],
         credentials: true,
     }),
 );
@@ -34,6 +34,11 @@ const circuitBreaker = {
     },
 
     turnos: {
+        errores: 0,
+        abierto: false,
+        ultimoFallo: null,
+    },
+    notificacion: {
         errores: 0,
         abierto: false,
         ultimoFallo: null,

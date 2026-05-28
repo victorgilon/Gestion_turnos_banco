@@ -93,6 +93,142 @@ _(Sección pendiente de definir según los planes de contingencia del proyecto)_
 
 - MongoDb Atlas
 
+#### Arquitectura y comunicación
+
+- Docker
+- Docker Compose
+- RabbitMQ
+- Microservicios
+- Arquitectura MVC
+
 ## Configuración
 
 _(Instrucciones de despliegue y configuración pendientes)_
+
+## Instrucciones de ejecución
+
+### 1. Ubicarse en la carpeta principal del proyecto
+
+Abrir una terminal y dirigirse a la carpeta raíz del proyecto:
+
+```bash
+cd GESTION_TURNOS_BANCO
+```
+
+---
+
+### 2. Verificar que exista el archivo docker-compose.yml
+
+Ejecutar el siguiente comando:
+
+```bash
+ls
+```
+
+Debe aparecer un archivo similar a:
+
+```txt
+docker-compose.yml
+```
+
+---
+
+### 3. Construir y levantar los contenedores
+
+Ejecutar el siguiente comando:
+
+```bash
+docker compose up --build
+```
+
+Este comando:
+
+- Construye las imágenes Docker de cada servicio.
+- Levanta los contenedores del frontend y backend.
+- Inicia RabbitMQ y la comunicación entre microservicios.
+
+---
+
+### 4. Acceder al sistema
+
+Una vez iniciado el proyecto, acceder desde el navegador a:
+
+#### Frontend
+
+```txt
+http://localhost:8080
+```
+
+#### API Gateway
+
+```txt
+http://localhost:3000
+```
+
+#### Panel de administración RabbitMQ
+
+```txt
+http://localhost:15672
+```
+
+---
+
+### 5. Detener el sistema
+
+Para detener todos los contenedores ejecutar:
+
+```bash
+docker compose down
+```
+
+# Circuit Breaker
+
+## Servicio funcionando
+
+El API Gateway se comunica normalmente con los microservicios y las solicitudes son procesadas correctamente.
+
+```txt
+Frontend → API Gateway → Microservicio
+```
+
+---
+
+## Servicio caído
+
+Cuando un microservicio falla o no responde, las solicitudes comienzan a generar errores.
+
+```txt
+Frontend → API Gateway → Servicio caído
+```
+
+---
+
+## Circuito abierto
+
+Después de varios fallos, el sistema bloquea temporalmente las solicitudes hacia el servicio afectado para evitar sobrecarga.
+
+```txt
+Frontend → API Gateway ✖ Servicio bloqueado
+```
+
+---
+
+## Recuperación (Half-Open)
+
+Después de un tiempo de espera, el Circuit Breaker pasa al estado **Half-Open**, donde permite algunas solicitudes de prueba al servicio.
+
+Si el servicio responde correctamente, el circuito se cierra nuevamente y la comunicación vuelve a funcionar con normalidad.
+
+```txt
+Frontend → API Gateway → Servicio recuperado
+```
+
+# Monitoreo básico
+
+El sistema implementa monitoreo básico para verificar el funcionamiento de los microservicios y detectar posibles fallos.
+
+Se incluyen:
+
+- Logs funcionales para registrar eventos y errores.
+- Health checks para validar el estado de los servicios.
+- Monitoreo de disponibilidad, latencia y cantidad de errores en las solicitudes.

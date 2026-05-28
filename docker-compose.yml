@@ -69,6 +69,17 @@ services:
         networks:
             - turnos-network
 
+    frontend:
+        build: ./frontend
+        image: frontend:1.0
+        container_name: frontend
+        ports:
+            - "8080:80"
+        depends_on:
+            - api-gateway
+        networks:
+            - turnos-network
+
 networks:
     turnos-network:
         driver: bridge
