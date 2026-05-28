@@ -45,7 +45,7 @@ formulario.addEventListener("submit", async (e) => {
                 email: email,
                 password: password,
                 documento: documento,
-                // 🚨 NO se envía rol, el backend lo asigna
+                //NO se envía rol, el backend lo asigna
             }),
         });
 

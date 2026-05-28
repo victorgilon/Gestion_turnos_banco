@@ -1,16 +1,16 @@
 services:
-    # rabbitmq:
-    #     image: rabbitmq:3-management-alpine
-    #     ports:
-    #         - "5672:5672" # Puerto de comunicación AMQP
-    #         - "15672:15672" # Interfaz web de administración
-    #     networks:
-    #         - turnos-network
-    #     healthcheck:
-    #         test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
-    #         interval: 10s
-    #         timeout: 5s
-    #         retries: 5
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        ports:
+            - "5672:5672" # Puerto de comunicación AMQP
+            - "15672:15672" # Interfaz web de administración
+        networks:
+            - turnos-network
+        healthcheck:
+            test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
     api-gateway:
         build: ./backend/services/api-gateway
         image: api-gateway:1.0
@@ -50,24 +50,37 @@ services:
         image: turno-service:1.0
         env_file:
             - ./backend/services/turno-service/.env
-        # depends_on:
-        #     rabbitmq:
-        #         condition: service_healthy
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
         ports:
             - "3003:3003"
         networks:
             - turnos-network
 
-    # notificacion-service:
-    #     build: ./backend/services/notificacion-service
-    #     image: notificacion-service:1.0
-    #     env_file:
-    #         - ./backend/services/notificacion-service/.env
-    #     depends_on:
-    #         rabbitmq:
-    #             condition: service_healthy
-    #     networks:
-    #         - turnos-network
+    notificacion-service:
+        build: ./backend/services/notificacion-service
+        image: notificacion-service:1.0
+        env_file:
+            - ./backend/services/notificacion-service/.env
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+        ports:
+            - "3004:3004"
+        networks:
+            - turnos-network
+
+    frontend:
+        build: ./frontend
+        image: frontend:1.0
+        container_name: frontend
+        ports:
+            - "8080:80"
+        depends_on:
+            - api-gateway
+        networks:
+            - turnos-network
 
 networks:
     turnos-network:

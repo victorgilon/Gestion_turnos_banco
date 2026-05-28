@@ -153,3 +153,76 @@ function reprogramar(id) {
 function filterTurns(status) {
     renderDashboard(status);
 }
+
+async function cargarMisTurnos() {
+    const tbody = document.getElementById("turns-body");
+
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch("http://localhost:3000/api/turnos", {
+            method: "GET",
+
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token,
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+
+            console.log("ERROR BACKEND:", errorData);
+
+            throw new Error(errorData.message);
+        }
+
+        const turnos = await response.json();
+        console.log(turnos);
+
+        tbody.innerHTML = "";
+
+        if (turnos.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        No tienes turnos registrados
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        turnos.forEach((turno) => {
+            const fila = document.createElement("tr");
+
+            const fecha = new Date(turno.fecha).toLocaleDateString("es-CO");
+
+            fila.innerHTML = `
+            
+            <td>${fecha}</td>
+            <td>${turno.hora}</td>
+            <td>${turno.sucursal?.nombre || "Sin sucursal"}</td>
+            <td>
+                <span class="estado-${turno.estado}">
+                    ${turno.estado}
+                </span>
+            </td>
+
+            <td>
+                <button onclick="cancelarTurno('${turno._id}')">
+                    Cancelar
+                </button>
+            </td>
+        `;
+
+            tbody.appendChild(fila);
+        });
+    } catch (error) {
+        console.error("Error cargando turnos:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    cargarMisTurnos();
+});

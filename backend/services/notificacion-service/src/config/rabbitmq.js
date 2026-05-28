@@ -29,8 +29,8 @@ export const connectRabbitMQ = async () => {
         return channel;
     } catch (error) {
         console.error("No se pudo conectar a RabbitMQ:", error.message);
-        console.log("Reintentando en 5 segundos...");
-        setTimeout(connectRabbitMQ, 5000);
+        // console.log("Reintentando en 5 segundos...");
+        // setTimeout(connectRabbitMQ, 5000);
     }
 };
 

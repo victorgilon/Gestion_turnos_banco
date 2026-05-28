@@ -5,6 +5,7 @@ import cors from "cors";
 
 //* ==== importar rutas ==== *//
 import turnoRutas from "./routes/turno.routes";
+import healthRoutes from "./routes/health.routes";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ app.set("json spaces", 4);
 app.use(morgan("dev"));
 app.use(express.json());
 
-//* ==== rutas ==== *//s
+//* ==== rutas ==== *//
 app.use("/api/turnos", turnoRutas);
+app.use(healthRoutes);
 
 export default app;
