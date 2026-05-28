@@ -10,6 +10,8 @@ El sistema utiliza un enfoque mixto:
 
 - **Tipo de arquitectura global:** MicroServicios.
 - **Arquitectura interna de los servicios:** Modelo Vista Controlador (MVC).
+<img width="748" height="566" alt="image" src="https://github.com/user-attachments/assets/6c7ef7df-d87e-49cc-ab1b-3be9bb68578e" />
+
 
 ## Análisis y Definición del Sistema
 
