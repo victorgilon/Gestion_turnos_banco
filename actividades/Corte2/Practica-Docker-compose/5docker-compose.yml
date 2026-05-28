@@ -1,9 +1,0 @@
-db:
-    image: mongo:latest
-    container_name: mongodb_restaurante
-    environment:
-        - MONGO_INITDB_DATABASE=pedidos_db
-    ports:
-        - "27017:27017"
-    volumes:
-        - mongo_data:/data/db
