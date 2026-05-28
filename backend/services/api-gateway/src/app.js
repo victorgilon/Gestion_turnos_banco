@@ -187,4 +187,26 @@ app.use(
     }),
 );
 
+// =============================
+// RUTAS TURNOS
+// =============================
+app.use(
+    "/api/notificaciones",
+
+    circuitoMiddleware("notificacion"),
+
+    createProxyMiddleware({
+        target: `http://${process.env.NOTIFICACION_SERVICE_HOST}:${process.env.NOTIFICACION_SERVICE_PORT}`,
+        changeOrigin: true,
+
+        onError: (err, req, res) => manejarError("notificacion", err, req, res),
+
+        onProxyRes: () => {
+            circuitBreaker.notificacion.errores = 0;
+
+            console.log("[OK] Servicio Notificaciones funcionando");
+        },
+    }),
+);
+
 export default app;

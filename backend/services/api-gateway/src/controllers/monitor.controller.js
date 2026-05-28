@@ -6,6 +6,8 @@ const SERVICIOS = {
     turnos: `http://${process.env.TURNO_SERVICE_HOST}:${process.env.TURNO_SERVICE_PORT}/health`,
 
     sucursales: `http://${process.env.SUCURSAL_SERVICE_HOST}:${process.env.SUCURSAL_SERVICE_PORT}/health`,
+
+    notificacion: `http://${process.env.NOTIFICACION_SERVICE_HOST}:${process.env.NOTIFICACION_SERVICE_PORT}/health`,
 };
 
 export const estadoGeneral = async (req, res) => {
