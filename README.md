@@ -1,4 +1,3 @@
-<img width="763" height="211" alt="image" src="https://github.com/user-attachments/assets/7ff5c772-f095-44d7-b3b3-d197bf6fae53" />
 # BEVS TurnoBank - asignacion y gestion de turnos
 
 ## Acerca del proyecto
@@ -201,6 +200,7 @@ Cuando un microservicio falla o no responde, las solicitudes comienzan a generar
 ```txt
 Frontend → API Gateway → Servicio caído
 ```
+<img width="377" height="94" alt="image" src="https://github.com/user-attachments/assets/03e14586-77e0-465c-8a57-185da63f6df8" />
 
 ---
 
@@ -211,6 +211,8 @@ Después de varios fallos, el sistema bloquea temporalmente las solicitudes haci
 ```txt
 Frontend → API Gateway ✖ Servicio bloqueado
 ```
+
+<img width="1161" height="295" alt="image" src="https://github.com/user-attachments/assets/f68e0a79-9364-4ed2-963a-e9f635db6f0d" />
 
 ---
 
@@ -223,6 +225,8 @@ Si el servicio responde correctamente, el circuito se cierra nuevamente y la com
 ```txt
 Frontend → API Gateway → Servicio recuperado
 ```
+<img width="550" height="80" alt="image" src="https://github.com/user-attachments/assets/3322e2e1-c82d-4e6d-9b9c-5aafe2c6d1ab" />
+
 
 # Monitoreo básico
 
@@ -233,3 +237,5 @@ Se incluyen:
 - Logs funcionales para registrar eventos y errores.
 - Health checks para validar el estado de los servicios.
 - Monitoreo de disponibilidad, latencia y cantidad de errores en las solicitudes.
+<img width="307" height="475" alt="image" src="https://github.com/user-attachments/assets/169c546e-ba96-4aa3-b26e-6f86482accf1" />
+
