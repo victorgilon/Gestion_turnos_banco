@@ -1,8 +1,34 @@
 # Sistema de Pedidos Distribuido
 
-Este laboratorio implementa un sistema de pedidos distribuido basado en microservicios utilizando Flask y Docker.
-Se desarrollaron los servicios de pedidos, inventario, pagos y monitoreo, permitiendo simular fallos, tiempos de espera y errores de comunicación entre servicios.
-Además, se implementaron logs descriptivos, health checks y monitoreo básico para analizar la disponibilidad y el comportamiento del sistema ante fallos del servicio de pagos.
+En este laboratorio desarrollé un sistema de pedidos distribuido utilizando Flask, Docker y Docker Compose, con el fin de comprender cómo funciona la comunicación entre microservicios y cómo se comporta un sistema cuando uno de sus servicios presenta fallos.
+El sistema está conformado por varios servicios independientes: pedidos, inventario y pagos, además de un gateway, que se encarga de centralizar las consultas y monitorear el estado de cada servicio.
+Durante el desarrollo del laboratorio implementé logs descriptivos, health checks, monitoreo centralizado, simulación de fallos y métricas, con el propósito de analizar la disponibilidad y comportamiento de los servicios.
+
+# Arquitectura del sistema
+
+Para este laboratorio implementé una arquitectura basada en microservicios, donde cada componente funciona de manera independiente dentro de un contenedor Docker.
+Cada servicio cumple una función específica:
+
+# Gateway
+El gateway es el servicio principal del sistema. Este se encarga de consultar los demás servicios, verificar si están disponibles, registrar errores y mostrar información general del monitoreo.
+
+# Servicio de pedidos
+Este servicio se encarga de procesar la información relacionada con pedidos y responder las solicitudes realizadas desde el gateway.
+
+# Servicio de inventario
+El servicio de inventario permite simular consultas de productos disponibles y además se configuró para responder con tiempos de espera controlados.
+
+# Servicio de pagos
+El servicio de pagos procesa las solicitudes de pago. En este laboratorio también se utilizó para simular errores y validar el comportamiento del sistema frente a fallos.
+Todos los servicios se encuentran conectados mediante Docker Compose, permitiendo la comunicación entre ellos.
+
+# Funcionamiento general del sistema
+
+<img width="210" height="192" alt="image" src="https://github.com/user-attachments/assets/06fbe414-e0b0-4476-8dab-9b442e187179" />
+
+# Resultado observado
+Durante las pruebas pude observar que el gateway funciona como intermediario entre los servicios, permitiendo centralizar las consultas y verificar constantemente el estado de cada microservicio.
+
 
 ### Fase 1 — Logs descriptivos
 
@@ -52,6 +78,12 @@ registrándose como caído. Esto confirma que el sistema de monitoreo detecta y 
 correctamente los servicios disponibles de los caídos en tiempo real.
 
 ### Fase 4 — Simulación de fallos
+Como se puede evidenciar en la imagen, el endpoint de estado se encuentra activo y responde correctamente, lo que confirma el funcionamiento adecuado del servicio.
+
+<img width="502" height="486" alt="Captura de pantalla 2026-05-19 141857" src="https://github.com/user-attachments/assets/96fe2057-9446-49af-a6d6-d10f9c2e41f9" />
+
+
+
 
 Se detiene el servicio de pagos con:
 

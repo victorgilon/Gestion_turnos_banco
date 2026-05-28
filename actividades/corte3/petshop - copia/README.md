@@ -10,6 +10,7 @@ Nota: La figura presenta el código completo del Gateway implementado para el se
 
 
 
+
 Figura 2. Contenedor del servicio backend detenido dentro del entorno Docker
 <img width="457" height="336" alt="image" src="https://github.com/user-attachments/assets/da3c2db1-4540-4ab2-b94e-c595f1399451" />
 
