@@ -1,0 +1,399 @@
+:root {
+    /* Paleta extraída de la imagen */
+    --primary-dark: #051f20;
+    --primary-mid: #0b2b26;
+    --primary-light: #235347;
+    --accent: #8eb69b;
+    --bg-light: #8EB69B;
+
+    /* Colores funcionales */
+    --white: #ffffff;
+    --grey: #eeeeee;
+    --text-main: #051f20;
+    --text-muted: #163832;
+    --success: #235347;
+    --danger: #9d2a2a;
+
+    /* Efectos */
+    --shadow: 0 4px 20px rgba(5, 31, 32, 0.12);
+    --transition: all 0.3s ease;
+}
+
+/* =========================================
+   1. ESTRUCTURA BASE DEL MODAL
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 31, 32, 0.7); /* Oscurecimiento basado en la paleta */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: var(--grey);
+    width: 100%;
+    max-width: 450px;
+    height: 90vh; /* 90% de la altura de pantalla */
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.modal-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: var(--grey);
+    align-items: center;
+    border-bottom: 1px solid rgba(11, 43, 38, 0.1);
+}
+
+.modal-body {
+    flex: 1; /* Toma el espacio restante */
+    padding: 20px 25px;
+    overflow-y: auto; /* Habilita el scroll interno */
+    text-align: center;
+}
+
+/* Scroll discreto para el modal */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 10px;
+}
+
+/* =========================================
+   2. ELEMENTOS DE FORMULARIO Y PASOS
+   ========================================= */
+.step-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.input-field {
+    background: var(--white);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.input-field label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+}
+
+.input-field input,
+.input-field select {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    margin-top: 5px;
+    background: transparent;
+    color: var(--text-main);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    padding: 12px 15px;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.search-container input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+}
+
+/* =========================================
+   3. TARJETAS (PROCEDIMIENTOS Y SUCURSALES)
+   ========================================= */
+.option-list,
+.branch-list {
+    margin-top: 20px;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.procedure-card,
+.branch-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        border-color 0.3s;
+    border: 1px solid transparent;
+}
+
+.procedure-card:active,
+.branch-card:active {
+    transform: scale(0.98);
+}
+
+.procedure-card:hover,
+.branch-card:hover {
+    border-color: var(--accent);
+}
+
+.card-header,
+.branch-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    position: relative;
+    text-align: left;
+}
+
+.icon-card,
+.branch-icon {
+    font-size: 1.4rem;
+    color: var(--primary-light);
+    margin-top: 5px;
+}
+
+.header-text,
+.branch-details {
+    flex: 1;
+}
+
+.header-text h3,
+.branch-details h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+}
+
+.header-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.header-text ul li::before {
+    content: "- ";
+}
+
+.branch-status {
+    color: var(--success);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.procedure-card.compact .card-header {
+    align-items: center;
+}
+
+/* =========================================
+   4. SELECCIÓN DE HORARIOS (GRID)
+   ========================================= */
+.section-label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.time-slot {
+    background: var(--white);
+    border: 1px solid #ddd;
+    padding: 12px 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.time-slot:hover {
+    border-color: var(--accent);
+    background: var(--white);
+}
+
+.time-slot.selected {
+    background: var(--primary-mid);
+    border-color: var(--primary-mid);
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* =========================================
+   5. PANTALLA DE ÉXITO Y RESUMEN
+   ========================================= */
+.check-circle {
+    background-color: var(--accent);
+    color: var(--primary-dark);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin: 0 auto 15px;
+}
+
+.alert-box {
+    background-color: rgba(142, 182, 155, 0.2);
+    border: 1px solid var(--accent);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.alert-box i {
+    font-size: 1.5rem;
+    color: var(--primary-mid);
+}
+
+.detail-card {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.detail-card label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.detail-card strong {
+    font-size: 1rem;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+}
+
+/* =========================================
+   6. BOTONES Y ACCIONES
+   ========================================= */
+.btn-continue-reserve,
+.btn-primary-block {
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-mid);
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-continue-reserve:hover,
+.btn-primary-block:hover {
+    background: var(--primary-dark);
+}
+
+.btn-reserve-small {
+    background: var(--accent);
+    color: var(--primary-dark);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-outline {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-secod {
+    background: var(--primary-mid);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: var(--transition);
+}
+
+.final-actions {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+button:disabled {
+    background: #eee !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+}
+
+/* =========================================
+   7. ANIMACIONES Y OTROS
+   ========================================= */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.ticket-header-hidden {
+    display: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    border-bottom: 2px dashed #ccc;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+#ticket-print canvas .ticket-header-hidden {
+    display: block;
+}

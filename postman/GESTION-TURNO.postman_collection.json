@@ -22,13 +22,13 @@
               },
               {
                 "key": "x-access-token",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzczMTYzNDE1LCJleHAiOjE3NzMyNDk4MTV9.Jp0QjKG-edlrT0tw7CjtOnhFLBvkuh8wsxeqNbDbO2U",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzc3NDgwNDQ1LCJleHAiOjE3Nzc1NjY4NDV9.zk-ugqiwi8aM9H6T5YRKtRvzHmq8fjO8lz1HK4lXoQw",
                 "type": "text"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"fecha\": \"2026-03-01\",\r\n  \"hora\": \"15:30\",\r\n  \"sucursal\": \"65f1a1234567890abcde1234\",\r\n  \"documento\": \"1061697441\"\r\n}",
+              "raw": "{\r\n  \"fecha\": \"2026-04-21\",\r\n  \"hora\": \"14:00\",\r\n  \"sucursal\": \"65f1a1234567890abcde1111\",\r\n  \"documento\": \"1061697441\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -62,7 +62,7 @@
               },
               {
                 "key": "x-access-token",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzczMTYzNDE1LCJleHAiOjE3NzMyNDk4MTV9.Jp0QjKG-edlrT0tw7CjtOnhFLBvkuh8wsxeqNbDbO2U",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzc3NDgwNDQ1LCJleHAiOjE3Nzc1NjY4NDV9.zk-ugqiwi8aM9H6T5YRKtRvzHmq8fjO8lz1HK4lXoQw",
                 "type": "text"
               }
             ],
@@ -76,7 +76,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/turnos/69b053cf9a460e8d18bec661",
+              "raw": "http://localhost:3000/api/turnos/69f2331c69cefbc3bd2e6e31",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -85,7 +85,7 @@
               "path": [
                 "api",
                 "turnos",
-                "69b053cf9a460e8d18bec661"
+                "69f2331c69cefbc3bd2e6e31"
               ]
             }
           },
@@ -147,40 +147,7 @@
               },
               {
                 "key": "x-access-token",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzczMTYzNDE1LCJleHAiOjE3NzMyNDk4MTV9.Jp0QjKG-edlrT0tw7CjtOnhFLBvkuh8wsxeqNbDbO2U",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"fecha\": \"2026-02-15T00:00:00.000Z\",\r\n  \"hora\": \"09:31\",\r\n  \"sucursal\": \"65c123456789abcdef123456\",\r\n  \"usuario\": \"65c987654321abcdef123456\"\r\n}\r\n"
-            },
-            "url": {
-              "raw": "http://localhost:3000/api/turnos",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "api",
-                "turnos"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Obtener por id",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "contend-Type",
-                "value": "application/json",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzc3NDgwNDQ1LCJleHAiOjE3Nzc1NjY4NDV9.zk-ugqiwi8aM9H6T5YRKtRvzHmq8fjO8lz1HK4lXoQw",
                 "type": "text"
               }
             ],
@@ -199,6 +166,45 @@
                 "api",
                 "turnos",
                 ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener por id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "contend-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWRlMjEyNDNmODY1MTViNDg2YzJiMCIsIm5vbWJyZVVzdWFyaW8iOiJicmF5YW4iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2N1bWVudG8iOiIxMDYxNjk3NDQyIiwiaWF0IjoxNzc3NDgwNDQ1LCJleHAiOjE3Nzc1NjY4NDV9.zk-ugqiwi8aM9H6T5YRKtRvzHmq8fjO8lz1HK4lXoQw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fecha\": \"2026-02-15T00:00:00.000Z\",\r\n  \"hora\": \"09:31\",\r\n  \"sucursal\": \"65c123456789abcdef123456\",\r\n  \"usuario\": \"65c987654321abcdef123456\"\r\n}\r\n"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/turnos/69f2331c69cefbc3bd2e6e31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "turnos",
+                "69f2331c69cefbc3bd2e6e31"
               ]
             }
           },
@@ -429,12 +435,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5100/api/autenticacion/login",
+              "raw": "http://localhost:3001/api/autenticacion/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "5100",
+              "port": "3001",
               "path": [
                 "api",
                 "autenticacion",
@@ -493,7 +499,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nombreUsuario\": \"brayan\",\r\n  \"email\": \"brayan@gmail.com\",\r\n  \"documento\": \"1061697442\",\r\n  \"password\": \"123*\",\r\n  \"roles\": [\"admin\"]\r\n}",
+              "raw": "{\r\n  \"nombreUsuario\": \"carol\",\r\n  \"email\": \"carol@gmail.com\",\r\n  \"documento\": \"1061697660\",\r\n  \"password\": \"123*\",\r\n  \"roles\": [\"admin\"]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -501,12 +507,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5100/api/autenticacion/registro",
+              "raw": "http://localhost:3001/api/autenticacion/registro",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "5100",
+              "port": "3001",
               "path": [
                 "api",
                 "autenticacion",

@@ -51,7 +51,7 @@ formulario.addEventListener("submit", async (e) => {
         console.log("Login correcto:", data);
 
         // Redirigir a la página principal
-        window.location.href = "../views/panel.html"; // ajusta la ruta según tu estructura
+        window.location.href = "../inicio/panel.html"; // ajusta la ruta según tu estructura
     } catch (error) {
         console.error("Error en fetch:", error);
         document.getElementById("passwordError").textContent = "Error de conexión con el servidor";

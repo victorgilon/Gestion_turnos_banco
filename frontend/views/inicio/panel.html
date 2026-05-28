@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard | BEVS TurnoBank</title>
+        <!--========== icons styles ==========-->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="../../css/panel.css" />
+        <link rel="stylesheet" href="../../css/crear_turno.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-container">
+                <div class="logo"><i class="fas fa-university"></i> BEVS<span>TurnoBank</span></div>
+                <div class="user-info">
+                    <span id="welcome-msg">Bienvenido, Usuario</span>
+                    <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out"></i> Salir</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-container">
+            <section class="stats-grid">
+                <div class="card action-card">
+                    <i class="fas fa-calendar-plus icon-main"></i>
+                    <h3>Reservar turno</h3>
+                    <p>Agenda una nueva cita en tu sucursal favorita.</p>
+                    <button class="btn-primary" onclick="handleReserve()">Nueva Reserva</button>
+                </div>
+
+                <div class="card info-card">
+                    <i class="fas fa-clock icon-main"></i>
+                    <h3>Próximo turno</h3>
+                    <div id="next-turn-display" class="next-turn-data">
+                        <p class="no-data">No hay turnos pendientes</p>
+                    </div>
+                </div>
+
+                <div class="card summary-card">
+                    <h3>Resumen</h3>
+                    <div class="summary-item">
+                        <span>Activos</span>
+                        <strong id="count-active" class="badge blue">0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Completados</span>
+                        <strong id="count-completed" class="badge green">0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Cancelados</span>
+                        <strong id="count-cancelled" class="badge red">0</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="table-section card">
+                <div class="table-header">
+                    <h2>Mis Turnos</h2>
+                    <div class="filters">
+                        <button class="filter-btn active" onclick="filterTurns('all')">Todos</button>
+                        <button class="filter-btn" onclick="filterTurns('Activo')">Activos</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table id="turns-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Sucursal</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="turns-body">
+                            <tr>
+                                <td>20/5/2026</td>
+                                <td>14:00</td>
+                                <td>Sin sucursal</td>
+                                <td><span class="status-tag status-activo">reservado</span></td>
+                                <td>
+                                    <button class="btn-action-cancel" onclick="cancelTurn(id)">Cancelar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <div id="reserve-modal" class="modal-overlay">
+            <div class="modal-content">
+                <nav class="modal-nav">
+                    <button class="btn-secod" onclick="closeReserve()"><i class="fa-solid fa-arrow-left-long"></i> Atrás</button>
+                    <!-- <div class="logo-minimal"><i class="fas fa-bars"></i></div> -->
+                    <button class="btn-secod" onclick="closeReserve()">Inicio <i class="fa-solid fa-house"></i></button>
+                </nav>
+
+                <!-- ========================= -->
+                <!-- MODAL RESERVA -->
+                <!-- ========================= -->
+                <div id="modal-container" class="modal-body"></div>
+            </div>
+        </div>
+        <script src="../../js/panel.js"></script>
+        <script src="../../js/crear_turno.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    </body>
+</html>
