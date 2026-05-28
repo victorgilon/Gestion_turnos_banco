@@ -23,7 +23,6 @@ metricas = {
 }
 
 
-# ========================== endpoint pedidos ==========================
 
 @app.route("/pedidos")
 def pedidos():
@@ -51,7 +50,7 @@ def pedidos():
         return jsonify({"error": "Servicio pedidos no disponible"}), 500
 
 
-# ========================== endpoint pagos ==========================
+
 
 @app.route("/pagos")
 def pagos():
@@ -79,7 +78,7 @@ def pagos():
         return jsonify({"error": "Servicio pagos no disponible"}), 500
 
 
-# ========================== endpoint inventario ==========================
+
 
 @app.route("/inventario")
 def inventario():
@@ -106,8 +105,6 @@ def inventario():
         print(f"[ERROR][INVENTARIO] {e}", flush=True)
         return jsonify({"error": "Servicio inventario no disponible"}), 500
 
-
-# ========================== monitoreo general ==========================
 
 @app.route("/estado")
 def estado():
@@ -142,11 +139,10 @@ def estado():
                 "veces_caido": fallos[nombre]
             }
 
-    print("===========================================\n", flush=True)
+    print("\n")
     return jsonify(resultado)
 
 
-# ========================== metricas ==========================
 
 @app.route("/metricas")
 def ver_metricas():
@@ -162,8 +158,6 @@ def ver_metricas():
     return jsonify(resumen)
 
 
-# ========================== health inventario ==========================
-
 @app.route("/estado/inventario")
 def estado_inventario():
     try:
@@ -173,7 +167,6 @@ def estado_inventario():
         return jsonify({"status": "down"}), 503
 
 
-# ========================== health pagos ==========================
 
 @app.route("/estado/pagos")
 def estado_pagos():
@@ -184,7 +177,7 @@ def estado_pagos():
         return jsonify({"status": "down"}), 503
 
 
-# ========================== health pedidos ==========================
+
 
 @app.route("/estado/pedidos")
 def estado_pedidos():

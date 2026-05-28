@@ -1,0 +1,40 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "6001:5000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8.0
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/mysql
+
+  usuarios:
+    build: ./usuarios 
+    ports:
+      - "6002:5000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+  
+  gateway:
+   build: ./gateway
+   ports:
+    - "6003:5000"
+   depends_on:
+    - backend
+    - usuarios
+volumes:
+  db_data:
+
+
+   
+
+

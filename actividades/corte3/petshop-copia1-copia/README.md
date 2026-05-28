@@ -1,0 +1,296 @@
+<<<<<<< HEAD
+=======
+FASE 1 – OBSERVAR (sin modificar código)
+
+Figura 1. Código fuente completo del Gateway para el servicio de mascotas con manejo de errores y circuit breaker
+<img width="664" height="394" alt="image" src="https://github.com/user-attachments/assets/1af6c337-3192-477b-bb70-2e5b2e11ec7f" />
+
+Nota: La figura presenta el código completo del Gateway implementado para el servicio de mascotas. En este código se incluyen mecanismos de registro de eventos (logs), manejo de errores y la implementación del patrón circuit breaker, utilizado para proteger el sistema ante fallos o indisponibilidad del backend.
+
+
+
+
+
+Figura 2. Contenedor del servicio backend detenido dentro del entorno Docker
+<img width="457" height="336" alt="image" src="https://github.com/user-attachments/assets/da3c2db1-4540-4ab2-b94e-c595f1399451" />
+
+Nota: La figura muestra el estado de los contenedores del sistema en Docker, donde se evidencia que el servicio backend se encuentra apagado o detenido. Esta situación permite realizar pruebas de manejo de errores y verificar el funcionamiento del Gateway ante la indisponibilidad del backend.
+
+
+
+
+
+Figura 3. Peticiones realizadas desde el navegador al Gateway mientras el backend se encuentra apagado
+<img width="806" height="195" alt="image" src="https://github.com/user-attachments/assets/a5021b86-2e64-42ea-82b8-e38f08ec9269" />
+
+Nota: La figura muestra varias solicitudes realizadas desde el navegador hacia el Gateway a través del endpoint de mascotas. Debido a que el servicio backend se encuentra apagado, el sistema responde con un mensaje de error indicando que el servicio no está disponible, permitiendo evidenciar el funcionamiento del manejo de errores y del mecanismo circuit breaker.
+
+
+
+
+Figura 4. Bloqueo temporal del servicio después de varias peticiones realizadas al Gateway
+<img width="681" height="216" alt="image" src="https://github.com/user-attachments/assets/5552487d-3f2c-4a18-a2c8-a5603847247e" />
+
+Nota: En la figura se observa que, después de realizar varias peticiones desde el navegador y no obtener respuesta del backend, el sistema activa automáticamente el mecanismo de bloqueo temporal. Por esta razón, el Gateway muestra el mensaje “Servicio temporalmente bloqueado” y deja de procesar nuevas solicitudes por un momento para proteger el sistema.
+
+
+
+
+
+Figura 5. Logs generados por el Gateway durante las fallas del servicio de mascotas
+<img width="744" height="238" alt="image" src="https://github.com/user-attachments/assets/3036d942-9da0-421c-bd2f-171bf23933f6" />
+
+Nota: En la figura se puede observar que el Gateway intenta conectarse varias veces con el servicio de mascotas, pero como el backend se encuentra apagado, se generan errores 503. Además, en los logs se registran los intentos fallidos (“Fallo número 1”, “Fallo número 2” y “Fallo número 3”) hasta que el sistema activa el “Circuito abierto”. Esto permite evidenciar cómo el Gateway detecta las fallas consecutivas y protege el sistema dejando de realizar más intentos de conexión al servicio caído.
+
+
+
+
+
+Responder:
+
+•	¿Qué hace el sistema actualmente?
+
+El gateway intenta comunicarse con el servicio de mascotas y, al estar apagado, se generan errores 503. El sistema registra los fallos consecutivos hasta activar el Circuito abierto.
+
+•	¿Se protege o insiste?
+
+Primero el sistema insiste realizando varios intentos de conexión. Después de varios fallos, activa el Circuito abierto y se protege dejando de intentar conectarse al servicio caído.
+
+
+
+
+FASE 2 – APLICAR (Extensión del Circuit Breaker)
+
+A partir de lo implementado en clase para /mascotas, deben:
+
+•	Aplicar el mismo comportamiento en los demás endpoints del gateway (ej: /usuarios, /resumen u otros que tengan)
+
+
+• Extensión del circuit breaker a usuarios 
+
+Figura 6. Variable de control del estado del servicio de usuarios
+
+<img width="333" height="159" alt="image" src="https://github.com/user-attachments/assets/376577db-69b9-44c4-9bd1-68980b93afbc" />
+
+Nota: En la figura se muestra la variable `estado_usuarios`, utilizada para controlar el funcionamiento del servicio de usuarios. La propiedad `fallos` almacena la cantidad de errores consecutivos detectados, mientras que `circuito` indica si el servicio se encuentra funcionando normalmente (`False`) o bloqueado temporalmente (`True`) debido a múltiples fallos en la comunicación.
+
+
+Figura 7. Código implementado en el Gateway para el servicio de usuarios
+
+<img width="438" height="506" alt="image" src="https://github.com/user-attachments/assets/b5eb0dee-7c45-4c4e-afc1-a2289a6decf0" />
+
+Nota: En la figura se muestra el código implementado en el Gateway para el servicio de usuarios. En este código se incluyen logs para registrar los eventos del sistema, manejo de errores y un mecanismo de circuit breaker que permite detectar múltiples fallos consecutivos. Cuando el servicio no responde después de varios intentos, el sistema bloquea temporalmente las solicitudes para evitar más errores y proteger la comunicación entre servicios.
+
+
+Figura 8. Consulta de información del servicio de usuarios desde el Gateway
+<img width="763" height="211" alt="image" src="https://github.com/user-attachments/assets/9daa5f2c-391c-4780-8f86-ddef5c78f1e7" />
+
+Nota: En la figura se observa que el Gateway realiza correctamente la consulta al servicio de usuarios y muestra la información obtenida directamente en el navegador. Esto permite comprobar que la comunicación entre el Gateway y el servicio de usuarios se encuentra funcionando de manera adecuada.
+
+
+Figura 9. Mensaje de error al intentar consultar el servicio de usuarios
+<img width="684" height="219" alt="image" src="https://github.com/user-attachments/assets/2cd59295-d62d-44db-a8c9-3eb536ad0cb5" />
+
+Nota: En la figura se observa que, al encontrarse apagado el contenedor del servicio de usuarios, el Gateway no puede obtener la información solicitada y devuelve un mensaje indicando que el servicio no se encuentra disponible. Esto permite evidenciar el funcionamiento del manejo de errores implementado en el sistema.
+
+
+Figura 10. Bloqueo temporal del servicio de usuarios después de múltiples solicitudes
+<img width="675" height="208" alt="image" src="https://github.com/user-attachments/assets/b417235e-c195-4580-8a6d-e5562208aeed" />
+
+Nota: En la figura se observa que, después de realizar varios intentos de consulta al servicio de usuarios y no obtener respuesta, el sistema activa automáticamente el bloqueo temporal. Por esta razón, el Gateway muestra el mensaje “Servicio bloqueado”, evitando seguir enviando solicitudes al servicio que se encuentra caído.
+
+
+Figura 11. Análisis de los logs del servicio de usuarios
+<img width="921" height="310" alt="image" src="https://github.com/user-attachments/assets/7f634960-f4e6-470d-927d-ae4983974dbb" />
+
+Nota: En la imagen se puede observar cómo el Gateway intenta conectarse varias veces al servicio de usuarios, pero al no recibir respuesta se generan errores HTTP 503. Cada fallo aumenta el contador de errores hasta que, después de varios intentos, el Circuit Breaker se activa y bloquea temporalmente el servicio. Esto permite evitar más solicitudes al servicio caído y ayuda a mantener la estabilidad del sistema.
+
+
+
+Endpoint de resumen implementado en el Gateway
+Figura 12. Control de estados de los servicios en el Gateway
+<img width="303" height="454" alt="image" src="https://github.com/user-attachments/assets/a1fc2133-747e-4856-9df8-2e3efc315852" />
+
+Nota: En la figura se observa un diccionario de Python utilizado para guardar y organizar el estado de los servicios del sistema. Dentro del diccionario llamado `estados` se almacena la información de los servicios de usuarios, mascotas y resumen.
+Cada servicio contiene dos variables principales: `fallos`, que registra la cantidad de errores detectados, y `circuito`, que indica si el servicio se encuentra funcionando normalmente (`False`) o bloqueado temporalmente (`True`) debido a múltiples fallos consecutivos.
+
+
+
+Figura 13. Código completo del endpoint de resumen implementado en el Gateway
+<img width="379" height="636" alt="image" src="https://github.com/user-attachments/assets/0ad7e0df-d846-4fdf-bcca-ae8f5edb8912" />
+
+Nota: En la figura se muestra el código fuente utilizado para el endpoint de resumen dentro del Gateway. Este código fue implementado para consultar la información de los servicios de usuarios y mascotas en un solo endpoint, evitando repetir la misma lógica utilizada en otros servicios. Además, incluye manejo de errores, registros en logs y el mecanismo de Circuit Breaker para controlar los fallos y proteger la estabilidad del sistema.
+
+
+Figura 14. Llamado al endpoint de resumen desde el navegador
+<img width="538" height="700" alt="image" src="https://github.com/user-attachments/assets/94b3de34-c365-441c-8752-ff7ee90d49d3" />
+
+Nota: En la figura se observa el resultado obtenido al realizar la consulta al endpoint de resumen desde el navegador. El Gateway muestra correctamente la información de los servicios de mascotas y usuarios en una sola respuesta, permitiendo verificar que ambos servicios están funcionando y comunicándose correctamente.
+
+
+Figura 15. Prueba del endpoint de resumen con el servicio de usuarios apagado
+<img width="554" height="503" alt="image" src="https://github.com/user-attachments/assets/25631193-ed5f-489e-9803-ca0c7fb88207" />
+
+Nota: En la figura se observa una prueba realizada al endpoint de resumen después de apagar el servicio de usuarios. Como resultado, el sistema sigue mostrando correctamente la información del servicio de mascotas, mientras que en la sección de usuarios aparece el mensaje “Servicio usuarios no disponible”. Esto permite comprobar que el endpoint de resumen continúa funcionando incluso cuando uno de los servicios falla, mostrando únicamente el error correspondiente al servicio que se encuentra caído.
+
+
+Figura 16. Logs generados durante las pruebas del endpoint de resumen
+<img width="768" height="490" alt="image" src="https://github.com/user-attachments/assets/6ead13e7-067b-41d4-bd76-029bcc754302" />
+
+Nota: En la figura se puede observar el comportamiento del endpoint de resumen durante las pruebas realizadas. Inicialmente, el sistema consulta correctamente el servicio de mascotas y responde con un código HTTP 200, indicando que la información fue obtenida correctamente. Posteriormente, se apaga el servicio de usuarios para verificar el manejo de errores, y en los logs se registran varios fallos consecutivos hasta que el sistema activa el bloqueo temporal del servicio. 
+A pesar de que el servicio de usuarios se encuentra caído, el endpoint de resumen continúa funcionando y sigue mostrando correctamente la información disponible del servicio de mascotas. Esto permite comprobar que el sistema puede seguir respondiendo parcialmente aun cuando uno de los servicios presenta fallos, garantizando mayor estabilidad durante las pruebas.
+
+
+
+Deben analizar y decidir:
+
+
+•	¿Cada servicio debe tener su propio contador de fallos?
+
+Sí. Cada servicio debe manejar sus propios fallos de manera independiente, porque un microservicio puede presentar errores mientras los demás siguen funcionando correctamente. Esto permite identificar exactamente qué servicio está fallando sin afectar a los otros.
+
+
+•	¿El circuito debe abrirse de forma independiente por servicio?
+
+Sí. El circuito debe abrirse únicamente para el servicio que está presentando errores. De esta manera, si un endpoint falla varias veces, solo ese servicio se bloquea temporalmente, mientras los demás continúan funcionando con normalidad.
+
+
+•	¿Qué pasa si falla un servicio pero el otro sigue funcionando?
+
+Si un servicio falla, el sistema no debería detenerse completamente. Los demás servicios deben seguir respondiendo normalmente. Por ejemplo, si falla el servicio de mascotas, el de usuarios puede continuar funcionando y el gateway aún puede responder parcialmente la información disponible.
+
+
+Nota: No quiero ver el mismo código copiado…quiero ver cómo adaptan la lógica a otros endpoints
+
+
+
+FASE 3 – INVESTIGAR (Half-Open)
+
+
+Cada grupo debe investigar:
+
+
+•	¿Qué significa “half-open”?
+
+el estado “Half-Open” es un periodo de prueba controlada en el que el sistema deja pasar algunas solicitudes para verificar si el servicio está de nuevo disponible. Si las respuestas son exitosas, el circuito se cierra y el servicio retoma su funcionamiento normal. Si falla, el circuito se abre de nuevo, protegiendo al sistema. Así se evita que se reanude el tráfico sin que el servicio esté listo.
+
+
+•	¿Cuándo se vuelve a intentar una llamada?
+
+La llamada se vuelve a intentar después de que el circuito ha permanecido abierto durante un tiempo determinado. Este tipo sirve para darle oportunidad al servidor de recuperarse antes de volver a recibir solicitudes. Cuando llega ese momento, el sistema permite una petición de prueba para comprobar el estado del servicio. Si la respuesta es éxito, el circuito breaker considera que el servicio ya está estable y vuelve a estado normal. Esto permite que el sistema se recupere automáticamente sin necesidad de reiniciar manualmente.
+
+•	¿Qué pasa si el servicio vuelve a fallar?
+
+El estado “Half-Open” es una fase en la que, tras mantener el circuito bloqueado por fallos, se permite un número limitado de llamadas de prueba. Este estado se activa después de un tiempo de espera para darle margen al servicio de recuperarse. Si la llamada en este estado tiene éxito, el circuito se cierra y el sistema vuelve a su funcionamiento normal. Sin embargo, si la prueba falla, el circuito se abre nuevamente de inmediato, bloqueando las peticiones a ese servicio para proteger el sistema. El proceso se repite después de otro período de espera, manteniendo la estabilidad general.
+
+
+FASE 4 – IMPLEMENTAR (Recuperación)
+
+
+IMPLEMENTACIÓN DEL ESTADO HALF-OPEN EN USUARIOS
+
+Figura 17:Implementación del HAL Open en usuarios.
+
+
+
+<img width="602" height="797" alt="image" src="https://github.com/user-attachments/assets/e8d81139-56f1-4154-8335-ee635dd7772d" />
+
+Nota: Aquí se muestra la implementación del HAL Open en el endpoint de usuarios junto con los requisitos solicitados en el laboratorio.
+
+figura 17: Implementación del estado Half-Open para la recuperación del servicio de usuarios.
+
+<img width="271" height="36" alt="image" src="https://github.com/user-attachments/assets/fb081e78-f45f-4a2e-8656-984f793639a0" />
+
+
+<img width="397" height="58" alt="image" src="https://github.com/user-attachments/assets/24da7c3f-8133-4519-a96d-1459b7b7a5ee" />
+
+Nota: En esta parte del código se implementa el estado Half-Open del Circuit Breaker. El sistema verifica si ya pasó el tiempo de espera definido para volver a intentar la conexión con el servicio de usuarios. Si el tiempo se cumple, el gateway realiza una nueva petición de prueba para comprobar si el microservicio volvió a funcionar correctamente.
+
+Figura 18. Configuración de recuperación del servicio de usuarios
+<img width="457" height="28" alt="image" src="https://github.com/user-attachments/assets/de2ea69a-0989-4c56-aec8-f275076ca680" />
+
+Nota: En esta parte del código se configura el tiempo de espera para restablecer nuevamente el servicio de usuarios y permitir que vuelva a mostrar información correctamente.
+
+
+Figura 19. Logs de errores del servicio de usuarios
+<img width="828" height="282" alt="image" src="https://github.com/user-attachments/assets/2cde768e-c40b-44c8-90db-2718e4b71360" />
+
+Nota: El gateway registra cada fallo consecutivo cuando el servicio de usuarios no responde. Cada intento fallido incrementa el contador de errores hasta alcanzar el límite configurado por el Circuit Breaker.
+
+IMPLEMENTACIÓN DEL CONTADOR DE FALLOS EN RESUMEN
+
+Figura 20. Visualización de la información del endpoint /resumen
+<img width="591" height="715" alt="image" src="https://github.com/user-attachments/assets/cfaf7542-de6b-43ce-a335-990a0e503876" />
+
+Nota: En esta figura se observa el funcionamiento del endpoint /resumen desde el navegador localhost. El gateway consulta los microservicios de usuarios y mascotas, mostrando en una sola respuesta la información almacenada de ambos servicios. Esto demuestra la integración y comunicación entre los microservicios dentro del sistema distribuido.
+
+Figura 21. Funcionamiento del endpoint /resumen cuando los servicios presentan fallos
+<img width="584" height="521" alt="image" src="https://github.com/user-attachments/assets/5abdb385-5fc2-44d1-9741-4d7f46b03475" />
+
+<img width="571" height="478" alt="image" src="https://github.com/user-attachments/assets/2ca43bb2-be52-4160-80be-3232350f1666" />
+
+<img width="583" height="250" alt="image" src="https://github.com/user-attachments/assets/5e1ec130-34a1-4aea-8f7e-f91979bb4e5c" />
+
+Nota: En esta figura se puede observar cómo responde el endpoint /resumen cuando algunos servicios se encuentran apagados. Al desactivar el servicio de usuarios, el sistema muestra el mensaje indicando que el servicio no está disponible. De igual manera, al apagar el servicio de mascotas, el gateway continúa funcionando y muestra el error correspondiente de mascotas. Cuando ambos servicios están apagados, el endpoint informa que tanto usuarios como mascotas no se encuentran disponibles. Esto demuestra que cada servicio funciona de manera independiente y que el sistema puede manejar fallos sin detener completamente la aplicación.
+
+
+
+Figura 22. Registro de funcionamiento correcto de los servicios en los logs
+<img width="870" height="98" alt="image" src="https://github.com/user-attachments/assets/e2e817fe-75f1-4c9a-b2ee-c29e086877c4" />
+
+
+Nota:En esta figura se puede observar, mediante los logs mostrados en PowerShell, que los servicios de usuarios y mascotas se encuentran funcionando correctamente. Esto se evidencia porque las peticiones realizadas al gateway responden con código 200, indicando que la comunicación entre los microservicios y el sistema se está ejecutando de manera exitosa.
+
+Figura 23. Registro de errores cuando los servicios se encuentran apagados
+<img width="863" height="492" alt="image" src="https://github.com/user-attachments/assets/b15b71ee-3389-4a02-af46-6d1cccc14e56" />
+
+
+Nota: En esta figura se observan los errores generados cuando los contenedores de usuarios y mascotas se encuentran apagados. Los logs muestran que el endpoint /resumen ya no puede obtener información de los servicios y comienza a registrar los fallos correspondientes, indicando que los microservicios no se encuentran disponibles.
+
+
+
+Fase 4 – IMPLEMENTACION del endpoint de mascotas con HAL Open
+
+
+Figura 24: Variables para el control del circuito
+<img width="297" height="101" alt="image" src="https://github.com/user-attachments/assets/1bb4f7c4-b540-4d65-a1c9-4c306544713d" />
+
+
+Nota: Aquí se inicializan las variables que permiten controlar los fallos del backend, el estado del circuito y el tiempo del último fallo del servicio.
+
+
+Figura 25: Consulta de información desde localhost
+<img width="447" height="350" alt="image" src="https://github.com/user-attachments/assets/30744098-1352-4730-9f07-8ba9423ab41f" />
+
+Nota: El endpoint de mascotas muestra correctamente la información, como se observa en la imagen.
+
+
+Figura 26. Error de conexión del endpoint de mascotas desde la Gateway.
+<img width="546" height="140" alt="image" src="https://github.com/user-attachments/assets/31e82a81-71b4-4e47-885e-659423317e4d" />
+
+
+<img width="501" height="142" alt="image" src="https://github.com/user-attachments/assets/7ec3a017-f42e-487e-a559-61105b49a401" />
+
+Nota: Al realizar el llamado del endpoint de mascotas desde la Gateway, el servicio no responde correctamente y se genera un error del servidor, como se observa en la imagen. Después de realizar los 3 intentos configurados en el sistema, el circuito se bloquea automáticamente para evitar más fallos, mostrando el mensaje de que el servicio no se encuentra disponible en ese momento.
+
+
+Figura 27. Reactivación del contenedor de mascotas
+<img width="851" height="167" alt="image" src="https://github.com/user-attachments/assets/87b0392c-08a0-4322-b18f-200696843655" />
+
+Nota: Cuando el sistema presenta fallos y el circuito queda bloqueado, la implementación del HAL Open espera 10 segundos para intentar recuperar nuevamente el servicio. Después de ese tiempo, el contenedor de mascotas se reactiva y el endpoint vuelve a mostrar correctamente la información solicitada desde la Gateway.
+
+Figura 28. Logs del funcionamiento del endpoint de mascotas.
+<img width="860" height="330" alt="image" src="https://github.com/user-attachments/assets/42cf946f-af56-4693-aea8-c5bd47b87ca4" />
+
+Nota: Aquí se observa el funcionamiento del endpoint de mascotas realizando el llamado desde localhost. Primero, con el contenedor encendido, el sistema trae correctamente la información. Luego, al apagar o desconectar el contenedor, se presenta el error del servicio. Finalmente, gracias a la implementación del HAL Open, al volver a activar el contenedor el sistema recupera nuevamente el servicio y muestra la información correctamente.
+
+
+Nota general: Durante el desarrollo de este laboratorio seguí paso a paso la guía proporcionada en Classroom, realizando las diferentes implementaciones solicitadas en los endpoints de usuarios y mascotas. En el proceso trabajé la lógica del HAL Open, el control de fallos, los intentos de reconexión, el bloqueo y recuperación de servicios, además de las pruebas de funcionamiento desde localhost, Gateway y PowerShell.
+Gracias a este laboratorio pude entender mejor cómo funciona la comunicación entre servicios y la recuperación automática cuando un contenedor falla. Todo el desarrollo fue realizado de acuerdo a mi comprensión y aprendizaje durante la práctica. Aunque considero que el código y la lógica podrían seguir mejorándose u optimizándose, esta implementación me permitió comprender mucho más el funcionamiento de los microservicios y la tolerancia a fallos dentro del sistema.
+
+
+
+
+
+
+>>>>>>> 28e3506627bf4a2cd3bd9df5282931dc4f5b92bf
